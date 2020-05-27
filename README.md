@@ -13,7 +13,7 @@ A plugin to add a paywall for WordPress content that uses [Chargify](https://www
 ## Setup
 
 1. Clone Chassis into a new folder: `git clone https://github.com/Chassis/Chassis.git chargify-plugin`.
-1. Change into the newly cloned folder: `cd hannah`.
+1. Change into the newly cloned folder: `cd chargify-plugin`.
 1. Clone this repo into a content folder: `git clone https://github.com/TheCodeCompany/wp-chargify.git content`.
 1. Copy `local-config-sample.php` and rename it to `local-config.php`. Use this file to define and PHP constants you need for the project.
 1. Run Vagrant `vagrant up`.
