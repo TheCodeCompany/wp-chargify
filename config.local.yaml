@@ -1,0 +1,13 @@
+hosts:
+  - chargify.local
+php: 5.6
+machine_name: chargify
+extensions:
+  - chassis/xdebug
+  - chassis/mailhog
+  - chassis/fish
+  - chassis/sequelpro
+  - chassis/tester
+  - chassis/composer
+  - chassis/phpmyadmin
+  - chassis/chassis_openssl
