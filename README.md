@@ -31,26 +31,9 @@ Because we're good developers and we like automation we do the following:
     ```
     #!/bin/sh
     
-    # Run PHP Codesniffs
-    echo 'Checking PHP code style...'
-    plugins/wp-chargify/vendor/bin/phpcs plugins/wp-chargify --standard=plugins/wp-chargify/.phpcs.xml.dist
-    PHPCS_EC=$?
-    
-    # Run PHPUnit tests
-    echo 'Running tests...'
-    plugins/wp-chargify/vendor/bin/phpunit -c plugins/wp-chargify/phpunit.xml.dist
-    PHPUNIT_EC=$?
-    
-    # Exit if any error codes
-    let "ERROR = $PHPCS_EC + $PHPUNIT_EC"
-    if [ "${ERROR}" -ne "0" ]
-    then
-      echo "Aborting commit..."
-      exit ${ERROR}
-    fi
-    echo "All tests were passed!"
-    
+    vagrant ssh -c /vagrant/content/plugins/wp-chargify/bin/tests.sh
     ```
+1. Php CodeSniffer and PHPUnit will be run when you commit using Git.
 
 ## Xdebug
 
