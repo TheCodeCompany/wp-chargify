@@ -8,6 +8,7 @@
  * Text Domain:     wp-chargify
  * Domain Path:     /languages
  * Version:         0.1.0
+ * Requires PHP:    7.0
  *
  * @package         Wp_Chargify
  */
