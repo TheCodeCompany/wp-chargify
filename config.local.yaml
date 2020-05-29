@@ -14,3 +14,4 @@ extensions:
 composer:
     paths:
         - /vagrant/content/plugins/wp-chargify
+    options: --prefer-source --dev

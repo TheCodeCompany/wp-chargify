@@ -21,6 +21,20 @@ A plugin to add a paywall for WordPress content that uses [Chargify](https://www
 1. Login to the [admin](http://chargify.local/wp/wp-admin) using username: `admin` and password: `password`.
 1. Profit!
 
+## Git Hooks
+
+Because we're good developers, and we like automation we do the following:
+
+1. Create a `.git/hooks/pre-commit` file.
+1. Make that file executable `chmod +x .git/hooks/pre-commit`
+1. Copy and paste the following into that file:
+    ```
+    #!/bin/sh
+    
+    vagrant ssh -c /vagrant/content/plugins/wp-chargify/bin/tests.sh
+    ```
+1. Php CodeSniffer and PHPUnit will be run when you commit using Git.
+
 ## Xdebug
 
 Xdebug will be automatically setup for [PHPStorm](https://github.com/Chassis/Xdebug#in-phpstorm). You can follow these [instructions](https://github.com/Chassis/Xdebug#browser-setup) to config everything.
