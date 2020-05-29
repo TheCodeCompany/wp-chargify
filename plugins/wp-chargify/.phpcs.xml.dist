@@ -28,6 +28,9 @@
 	<config name="minimum_supported_wp_version" value="5.0"/>
 	<rule ref="WordPress">
 		<exclude name="WordPress"/>
+		<!-- We like short arrays and ternaries around here -->
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
+		<exclude name="WordPress.PHP.DisallowShortTernary" />
 	</rule>
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>

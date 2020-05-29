@@ -23,7 +23,7 @@ A plugin to add a paywall for WordPress content that uses [Chargify](https://www
 
 ## Git Hooks
 
-Because we're good developers and we like automation we do the following:
+Because we're good developers, and we like automation we do the following:
 
 1. Create a `.git/hooks/pre-commit` file.
 1. Make that file executable `chmod +x .git/hooks/pre-commit`
