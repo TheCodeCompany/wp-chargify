@@ -15,4 +15,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// Load Composer’s autoloader for CMB2
+if ( ! class_exists( 'CMB2_Bootstrap_270' ) ) {
+	require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
+}
 require_once( 'includes/bootstrap.php' );
+require_once( 'includes/admin/settings.php' );
