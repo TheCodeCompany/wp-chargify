@@ -8,14 +8,15 @@ function register_chargify_options_metabox() {
 	/**
 	 * Register the Chargify options page.
 	 */
-	$args = array(
+	$args = [
 		'id'           => 'chargify_options_page',
 		'title'        => __( 'Chargify Options', 'chargify' ),
 		'object_types' => [ 'options-page' ],
 		'option_key'   => 'chargify_options',
 		'tab_group'    => 'chargify_options',
 		'tab_title'    => __( 'Products', 'chargify' ),
-	);
+		'icon_url'     => 'dashicons-products',
+	];
 
 	$products_options = new_cmb2_box( $args );
 
