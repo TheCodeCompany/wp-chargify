@@ -25,6 +25,23 @@ A plugin to add Chargify payments to your WordPress site.
 
 This plugin is not endorsed by Chargify. It is built and maintained by [The Code Company](https://thecode.co/).
 
+= What PHP constants can I use? =
+
+We provide a number of optional PHP constants developers can use to override any of the Chargify options that are stored in the database.
+
+`CHARGIFY_PRODUCTION_API_KEY` - Use this to set the Chargify Production API key.
+`CHARGIFY_PRODUCTION_SUBDOMAIN` - Use this to set the Chargify Production subdomain.
+`CHARGIFY_TEST_API_KEY` - Use this to set the Chargify Test API key.
+`CHARGIFY_TEST_SUBDOMAIN` - Use this to set the Chargify Test subdomain.
+`CHARGIFY_MODE` - Use this to set the mode. i.e. 'test' or 'live'.
+
+
+= What filters can I use? =
+
+We provide a number of optional filters you can use:
+
+`chargify_hide_options` - Use this to hide the Chargify options page.
+
 == Screenshots ==
 
 1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
