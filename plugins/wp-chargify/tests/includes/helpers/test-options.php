@@ -42,6 +42,36 @@ class Test_Option_Helpers extends WP_UnitTestCase {
 		$this->assertEquals( 'test', $chargify_mode );
 	}
 
+	function test_get_production_api_key_with_constant() {
+		define( 'CHARGIFY_PRODUCTION_API_KEY', '7897896567567fgfghftgdfgfg' );
+		$production_api_key = Options\get_production_api_key();
+		$this->assertEquals( '7897896567567fgfghftgdfgfg', $production_api_key );
+	}
+
+	function test_get_production_subdomain_with_constant() {
+		define( 'CHARGIFY_PRODUCTION_SUBDOMAIN', 'https://yourproductionsubdomain.chargify.com' );
+		$production_subdomain = Options\get_production_subdomain();
+		$this->assertEquals( 'https://yourproductionsubdomain.chargify.com', $production_subdomain );
+	}
+
+	function test_get_test_api_key_with_constant() {
+		define( 'CHARGIFY_TEST_API_KEY', '675675645vbvbnvbnvbn' );
+		$test_api_key = Options\get_test_api_key();
+		$this->assertEquals( '675675645vbvbnvbnvbn', $test_api_key);
+	}
+
+	function test_get_test_subdomain_with_constant() {
+		define( 'CHARGIFY_TEST_SUBDOMAIN', 'https://yoursubdomain.chargify.com' );
+		$test_subdomain = Options\get_test_subdomain();
+		$this->assertEquals( 'https://yoursubdomain.chargify.com', $test_subdomain );
+	}
+
+	function test_chargify_mode_with_constant() {
+		define( 'CHARGIFY_MODE', 'live' );
+		$chargify_mode = Options\get_mode();
+		$this->assertEquals( 'live', $chargify_mode );
+	}
+
 	public function tearDown(){
 		delete_option( 'chargify_settings' );
 	}
