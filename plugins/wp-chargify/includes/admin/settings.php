@@ -5,6 +5,13 @@ namespace Chargify\Admin;
  */
 function register_chargify_options_metabox() {
 
+	# Allow developers to hide the options page.
+	$hide_options = apply_filters( 'chargify_hide_options', false );
+
+	if ( true === $hide_options ) {
+		return;
+	}
+
 	/**
 	 * Register the Chargify options page.
 	 */
