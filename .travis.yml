@@ -56,7 +56,6 @@ before_script:
       composer global require phpcompatibility/php-compatibility
       composer global require phpcompatibility/phpcompatibility-paragonie
       composer global require dealerdirect/phpcodesniffer-composer-installer
-      phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
     fi
 
 script:
@@ -67,5 +66,5 @@ script:
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs
+      phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs,$HOME/.composer/vendor/phpcompatibility/phpcompatibility-wp
     fi
