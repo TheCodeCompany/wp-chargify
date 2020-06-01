@@ -81,7 +81,7 @@ function register_chargify_options_metabox() {
 
 	$settings_options->add_field( [
 		'name'    => __( 'Mode:', 'chargify' ),
-		'id'      => 'radio',
+		'id'      => 'chargify_mode',
 		'type'    => 'radio_inline',
 		'options' => [
 			'test' => __( 'Test', 'chargify' ),
