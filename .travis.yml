@@ -31,8 +31,13 @@ matrix:
       env: WP_TRAVISCI=phpcs
       dist: precise
 
+before_install:
+  - cd plugins/wp-chargify
+
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - composer self-update
+  - composer install
   - |
     if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
       phpenv config-rm xdebug.ini
