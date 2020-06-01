@@ -55,7 +55,8 @@ before_script:
       composer global require phpcompatibility/phpcompatibility-wp
       composer global require phpcompatibility/php-compatibility
       composer global require phpcompatibility/phpcompatibility-paragonie
-      phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs,$HOME/.composer/vendor/phpcompatibility-wp
+      composer global require dealerdirect/phpcodesniffer-composer-installer
+      phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
     fi
 
 script:
