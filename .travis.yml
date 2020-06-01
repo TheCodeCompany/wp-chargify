@@ -66,6 +66,6 @@ script:
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs,$HOME/.composer/vendor/phpcompatibility/phpcompatibility-wp
+      phpcs -i
       phpcs
     fi
