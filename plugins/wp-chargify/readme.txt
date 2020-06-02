@@ -35,12 +35,18 @@ We provide a number of optional PHP constants developers can use to override any
 `CHARGIFY_TEST_SUBDOMAIN` - Use this to set the Chargify Test subdomain.
 `CHARGIFY_MODE` - Use this to set the mode. i.e. 'test' or 'live'.
 
-
 = What filters can I use? =
 
 We provide a number of optional filters you can use:
 
 `chargify_hide_options` - Use this to hide the Chargify options page.
+
+= What developer functions can I use? =
+
+We provide a number of functions that developers can use in their themes and plugins. You will need to import the appropriate namespaces to use them.
+
+`Options\get_api_key` - This will return the appropriate API key based on your settings.
+`Options\get_subdomain` - This will return the appropriate Chargify subdomain based on your settings.
 
 == Screenshots ==
 

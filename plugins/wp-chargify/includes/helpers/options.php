@@ -56,3 +56,34 @@ function get_mode(){
 
 	return $chargify_mode;
 }
+
+function get_api_key() {
+	if ( 'live' === get_mode() ) {
+		return get_production_api_key();
+	}
+
+	return get_test_api_key();
+}
+
+function get_subdomain() {
+	if ( 'live' === get_mode() ) {
+		return untrailingslashit( get_production_subdomain() );
+	}
+
+	return untrailingslashit( get_test_subdomain() );
+}
+
+/**
+ * Generate the Basic Authentication headers we need to send to the Chargify API.
+ *
+ * @return \string[][]
+ */
+function get_headers() {
+	$headers = [
+		'headers' => [
+			'Authorization' => 'Basic ' . base64_encode( get_api_key() . ':' . 'x' )
+		],
+	];
+
+	return $headers;
+}
