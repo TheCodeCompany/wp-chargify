@@ -91,7 +91,7 @@ function product_meta_boxes() {
 		[
 			'name'        => __( 'Active', 'chargify' ),
 			'description' => __( 'Is the product able to be used in WordPress?', 'chargify' ),
-			'id'          => 'chargify_status',
+			'id'          => 'chargify_active_status',
 			'type'        => 'radio_inline',
 			'options'     => [
 				'yes' => __( 'Yes', 'chargify' ),
