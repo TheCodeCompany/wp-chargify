@@ -102,4 +102,31 @@ function product_meta_boxes() {
 		]
 	);
 
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Product Family', 'chargify' ),
+			'desc'       => __( 'The family that the product belongs to in Chargify.', 'chargify' ),
+			'id'         => 'chargify_product_family',
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Product Family ID', 'chargify' ),
+			'desc'       => __( 'The Product Family ID that the product belongs to in Chargify.', 'chargify' ),
+			'id'         => 'chargify_product_family_id',
+			'type'       => 'text_small',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'number',
+			],
+		]
+	);
+
 }
