@@ -22,3 +22,5 @@ if ( ! class_exists( 'CMB2_Bootstrap_270' ) ) {
 require_once( 'includes/bootstrap.php' );
 require_once( 'includes/admin/settings.php' );
 require_once( 'includes/helpers/options.php' );
+require_once( 'includes/post-types/chargify-product.php' );
+require_once( 'includes/meta-boxes/chargify-product.php' );
