@@ -55,7 +55,7 @@ function chargify_product_init() {
  * @param  array $messages Post updated messages.
  * @return array Messages for the `chargify_product` post type.
  */
-function product_updated_messages( $messages ) {
+function chargify_product_updated_messages( $messages ) {
 	global $post;
 
 	$permalink = get_permalink( $post );
