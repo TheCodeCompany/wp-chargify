@@ -26,6 +26,7 @@ function product_meta_boxes() {
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'number',
 			],
 		]
 	);
