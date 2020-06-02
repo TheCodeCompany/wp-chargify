@@ -11,6 +11,7 @@ extensions:
   - chassis/composer
   - chassis/phpmyadmin
   - chassis/chassis_openssl
+  - chassis/phpcs
 composer:
     paths:
         - /vagrant/content/plugins/wp-chargify
