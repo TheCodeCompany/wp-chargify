@@ -98,10 +98,6 @@ function product_meta_boxes() {
 				'no'  => __( 'No', 'chargify' ),
 			],
 			'default'     => 'no',
-			'attributes'  => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
 		]
 	);
 
