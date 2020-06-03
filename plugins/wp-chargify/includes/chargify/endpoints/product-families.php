@@ -6,14 +6,20 @@ use Chargify\Helpers\Options;
 /**
  * A function to request all of the product families that are in Chargify.
  *
- * @return array|\WP_Error
+ * @return string|array
  */
 function get_product_families() {
 	$endpoint = Options\get_subdomain() . '/product_families.json';
 	$headers  = Options\get_headers();
 	$request  = wp_safe_remote_get( $endpoint, $headers );
 	$body     = wp_remote_retrieve_body( $request );
-	$json     = json_decode( $body, true );
+
+	# Anything other than a 200 code is an error so let's bail.
+	if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
+		return $body;
+	}
+
+	$json = json_decode( $body, true );
 
 	foreach ( $json as $family ) {
 		$rows[] = $family['product_family'];
@@ -25,6 +31,11 @@ function get_product_families() {
 function get_products() {
 	$product_families = get_product_families();
 
+	# If we haven't got an array then we have an error to return.
+	if ( ! is_array( $product_families ) ) {
+		return $product_families;
+	}
+
 	$product_ids = wp_list_pluck( $product_families, 'id' );
 
 	$headers  = Options\get_headers();
@@ -33,7 +44,14 @@ function get_products() {
 		$endpoint = Options\get_subdomain() . "/product_families/$product/products.json";
 		$request  = wp_safe_remote_get( $endpoint, $headers );
 		$body     = wp_remote_retrieve_body( $request );
-		$json     = json_decode( $body, true );
+
+		# Anything other than a 200 code is an error so let's bail.
+		if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
+			return $body;
+		}
+
+		$json = json_decode( $body, true );
+
 		foreach ( $json as $family ) {
 			$rows[] = $family['product'];
 		}
