@@ -4,7 +4,7 @@ use WP_CLI;
 use Chargify\Chargify\Endpoints\Product_Families;
 
 /**
- * Implements chargify product-families command.
+ * Implements `chargify product-families` command.
  */
 class Chargify_Product_Families {
 

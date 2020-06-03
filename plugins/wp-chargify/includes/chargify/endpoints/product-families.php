@@ -64,3 +64,22 @@ function get_products() {
 
 	return $rows;
 }
+
+
+function get_product( $id ) {
+		$headers  = Options\get_headers();
+
+		$endpoint = Options\get_subdomain() . "/products/$id.json";
+		$request  = wp_safe_remote_get( $endpoint, $headers );
+		$body     = wp_remote_retrieve_body( $request );
+
+		# Anything other than a 200 code is an error so let's bail.
+		if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
+			return $body;
+		}
+
+
+		$product = json_decode( $body, true );
+
+	return $product;
+}

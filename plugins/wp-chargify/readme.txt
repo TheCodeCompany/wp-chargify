@@ -48,6 +48,14 @@ We provide a number of functions that developers can use in their themes and plu
 `Options\get_api_key` - This will return the appropriate API key based on your settings.
 `Options\get_subdomain` - This will return the appropriate Chargify subdomain based on your settings.
 
+= What WP-CLI commands are there? =
+
+We provide a number of WP-CLI commands that developers can use:
+
+`wp chargify product-families list` - List out the Product Families stored in Chargify.
+`wp chargify product list` - List out the all the products in all the different Product Families.
+`wp chargify product get <id>` - Get the details of an individual product.
+
 == Screenshots ==
 
 1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
