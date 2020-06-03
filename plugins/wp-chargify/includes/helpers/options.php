@@ -2,6 +2,11 @@
 
 namespace Chargify\Helpers\Options;
 
+/**
+ * Get the production API key. The CHARGIFY_PRODUCTION_API_KEY constant has the highest priority.
+ *
+ * @return array|string
+ */
 function get_production_api_key() {
 	# The Chargify PHP constants will take precedence over the stored options to assist in development.
 	if ( defined( 'CHARGIFY_PRODUCTION_API_KEY' ) ) {
@@ -13,6 +18,11 @@ function get_production_api_key() {
 	return $production_key;
 }
 
+/**
+ * Get the production subdomain. The CHARGIFY_PRODUCTION_SUBDOMAIN constant has the highest priority.
+ *
+ * @return array|string
+ */
 function get_production_subdomain() {
 	# The Chargify PHP constants will take precedence over the stored options to assist in development.
 	if ( defined( 'CHARGIFY_PRODUCTION_SUBDOMAIN' ) ) {
@@ -24,6 +34,11 @@ function get_production_subdomain() {
 	return $production_subdomain;
 }
 
+/**
+ * Get the test API key. The CHARGIFY_TEST_API_KEY constant has the highest priority.
+ *
+ * @return array|string
+ */
 function get_test_api_key() {
 	# The Chargify PHP constants will take precedence over the stored options to assist in development.
 	if ( defined( 'CHARGIFY_TEST_API_KEY' ) ) {
@@ -35,6 +50,11 @@ function get_test_api_key() {
 	return $test_key;
 }
 
+/**
+ * Get the test subdomain. The CHARGIFY_TEST_SUBDOMAIN constant has the highest priority.
+ *
+ * @return array|string
+ */
 function get_test_subdomain() {
 	# The Chargify PHP constants will take precedence over the stored options to assist in development.
 	if ( defined( 'CHARGIFY_TEST_SUBDOMAIN' ) ) {
@@ -46,6 +66,11 @@ function get_test_subdomain() {
 	return $test_subdomain;
 }
 
+/**
+ * Get the Chargify mode. Either 'test' or 'live'.
+ *
+ * @return array|string
+ */
 function get_mode(){
 	# The Chargify PHP constants will take precedence over the stored options to assist in development.
 	if ( defined( 'CHARGIFY_MODE' ) ) {
@@ -57,6 +82,11 @@ function get_mode(){
 	return $chargify_mode;
 }
 
+/**
+ * Get the appropriate API key.
+ *
+ * @return array|string
+ */
 function get_api_key() {
 	if ( 'live' === get_mode() ) {
 		return get_production_api_key();
@@ -65,6 +95,11 @@ function get_api_key() {
 	return get_test_api_key();
 }
 
+/**
+ * Get the appropriate subdomain.
+ *
+ * @return string
+ */
 function get_subdomain() {
 	if ( 'live' === get_mode() ) {
 		return untrailingslashit( get_production_subdomain() );

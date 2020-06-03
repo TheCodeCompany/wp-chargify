@@ -28,6 +28,11 @@ function get_product_families() {
 	return $rows;
 }
 
+/**
+ * A function to loop over the product families and get the products contained in that family.
+ *
+ * @return array|string
+ */
 function get_products() {
 	$product_families = get_product_families();
 
