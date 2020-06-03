@@ -46,4 +46,4 @@ class Chargify_Products {
 	}
 }
 
-\WP_CLI::add_command( 'chargify products', __NAMESPACE__ . '\\Chargify_Products' );
+\WP_CLI::add_command( 'chargify product', __NAMESPACE__ . '\\Chargify_Products' );
