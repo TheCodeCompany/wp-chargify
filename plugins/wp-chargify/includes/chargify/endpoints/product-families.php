@@ -15,5 +15,9 @@ function get_product_families() {
 	$body     = wp_remote_retrieve_body( $request );
 	$json     = json_decode( $body, true );
 
-	return $json;
+	foreach ( $json as $family ) {
+		$rows[] = $family['product_family'];
+	}
+
+	return $rows;
 }

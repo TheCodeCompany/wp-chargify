@@ -18,13 +18,10 @@ class Chargify_Command {
 	 * @when after_wp_load
 	 */
 	function list() {
+		WP_CLI::log( "Fetching the product families from Chargify..." );
 		$product_families = Product_Families\get_product_families();
 
-		foreach ( $product_families as $family ) {
-			$rows[] = $family['product_family'];
-		}
-
-		WP_CLI\Utils\format_items('table', $rows, [ 'id', 'name', 'description', 'handle', 'accounting_code' ] );
+		WP_CLI\Utils\format_items('table', $product_families, [ 'id', 'name', 'description', 'handle', 'accounting_code' ] );
 	}
 }
 
