@@ -1,12 +1,12 @@
 <?php
-namespace Chargify\Commands\Chargify;
+namespace Chargify\Commands\Chargify\Product_Families;
 use WP_CLI;
 use Chargify\Chargify\Endpoints\Product_Families;
 
 /**
- * Implements example command.
+ * Implements chargify product-families command.
  */
-class Chargify_Command {
+class Chargify_Product_Families {
 
 	/**
 	 * Lists the product families in Chargify.
@@ -25,4 +25,4 @@ class Chargify_Command {
 	}
 }
 
-\WP_CLI::add_command( 'chargify product-families', __NAMESPACE__ . '\\Chargify_Command' );
+\WP_CLI::add_command( 'chargify product-families', __NAMESPACE__ . '\\Chargify_Product_Families' );
