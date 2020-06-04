@@ -16,7 +16,7 @@ function get_product_families() {
 
 	# Anything other than a 200 code is an error so let's bail.
 	if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
-		return $body;
+		return wp_remote_retrieve_response_message( $request );
 	}
 
 	$json = json_decode( $body, true );
@@ -52,7 +52,7 @@ function get_products() {
 
 		# Anything other than a 200 code is an error so let's bail.
 		if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
-			return $body;
+			return wp_remote_retrieve_response_message( $request );
 		}
 
 		$json = json_decode( $body, true );
@@ -75,7 +75,7 @@ function get_product( $id ) {
 
 		# Anything other than a 200 code is an error so let's bail.
 		if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
-			return $body;
+			return wp_remote_retrieve_response_message( $request );
 		}
 
 
