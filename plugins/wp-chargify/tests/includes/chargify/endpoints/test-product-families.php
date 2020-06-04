@@ -10,7 +10,7 @@ class Test_Chargify_Product_Families extends WP_UnitTestCase {
 
 	public function tearDown() {
 		parent::tearDown();
-		remove_filter( 'pre_http_request', array( $this, 'mock_product_request' ), 10, 3 );
+		remove_filter( 'pre_http_request', array( $this, 'mock_product_request' ), 10 );
 	}
 
 	function test_good_get_product() {
