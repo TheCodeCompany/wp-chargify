@@ -72,6 +72,18 @@ class Test_Option_Helpers extends WP_UnitTestCase {
 		$this->assertEquals( 'live', $chargify_mode );
 	}
 
+	function test_get_api_key() {
+		$api_key = Options\get_api_key();
+		# CHARGIFY_PRODUCTION_API_KEY is defined and CHARGIFY_MODE is set to live.
+		$this->assertEquals( '7897896567567fgfghftgdfgfg', $api_key );
+	}
+
+	function test_get_subdomain() {
+		$subdomain = Options\get_subdomain();
+		# Because CHARGIFY_PRODUCTION_SUBDOMAIN is defined and CHARGIFY_MODE is set to live.
+		$this->assertEquals( 'https://yourproductionsubdomain.chargify.com', $subdomain );
+	}
+
 	public function tearDown(){
 		delete_option( 'chargify_settings' );
 	}
