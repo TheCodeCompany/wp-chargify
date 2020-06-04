@@ -100,7 +100,7 @@ class Test_Chargify_Product_Families extends WP_UnitTestCase {
 		} else {
 			return [
 				'response' => [
-					'code' => 404,
+					'code'    => 404,
 					'message' => 'Not Found'
 				],
 			];
