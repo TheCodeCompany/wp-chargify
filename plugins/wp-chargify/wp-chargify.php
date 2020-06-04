@@ -15,12 +15,18 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	require_once dirname(__FILE__) . '/includes/commands/class-chargify-product-families.php';
+	require_once dirname(__FILE__) . '/includes/commands/class-chargify-product.php';
+}
+
 // Load Composer’s autoloader for CMB2
 if ( ! class_exists( 'CMB2_Bootstrap_270' ) ) {
 	require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 }
 require_once( 'includes/bootstrap.php' );
 require_once( 'includes/admin/settings.php' );
+require_once( 'includes/chargify/endpoints/product-families.php' );
 require_once( 'includes/helpers/options.php' );
-require_once( 'includes/post-types/chargify-product.php' );
 require_once( 'includes/meta-boxes/chargify-product.php' );
+require_once( 'includes/post-types/chargify-product.php' );

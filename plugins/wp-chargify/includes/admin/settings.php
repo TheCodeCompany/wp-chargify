@@ -44,7 +44,7 @@ function register_chargify_options_metabox() {
 		'id'           => 'settings_page',
 		'title'        => __( 'Settings', 'chargify' ),
 		'object_types' => [ 'options-page' ],
-		'option_key'   => 'settings',
+		'option_key'   => 'chargify_settings',
 		'parent_slug'  => 'chargify_options',
 		'tab_group'    => 'chargify_options',
 		'tab_title'    => __( 'Settings', 'chargify' ),
