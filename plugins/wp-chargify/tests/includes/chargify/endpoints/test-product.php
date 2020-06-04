@@ -93,7 +93,7 @@ class Test_Chargify_REST_Product extends WP_UnitTestCase {
 							'require_shipping_address'       => false,
 							'product_price_point_id'         => 929380,
 							'product_price_point_name'       => 'Default',
-							'product_price_point_handle'     => 'uuid=>671e5980-77c5-0138-aae6-0a4d7438a8ec',
+							'product_price_point_handle'     => 'uuid:671e5980-77c5-0138-aae6-0a4d7438a8ec',
 							'product_family'                 => [
 								'id'              => 1525024,
 								'name'            => 'Cloud Compute Servers',
