@@ -62,9 +62,11 @@ function get_products() {
 		}
 	}
 
+	# Save all the products to an option
+	update_option( 'chargify_products_all', $rows, false );
+
 	return $rows;
 }
-
 
 function get_product( $id ) {
 		$headers  = Options\get_headers();

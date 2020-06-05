@@ -1,5 +1,6 @@
 <?php
 namespace Chargify\Admin;
+use Chargify\Chargify\Endpoints\Product_Families;
 /**
  * Hook in and register a metabox to handle a the Chargify options page.
  */
@@ -35,6 +36,14 @@ function register_chargify_options_metabox() {
 		'desc' => __( 'Select the Chargify Products you want to import below.', 'chargify' ),
 		'type' => 'title',
 		'id'   => 'chargify_products_title'
+	] );
+
+	$products_options->add_field( [
+		'name'    => 'Chargify Products',
+		'desc'    => 'Select the Chargify Products you\'d like to use in WordPress',
+		'id'      => 'chargify_products_multicheck',
+		'type'    => 'multicheck',
+		'options' => get_product_values(),
 	] );
 
 	/**
@@ -97,4 +106,42 @@ function register_chargify_options_metabox() {
 		'default' => 'test',
 	] );
 
+}
+
+/**
+ * A function to get the Chargify products so the user can select the ones they want to use in WordPress.
+ *
+ * @return array
+ */
+function get_product_values() {
+	$product_ids = cmb2_get_option( 'chargify_options', 'chargify_products_multicheck' );
+	# If we don't have any product try and GET the products from the Chargify API.
+	if ( empty ( $product_ids ) ) {
+		$products = Product_Families\get_products();
+		$values   = wp_list_pluck( $products, 'name', 'id' );
+	} else {
+		# Make a query to the Products CPT using the ids that are stored in our option.
+		$wp_products = new \WP_Query(
+			[
+				'post_type' => 'chargify_product',
+				'meta_query' => [
+					[
+						'key'     => 'chargify_product_id',
+						'value'   => $product_ids,
+						'compare' => 'IN'
+					]
+				]
+			]
+		);
+
+		if ( $wp_products->have_posts() ) {
+			while ( $wp_products->have_posts() ) {
+				$wp_products->the_post();
+				$index = get_post_meta( get_the_ID(), 'chargify_product_id', true );
+				$values[$index] = get_the_title();
+			}
+		}
+	}
+
+	return $values;
 }
