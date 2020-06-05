@@ -22,10 +22,10 @@ function get_product_families() {
 	$json = json_decode( $body, true );
 
 	foreach ( $json as $family ) {
-		$rows[] = $family['product_family'];
+		$product_families[] = $family['product_family'];
 	}
 
-	return $rows;
+	return $product_families;
 }
 
 /**
@@ -58,14 +58,13 @@ function get_products() {
 		$json = json_decode( $body, true );
 
 		foreach ( $json as $family ) {
-			$rows[] = $family['product'];
+			$products[] = $family['product'];
 		}
 	}
 
-	# Save all the products to an option
-	update_option( 'chargify_products_all', $rows, false );
 
-	return $rows;
+
+	return $products;
 }
 
 function get_product( $id ) {
