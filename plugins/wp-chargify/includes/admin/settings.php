@@ -114,6 +114,10 @@ function register_chargify_options_metabox() {
  * @return array
  */
 function get_product_values() {
+	if ( true === wp_doing_ajax() ) {
+		return;
+	}
+
 	$product_ids = cmb2_get_option( 'chargify_options', 'chargify_products_multicheck' );
 	# If we don't have any product try and GET the products from the Chargify API.
 	if ( empty ( $product_ids ) ) {

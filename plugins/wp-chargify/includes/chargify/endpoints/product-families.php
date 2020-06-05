@@ -2,6 +2,7 @@
 namespace Chargify\Chargify\Endpoints\Product_Families;
 
 use Chargify\Helpers\Options;
+use Chargify\Post_Types\Helpers;
 
 /**
  * A function to request all of the product families that are in Chargify.
@@ -34,6 +35,10 @@ function get_product_families() {
  * @return array|string
  */
 function get_products() {
+	if ( true === wp_doing_ajax() ) {
+		return [];
+	}
+
 	$product_families = get_product_families();
 
 	# If we haven't got an array then we have an error to return.
@@ -44,6 +49,8 @@ function get_products() {
 	$product_ids = wp_list_pluck( $product_families, 'id' );
 
 	$headers  = Options\get_headers();
+
+	$products = [];
 
 	foreach ( $product_ids as $product ) {
 		$endpoint = Options\get_subdomain() . "/product_families/$product/products.json";
@@ -62,7 +69,7 @@ function get_products() {
 		}
 	}
 
-
+	Helpers\populate_post_types( $products );
 
 	return $products;
 }
