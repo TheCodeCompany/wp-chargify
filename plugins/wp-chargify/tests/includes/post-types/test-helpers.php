@@ -18,6 +18,12 @@ class Test_Post_Type_Helpers extends WP_UnitTestCase {
 		$this->assertEquals( 'Cloud Compute Servers', get_post_meta( $products->posts[1]->ID, 'chargify_product_family', true ) );
 	}
 
+	function test_chargify_products_all_option() {
+		Helpers\populate_product_post_types( $this->mock_product_families_products_request() );
+
+		$this->assertNotEmpty( get_option( 'chargify_products_all' ) );
+	}
+
 	public function mock_product_families_products_request() {
 		return
 				[
