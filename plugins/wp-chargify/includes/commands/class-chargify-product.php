@@ -2,6 +2,7 @@
 namespace Chargify\Commands\Chargify\Products;
 use WP_CLI;
 use Chargify\Chargify\Endpoints\Product_Families;
+use Chargify\Post_Types\Helpers;
 
 /**
  * Implements `chargify products` command.
@@ -86,6 +87,25 @@ class Chargify_Products {
 		} else {
 			# We didn't receive a HTTP success code so output the error.
 			WP_CLI::error( $product );
+		}
+	}
+
+	/**
+	 * Deletes the Chargify products stored in WordPress.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     wp chargify product empty
+	 *
+	 * @when after_wp_load
+	 */
+	function empty() {
+		WP_CLI::log( "Deleting the products in WordPress..." );
+		$products = Helpers\resync_products();
+		if ( false === $products ) {
+			WP_CLI::error( "There were no products to delete." );
+		} else {
+			WP_CLI::success( "Successfully deleted the Chargify products." );
 		}
 	}
 }

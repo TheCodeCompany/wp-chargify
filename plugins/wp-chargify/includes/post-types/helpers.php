@@ -49,15 +49,35 @@ function get_product_values() {
 
 /**
  * A function to clear all the Chargify Products in WordPress and pull them in again from Chargify.
+ *
+ * @param  mixed      $value      The unsanitised value from the form.
+ * @param  array      $field_args Array of field arguments.
+ * @param  CMB2_Field $field      The field object
+ * @return bool
  */
-function resync_products() {
-	# Delete options
-	delete_option( 'chargify_products_all' );
+function resync_products( $value = '', $field_args = '', $field = '' ) {
+	if ( $value === "on" || defined( 'WP_CLI' ) ) {
+		# Delete options
+		delete_option('chargify_products_all');
 
-	# Delete Products CPT's
-	$products = new \WP_Query([ 'post_type' => 'chargify_product' ] );
+		# Delete Products CPT's
+		$products = new \WP_Query( [ 'post_type' => 'chargify_product' ] );
 
-	foreach ( $products as $product ) {
-		wp_delete_post( $product->post->ID, true );
+		if ( $products->have_posts() ) {
+			while ( $products->have_posts() ) {
+				$products->the_post();
+				wp_delete_post( get_the_ID(), true );
+			}
+			# We need to tell WP-CLI we successfully deleted posts.
+			if ( defined( 'WP_CLI' ) ) {
+				return true;
+			} else {
+			# We never want to save the CMB2 option.
+				return false;
+			}
+		}
 	}
+
+	# We never want to save the CMB2 option.
+	return false;
 }
