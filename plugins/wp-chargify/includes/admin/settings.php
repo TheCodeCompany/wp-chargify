@@ -39,11 +39,11 @@ function register_chargify_options_metabox() {
 	] );
 
 	$products_options->add_field( [
-		'name'    => 'Chargify Products',
-		'desc'    => 'Select the Chargify Products you\'d like to use in WordPress',
-		'id'      => 'chargify_products_multicheck',
-		'type'    => 'multicheck',
-		'options' => get_product_values(),
+		'name'       => 'Chargify Products',
+		'desc'       => __( 'Select the Chargify Products you\'d like to use in WordPress', 'chargify' ),
+		'id'         => 'chargify_products_multicheck',
+		'type'       => 'multicheck',
+		'options_cb' => __NAMESPACE__ . '\\get_product_values',
 	] );
 
 	/**
@@ -114,38 +114,16 @@ function register_chargify_options_metabox() {
  * @return array
  */
 function get_product_values() {
-	if ( true === wp_doing_ajax() ) {
-		return;
+	# See if we have fetched the products from Chargify and stored them in WordPress.
+	$products = get_option( 'chargify_products_all' );
+
+	if ( $products ) {
+		$values = wp_list_pluck( $products, 'name', 'id' );
+		return $values;
 	}
 
-	$product_ids = cmb2_get_option( 'chargify_options', 'chargify_products_multicheck' );
-	# If we don't have any product try and GET the products from the Chargify API.
-	if ( empty ( $product_ids ) ) {
-		$products = Product_Families\get_products();
-		$values   = wp_list_pluck( $products, 'name', 'id' );
-	} else {
-		# Make a query to the Products CPT using the ids that are stored in our option.
-		$wp_products = new \WP_Query(
-			[
-				'post_type' => 'chargify_product',
-				'meta_query' => [
-					[
-						'key'     => 'chargify_product_id',
-						'value'   => $product_ids,
-						'compare' => 'IN'
-					]
-				]
-			]
-		);
-
-		if ( $wp_products->have_posts() ) {
-			while ( $wp_products->have_posts() ) {
-				$wp_products->the_post();
-				$index = get_post_meta( get_the_ID(), 'chargify_product_id', true );
-				$values[$index] = get_the_title();
-			}
-		}
-	}
-
+	# GET the products from Charfigy and store them in WordPress.
+	$products = Product_Families\get_products();
+	$values   = wp_list_pluck( $products, 'name', 'id' );
 	return $values;
 }

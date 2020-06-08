@@ -3,13 +3,10 @@
 namespace Chargify\Post_Types\Helpers;
 
 function populate_post_types( $products ) {
-	if ( true === wp_doing_ajax() ) {
-		return;
-	}
-
 	# Save all the products to an option
 	update_option( 'chargify_products_all', $products, false );
 
+	# Map the product data to our Product Custom Post type.
 	foreach ( $products as $product ) {
 		$args = [
 			'post_type'    => 'chargify_product',

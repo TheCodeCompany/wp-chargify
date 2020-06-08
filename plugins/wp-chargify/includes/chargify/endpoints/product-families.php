@@ -35,10 +35,6 @@ function get_product_families() {
  * @return array|string
  */
 function get_products() {
-	if ( true === wp_doing_ajax() ) {
-		return [];
-	}
-
 	$product_families = get_product_families();
 
 	# If we haven't got an array then we have an error to return.
