@@ -38,7 +38,7 @@ function register_chargify_options_metabox() {
 	] );
 
 	$products_options->add_field( [
-		'name'       => 'Chargify Products',
+		'name'       => __( 'Chargify Products', 'chargify' ),
 		'desc'       => __( 'Select the Chargify Products you\'d like to use in WordPress', 'chargify' ),
 		'id'         => 'chargify_products_multicheck',
 		'type'       => 'multicheck',
