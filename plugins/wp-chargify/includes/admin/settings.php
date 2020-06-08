@@ -38,12 +38,20 @@ function register_chargify_options_metabox() {
 	] );
 
 	$products_options->add_field( [
-		'name'       => 'Chargify Products',
+		'name'       => __( 'Chargify Products', 'chargify' ),
 		'desc'       => __( 'Select the Chargify Products you\'d like to use in WordPress', 'chargify' ),
 		'id'         => 'chargify_products_multicheck',
 		'type'       => 'multicheck',
 		'options_cb' => 'Chargify\\Post_Types\\Helpers\\get_product_values',
 	] );
+
+	$products_options->add_field([
+		'name'            => __( 'Resync Products', 'chargify' ),
+		'desc'            => __( 'Select this checkbox and click "Save Changes" to trigger a resync of your Chargify products.' ),
+		'id'              => 'chargify_resync_products',
+		'type'            => 'checkbox',
+		'sanitization_cb' => 'Chargify\\Post_Types\\Helpers\\resync_products',
+	]);
 
 	/**
 	 * Registers the Settings options.
