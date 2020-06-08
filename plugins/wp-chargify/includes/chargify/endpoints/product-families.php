@@ -70,6 +70,12 @@ function get_products() {
 	return $products;
 }
 
+/**
+ * A function to get the product details of a product.
+ *
+ * @param $id int The Product ID.
+ * @return mixed|string
+ */
 function get_product( $id ) {
 		$headers  = Options\get_headers();
 
@@ -81,8 +87,7 @@ function get_product( $id ) {
 		if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
 			return wp_remote_retrieve_response_message( $request );
 		}
-
-
+		
 		$product = json_decode( $body, true );
 
 	return $product;
