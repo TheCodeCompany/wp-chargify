@@ -46,3 +46,18 @@ function get_product_values() {
 	$values   = wp_list_pluck( $products, 'name', 'id' );
 	return $values;
 }
+
+/**
+ * A function to clear all the Chargify Products in WordPress and pull them in again from Chargify.
+ */
+function resync_products() {
+	# Delete options
+	delete_option('chargify_products_all' );
+
+	# Delete Products CPT's
+	$products = new \WP_Query([ 'post_type' => 'chargify_product' ] );
+
+	foreach ( $products as $product ) {
+		wp_delete_post( $product->post->ID, true );
+	}
+}
