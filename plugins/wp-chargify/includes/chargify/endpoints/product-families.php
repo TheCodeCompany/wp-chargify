@@ -65,7 +65,7 @@ function get_products() {
 		}
 	}
 
-	Helpers\populate_post_types( $products );
+	Helpers\populate_product_post_types( $products );
 
 	return $products;
 }

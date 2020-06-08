@@ -1,9 +1,8 @@
 <?php
-
 namespace Chargify\Post_Types\Helpers;
 use Chargify\Chargify\Endpoints\Product_Families;
 
-function populate_post_types( $products ) {
+function populate_product_post_types( $products ) {
 	# Save all the products to an option
 	update_option( 'chargify_products_all', $products, false );
 
