@@ -52,7 +52,7 @@ function get_product_values() {
  */
 function resync_products() {
 	# Delete options
-	delete_option('chargify_products_all' );
+	delete_option( 'chargify_products_all' );
 
 	# Delete Products CPT's
 	$products = new \WP_Query([ 'post_type' => 'chargify_product' ] );
