@@ -12,6 +12,7 @@ function populate_product_post_types( $products ) {
 			'post_type'    => 'chargify_product',
 			'post_title'   => sanitize_text_field( $product['name'] ),
 			'post_content' => wp_filter_post_kses( $product['description'] ),
+			'post_status'  => 'publish',
 		];
 
 		$chargify_product = wp_insert_post( $args );
