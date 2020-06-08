@@ -2,6 +2,7 @@
 namespace Chargify\Chargify\Endpoints\Product_Families;
 
 use Chargify\Helpers\Options;
+use Chargify\Post_Types\Helpers;
 
 /**
  * A function to request all of the product families that are in Chargify.
@@ -22,10 +23,10 @@ function get_product_families() {
 	$json = json_decode( $body, true );
 
 	foreach ( $json as $family ) {
-		$rows[] = $family['product_family'];
+		$product_families[] = $family['product_family'];
 	}
 
-	return $rows;
+	return $product_families;
 }
 
 /**
@@ -45,6 +46,8 @@ function get_products() {
 
 	$headers  = Options\get_headers();
 
+	$products = [];
+
 	foreach ( $product_ids as $product ) {
 		$endpoint = Options\get_subdomain() . "/product_families/$product/products.json";
 		$request  = wp_safe_remote_get( $endpoint, $headers );
@@ -58,14 +61,21 @@ function get_products() {
 		$json = json_decode( $body, true );
 
 		foreach ( $json as $family ) {
-			$rows[] = $family['product'];
+			$products[] = $family['product'];
 		}
 	}
 
-	return $rows;
+	Helpers\populate_product_post_types( $products );
+
+	return $products;
 }
 
-
+/**
+ * A function to get the product details of a product.
+ *
+ * @param $id int The Product ID.
+ * @return mixed|string
+ */
 function get_product( $id ) {
 		$headers  = Options\get_headers();
 
@@ -77,8 +87,7 @@ function get_product( $id ) {
 		if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
 			return wp_remote_retrieve_response_message( $request );
 		}
-
-
+		
 		$product = json_decode( $body, true );
 
 	return $product;
