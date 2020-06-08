@@ -1,6 +1,7 @@
 <?php
 
 namespace Chargify\Post_Types\Helpers;
+use Chargify\Chargify\Endpoints\Product_Families;
 
 function populate_post_types( $products ) {
 	# Save all the products to an option
@@ -24,4 +25,24 @@ function populate_post_types( $products ) {
 		update_post_meta( $chargify_product, 'chargify_product_family_id', $product['product_family']['id'] );
 		update_post_meta( $chargify_product, 'chargify_product_family', $product['product_family']['name'] );
 	}
+}
+
+/**
+ * A function to get the Chargify products so the user can select the ones they want to use in WordPress.
+ *
+ * @return array
+ */
+function get_product_values() {
+	# See if we have fetched the products from Chargify and stored them in WordPress.
+	$products = get_option( 'chargify_products_all' );
+
+	if ( $products ) {
+		$values = wp_list_pluck( $products, 'name', 'id' );
+		return $values;
+	}
+
+	# GET the products from Charfigy and store them in WordPress.
+	$products = Product_Families\get_products();
+	$values   = wp_list_pluck( $products, 'name', 'id' );
+	return $values;
 }

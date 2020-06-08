@@ -1,6 +1,5 @@
 <?php
 namespace Chargify\Admin;
-use Chargify\Chargify\Endpoints\Product_Families;
 /**
  * Hook in and register a metabox to handle a the Chargify options page.
  */
@@ -43,7 +42,7 @@ function register_chargify_options_metabox() {
 		'desc'       => __( 'Select the Chargify Products you\'d like to use in WordPress', 'chargify' ),
 		'id'         => 'chargify_products_multicheck',
 		'type'       => 'multicheck',
-		'options_cb' => __NAMESPACE__ . '\\get_product_values',
+		'options_cb' => 'Chargify\\Post_Types\\Helpers\\get_product_values',
 	] );
 
 	/**
@@ -106,24 +105,4 @@ function register_chargify_options_metabox() {
 		'default' => 'test',
 	] );
 
-}
-
-/**
- * A function to get the Chargify products so the user can select the ones they want to use in WordPress.
- *
- * @return array
- */
-function get_product_values() {
-	# See if we have fetched the products from Chargify and stored them in WordPress.
-	$products = get_option( 'chargify_products_all' );
-
-	if ( $products ) {
-		$values = wp_list_pluck( $products, 'name', 'id' );
-		return $values;
-	}
-
-	# GET the products from Charfigy and store them in WordPress.
-	$products = Product_Families\get_products();
-	$values   = wp_list_pluck( $products, 'name', 'id' );
-	return $values;
 }
