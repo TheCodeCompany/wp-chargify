@@ -41,7 +41,7 @@ function get_product_values() {
 		return $values;
 	}
 
-	# GET the products from Charfigy and store them in WordPress.
+	# GET the products from Chargify and store them in WordPress.
 	$products = Product_Families\get_products();
 	$values   = wp_list_pluck( $products, 'name', 'id' );
 	return $values;
