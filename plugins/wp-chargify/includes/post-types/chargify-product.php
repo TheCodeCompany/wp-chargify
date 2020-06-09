@@ -4,8 +4,11 @@ namespace Chargify\Post_Types\Product;
  * Registers the `chargify_product` post type.
  */
 function chargify_product_init() {
-	register_post_type( 'chargify_product', array(
-		'labels'                => array(
+	# Allow developers to hide the Products custom post types.
+	$show_products = apply_filters( 'chargify_show_products', true );
+
+	register_post_type( 'chargify_product', [
+		'labels'                => [
 			'name'                  => __( 'Products', 'chargify' ),
 			'singular_name'         => __( 'Products', 'chargify' ),
 			'all_items'             => __( 'All Products', 'chargify' ),
@@ -31,11 +34,11 @@ function chargify_product_init() {
 			'not_found_in_trash'    => __( 'No Products found in trash', 'chargify' ),
 			'parent_item_colon'     => __( 'Parent Product:', 'chargify' ),
 			'menu_name'             => __( 'Products', 'chargify' ),
-		),
+		],
 		'public'                => true,
 		'hierarchical'          => false,
-		'show_ui'               => true,
-		'show_in_nav_menus'     => true,
+		'show_ui'               => $show_products,
+		'show_in_nav_menus'     => false,
 		'supports'              => [ 'title', 'editor' ],
 		'has_archive'           => true,
 		'rewrite'               => true,
@@ -45,7 +48,7 @@ function chargify_product_init() {
 		'show_in_rest'          => true,
 		'rest_base'             => 'chargify_product',
 		'rest_controller_class' => 'WP_REST_Posts_Controller',
-	) );
+	] );
 
 }
 

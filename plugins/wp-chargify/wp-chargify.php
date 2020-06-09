@@ -26,5 +26,7 @@ require_once( 'includes/admin/settings.php' );
 require_once( 'includes/chargify/endpoints/product-families.php' );
 require_once( 'includes/helpers/options.php' );
 require_once( 'includes/meta-boxes/chargify-product.php' );
+require_once( 'includes/meta-boxes/chargify-account.php' );
 require_once( 'includes/post-types/chargify-product.php' );
+require_once( 'includes/post-types/chargify-account.php' );
 require_once( 'includes/post-types/helpers.php' );
