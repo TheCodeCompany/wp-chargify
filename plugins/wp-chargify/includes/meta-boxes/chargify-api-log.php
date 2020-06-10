@@ -14,7 +14,6 @@ function add_api_log_metaboxes() {
 		'context'       => 'normal',
 		'priority'      => 'high',
 		'show_names'    => true,
-		'cmb_styles'    => false,
 	] );
 
 	$payload->add_field( [
@@ -24,26 +23,7 @@ function add_api_log_metaboxes() {
 		'save_field' => false,
 		'attributes' => [
 			'readonly' => 'readonly',
-		],
-	] );
-
-	$payload->add_field( [
-		'name'       => __( 'Event ID', 'chargify' ),
-		'id'         => '_chargify_event_id',
-		'type'       => 'text_small',
-		'save_field' => false,
-		'attributes' => [
-			'readonly' => 'readonly',
-		],
-	] );
-
-	$payload->add_field( [
-		'name'       => __( 'Event', 'chargify' ),
-		'id'         => '_chargify_event',
-		'type'       => 'text_small',
-		'save_field' => false,
-		'attributes' => [
-			'readonly' => 'readonly',
+			'class'    => 'large-text',
 		],
 	] );
 
@@ -58,7 +38,7 @@ function add_api_log_metaboxes() {
 	] );
 
 	$payload->add_field( [
-		'name'       => __( 'Data', 'chargify' ),
+		'name'       => __( 'Payload', 'chargify' ),
 		'id'         => '_chargify_payload',
 		'type'       => 'chargify_code',
 		'save_field' => false,
@@ -79,10 +59,23 @@ function add_api_log_metaboxes() {
 	] );
 
 	$payload->add_field( [
-		'name'       => __( 'Errors', 'chargify' ),
-		'id'         => '_chargify_errors',
-		'type'       => 'chargify_code',
+		'name'       => __( 'Event ID', 'chargify' ),
+		'id'         => '_chargify_event_id',
+		'type'       => 'text_small',
 		'save_field' => false,
+		'attributes' => [
+			'readonly' => 'readonly',
+		],
+	] );
+
+	$payload->add_field( [
+		'name'       => __( 'Event', 'chargify' ),
+		'id'         => '_chargify_event',
+		'type'       => 'text_small',
+		'save_field' => false,
+		'attributes' => [
+			'readonly' => 'readonly',
+		],
 	] );
 }
 
@@ -151,7 +144,7 @@ function cmb2_styles_and_scripts( $page ) {
  * @param string $obj_type       Type of current object, post.
  * @param object $field_type     CMB2 instance.
  */
-function render_ffx_code( $field, $selected_value, $obj_id, $obj_type, $field_type ) {
+function render_chargify_code( $field, $selected_value, $obj_id, $obj_type, $field_type ) {
 	// Get our field ID.
 	$field_id = isset( $field->id ) ? $field->id : 'ffx_code';
 

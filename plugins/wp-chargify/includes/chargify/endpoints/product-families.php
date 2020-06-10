@@ -10,17 +10,22 @@ use Chargify\Post_Types\Helpers;
  * @return string|array
  */
 function get_product_families() {
-	$endpoint = Options\get_subdomain() . '/product_families.json';
-	$headers  = Options\get_headers();
-	$request  = wp_safe_remote_get( $endpoint, $headers );
-	$body     = wp_remote_retrieve_body( $request );
+	$request_endpoint = Options\get_subdomain() . '/product_families.json';
+	$request_headers  = Options\get_headers();
+	$request          = wp_safe_remote_get( $request_endpoint, $request_headers );
+	// Grab info from successful responses so we can log requests.
+	$response_status  = wp_remote_retrieve_response_code( $request );
+	$response_headers = wp_remote_retrieve_headers( $request );
+	$response_body    = wp_remote_retrieve_body( $request );
+
+	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, $response_body, 'REST' );
 
 	# Anything other than a 200 code is an error so let's bail.
-	if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
+	if ( 200 !== $response_status ) {
 		return wp_remote_retrieve_response_message( $request );
 	}
 
-	$json = json_decode( $body, true );
+	$json = json_decode( $response_body, true );
 
 	foreach ( $json as $family ) {
 		$product_families[] = $family['product_family'];
@@ -87,7 +92,7 @@ function get_product( $id ) {
 		if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
 			return wp_remote_retrieve_response_message( $request );
 		}
-		
+
 		$product = json_decode( $body, true );
 
 	return $product;
