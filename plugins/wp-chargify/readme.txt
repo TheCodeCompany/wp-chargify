@@ -42,6 +42,7 @@ We provide a number of optional filters you can use:
 `chargify_hide_options` - Use this to hide the Chargify options page.
 `chargify_show_accounts` - Set this to `false` to hide the Accounts custom post type.
 `chargify_show_products` - Set this to `false` to hide the Products custom post type.
+`chargify_show_api_logs` - Set this to `false` to hide the API logs custom post type.
 
 = What developer functions can I use? =
 
@@ -55,9 +56,10 @@ We provide a number of functions that developers can use in their themes and plu
 We provide a number of WP-CLI commands that developers can use:
 
 `wp chargify product-families list` - List out the Product Families stored in Chargify.
-`wp chargify product list` - List out the all the products in all the different Product Families.
-`wp chargify product get <id>` - Get the details of an individual product.
-`wp chargify product empty` - Delete the Chargify Products stored in WordPress.
+`wp chargify product list`          - List out the all the products in all the different Product Families.
+`wp chargify product get <id>`      - Get the details of an individual product.
+`wp chargify product empty`         - Delete the Chargify Products stored in WordPress.
+`wp chargify log empty`             - Delete the Chargify API logs stored in WordPress.
 
 == Screenshots ==
 
