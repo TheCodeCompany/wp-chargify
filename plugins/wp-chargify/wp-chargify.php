@@ -16,6 +16,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	require_once dirname(__FILE__) . '/includes/commands/class-chargify-api-log.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-product-families.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-product.php';
 }

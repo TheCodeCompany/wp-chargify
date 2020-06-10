@@ -55,9 +55,10 @@ We provide a number of functions that developers can use in their themes and plu
 We provide a number of WP-CLI commands that developers can use:
 
 `wp chargify product-families list` - List out the Product Families stored in Chargify.
-`wp chargify product list` - List out the all the products in all the different Product Families.
-`wp chargify product get <id>` - Get the details of an individual product.
-`wp chargify product empty` - Delete the Chargify Products stored in WordPress.
+`wp chargify product list`          - List out the all the products in all the different Product Families.
+`wp chargify product get <id>`      - Get the details of an individual product.
+`wp chargify product empty`         - Delete the Chargify Products stored in WordPress.
+`wp chargify log empty`             - Delete the Chargify API logs stored in WordPress.
 
 == Screenshots ==
 
