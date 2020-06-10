@@ -4,6 +4,9 @@ namespace Chargify\Post_Types\API_Log;
  * Registers the `chargify_api_log` post type.
  */
 function chargify_api_log_init() {
+	# Allow developers to hide the Accounts custom post types.
+	$show_logs = apply_filters( 'chargify_show_logs', true );
+
 	register_post_type( 'chargify_api_log', [
 		'labels'                => [
 			'name'                  => __( 'Logs', 'chargify' ),
@@ -29,7 +32,7 @@ function chargify_api_log_init() {
 		],
 		'public'                => false,
 		'hierarchical'          => false,
-		'show_ui'               => true,
+		'show_ui'               => $show_logs,
 		'show_in_nav_menus'     => false,
 		'supports'      => [ 'author' ],
 		'capabilities' => [

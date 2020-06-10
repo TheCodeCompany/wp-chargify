@@ -42,6 +42,7 @@ We provide a number of optional filters you can use:
 `chargify_hide_options` - Use this to hide the Chargify options page.
 `chargify_show_accounts` - Set this to `false` to hide the Accounts custom post type.
 `chargify_show_products` - Set this to `false` to hide the Products custom post type.
+`chargify_show_api_logs` - Set this to `false` to hide the API logs custom post type.
 
 = What developer functions can I use? =
 
