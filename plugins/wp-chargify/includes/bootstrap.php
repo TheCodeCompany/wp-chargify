@@ -20,7 +20,7 @@ function bootstrap() {
 	add_action( 'admin_enqueue_scripts',     'Chargify\\Meta_Boxes\\API_Log\\remove_autosave' );
 	add_action( 'admin_enqueue_scripts',     'Chargify\\Meta_Boxes\\API_Log\\cmb2_styles_and_scripts' );
 	add_action( 'cmb2_render_chargify_code', 'Chargify\\Meta_Boxes\\API_Log\\render_chargify_code', 10, 5 );
-	add_action( 'chargify\log_request',      'Chargify\\Logging\\Logger\\logger', 10, 5 );
+	add_action( 'chargify\log_request',      'Chargify\\Logging\\Logger\\logger', 10, 8 );
 	add_action( 'rest_api_init',             'Chargify\\Endpoints\\Base\\register_customer_update_webhook' );
 }
 

@@ -38,13 +38,6 @@ function add_api_log_metaboxes() {
 	] );
 
 	$payload->add_field( [
-		'name'       => __( 'Payload', 'chargify' ),
-		'id'         => '_chargify_payload',
-		'type'       => 'chargify_code',
-		'save_field' => false,
-	] );
-
-	$payload->add_field( [
 		'name'       => __( 'Response Headers', 'chargify' ),
 		'id'         => '_chargify_response_headers',
 		'type'       => 'chargify_code',
@@ -54,6 +47,13 @@ function add_api_log_metaboxes() {
 	$payload->add_field( [
 		'name'       => __( 'Response Body', 'chargify' ),
 		'id'         => '_chargify_response_body',
+		'type'       => 'chargify_code',
+		'save_field' => false,
+	] );
+
+	$payload->add_field( [
+		'name'       => __( 'Payload', 'chargify' ),
+		'id'         => '_chargify_payload',
 		'type'       => 'chargify_code',
 		'save_field' => false,
 	] );

@@ -18,7 +18,19 @@ function get_product_families() {
 	$response_headers = wp_remote_retrieve_headers( $request );
 	$response_body    = wp_remote_retrieve_body( $request );
 
-	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, $response_body, 'REST' );
+	/**
+	 * A function to log requests send to the Chargify Product Families endpoints.
+	 *
+	 * @param $request_endpoint string     The URL we are sending the request to.
+	 * @param $response_status  int        The HTTP status code that the endpoint responded with.
+	 * @param $response_headers array      The headers that the REST API endpoint returned.
+	 * @param $type             string     The type of request. e.g. 'REST' or 'webhook'.
+	 * @param $response_body    array      The data that the REST API endpoint returned.
+	 * @param $payload          array      The data we received in the request.
+	 * @param $event			string     The type of event we receieved in the request.
+	 * @param $event_id         int|string The unique event ID in Chargify.
+	 */
+	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $response_body );
 
 	# Anything other than a 200 code is an error so let's bail.
 	if ( 200 !== $response_status ) {
@@ -62,7 +74,19 @@ function get_products() {
 		$response_headers = wp_remote_retrieve_headers( $request );
 		$response_body    = wp_remote_retrieve_body( $request );
 
-		do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, $response_body, 'REST' );
+		/**
+		 * A function to log requests send to the Chargify Product Families endpoints.
+		 *
+		 * @param $request_endpoint string     The URL we are sending the request to.
+		 * @param $response_status  int        The HTTP status code that the endpoint responded with.
+		 * @param $response_headers array      The headers that the REST API endpoint returned.
+		 * @param $type             string     The type of request. e.g. 'REST' or 'webhook'.
+		 * @param $response_body    array      The data that the REST API endpoint returned.
+		 * @param $payload          array      The data we received in the request.
+		 * @param $event			string     The type of event we receieved in the request.
+		 * @param $event_id         int|string The unique event ID in Chargify.
+		 */
+		do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $response_body );
 
 		# Anything other than a 200 code is an error so let's bail.
 		if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
