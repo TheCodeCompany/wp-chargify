@@ -9,10 +9,19 @@ function register_customer_update_webhook() {
 }
 
 function route_request( \WP_REST_Request $request ) {
+	$request_body               = $request->get_body();
+	$chargify_webhook_signature = $request->get_header( 'x_chargify_webhook_signature_hmac_sha_256' );
+	$verification               = verify_request( $request_body, $chargify_webhook_signature );
+
+	# See if the request is authenticate before we go any further.
+	if ( false === $verification ) {
+		return __( 'Unauthorized', 'chargify' );
+	}
+
 	$request_endpoint = $request->get_route();
 	$response_headers = $request->get_headers();
 	$response_status  = 200;
-	$response_body    = $request->get_body();
+
 	$event            = $request->get_param( 'event' );
 	$event_id         = $request->get_param( 'id' );
 	$payload          = $request->get_param( 'payload' );
@@ -30,8 +39,26 @@ function route_request( \WP_REST_Request $request ) {
 	 * @param $event			string The type of event we receieved in the request.
 	 * @param $event_id         int    The unique event ID in Chargify.
 	 */
-	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, "Webhook - ${event}", $response_body, $payload, $event, $event_id );
+	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, "Webhook - ${event}", $request_body, $payload, $event, $event_id );
 
 
 	return $event;
+}
+
+/**
+ * Check if the Chargify webhook request is authorised.
+ *
+ * @param $request_body string               The body of the request we received from Chargify.
+ * @param $chargify_webhook_signature string The sha256 hash that Chargify calculated for the request.
+ * @return bool
+ */
+function verify_request( $request_body, $chargify_webhook_signature ) {
+	$shared_site_key = '9vMjsuLHhJpNIRRJJF0DCmZfp1cgQg5yQ6cSIc1ug';
+	$signature       = hash_hmac( 'sha256', $request_body, $shared_site_key );
+
+	if ( $signature === $chargify_webhook_signature ) {
+		return true;
+	}
+
+	return false;
 }
