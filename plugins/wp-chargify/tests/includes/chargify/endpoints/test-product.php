@@ -7,11 +7,13 @@ class Test_Chargify_REST_Product extends WP_UnitTestCase {
 		parent::setUp();
 		# Setup some random options to test against.
 		$chargify_options = [
-			'chargify_production_API_key'   => '345345354t3erertsdfdsfg',
-			'chargify_production_subdomain' => 'https://productionsubdomain.chargify.com',
-			'chargify_test_API_key'         => '6787867867dfsdfgsfg',
-			'chargify_test_subdomain'       => 'https://testsubdomain.chargify.com',
-			'chargify_mode'                 => 'test'
+			'chargify_production_API_key'    => '345345354t3erertsdfdsfg',
+			'chargify_production_subdomain'  => 'https://productionsubdomain.chargify.com',
+			'chargify_production_shared_key' => '456rtgfsrt456rsdsty456',
+			'chargify_test_API_key'          => '6787867867dfsdfgsfg',
+			'chargify_test_subdomain'        => 'https://testsubdomain.chargify.com',
+			'chargify_mode'                  => 'test',
+			'chargify_test_shared_key'       => '7856756ydsfgsdft345445'
 		];
 
 		add_option( 'chargify_settings', $chargify_options );

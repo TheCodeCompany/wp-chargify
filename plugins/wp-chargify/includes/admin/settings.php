@@ -87,7 +87,7 @@ function register_chargify_options_metabox() {
 
 	$settings_options->add_field( [
 		'name' =>  __( 'Production Shared Key:', 'chargify' ),
-		'id'   => 'chargify_shared_key',
+		'id'   => 'chargify_production_shared_key',
 		'type' => 'text',
 	] );
 
