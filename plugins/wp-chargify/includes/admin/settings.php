@@ -86,6 +86,12 @@ function register_chargify_options_metabox() {
 	] );
 
 	$settings_options->add_field( [
+		'name' =>  __( 'Production Shared Key:', 'chargify' ),
+		'id'   => 'chargify_production_shared_key',
+		'type' => 'text',
+	] );
+
+	$settings_options->add_field( [
 		'name' =>  __( 'Test API Key:', 'chargify' ),
 		'id'   => 'chargify_test_API_key',
 		'type' => 'text',
@@ -100,6 +106,12 @@ function register_chargify_options_metabox() {
 		],
 		'type'       => 'text_url',
 		'protocols'  => [ 'http', 'https' ],
+	] );
+
+	$settings_options->add_field( [
+		'name' =>  __( 'Test Shared Key:', 'chargify' ),
+		'id'   => 'chargify_test_shared_key',
+		'type' => 'text',
 	] );
 
 	$settings_options->add_field( [

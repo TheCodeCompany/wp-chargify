@@ -35,6 +35,22 @@ function get_production_subdomain() {
 }
 
 /**
+ * Get the production shared key. The CHARGIFY_PRODUCTION_SHARED_KEY constant has the highest priority.
+ *
+ * @return array|string
+ */
+function get_production_shared_key() {
+	# The Chargify PHP constants will take precedence over the stored options to assist in development.
+	if ( defined( 'CHARGIFY_PRODUCTION_SHARED_KEY' ) ) {
+		return CHARGIFY_PRODUCTION_SHARED_KEY;
+	}
+
+	$production_shared_key = cmb2_get_option( 'chargify_settings', 'chargify_production_shared_key' );
+
+	return $production_shared_key;
+}
+
+/**
  * Get the test API key. The CHARGIFY_TEST_API_KEY constant has the highest priority.
  *
  * @return array|string
@@ -64,6 +80,22 @@ function get_test_subdomain() {
 	$test_subdomain = cmb2_get_option( 'chargify_settings', 'chargify_test_subdomain' );
 
 	return $test_subdomain;
+}
+
+/**
+ * Get the test shared key. The CHARGIFY_TEST_SHARED_KEY constant has the highest priority.
+ *
+ * @return array|string
+ */
+function get_test_shared_key() {
+	# The Chargify PHP constants will take precedence over the stored options to assist in development.
+	if ( defined( 'CHARGIFY_TEST_SHARED_KEY' ) ) {
+		return CHARGIFY_TEST_SHARED_KEY;
+	}
+
+	$test_shared_key = cmb2_get_option( 'chargify_settings', 'chargify_test_shared_key' );
+
+	return $test_shared_key;
 }
 
 /**

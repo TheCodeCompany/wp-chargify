@@ -7,11 +7,13 @@ class Test_Option_Helpers extends WP_UnitTestCase {
 
 		# Setup some random options to test against.
 		$chargify_options = [
-			'chargify_production_API_key'   => '345345354t3erertsdfdsfg',
-			'chargify_production_subdomain' => 'https://productionsubdomain.chargify.com',
-			'chargify_test_API_key'         => '6787867867dfsdfgsfg',
-			'chargify_test_subdomain'       => 'https://testsubdomain.chargify.com',
-			'chargify_mode'                 => 'test'
+			'chargify_production_API_key'    => '345345354t3erertsdfdsfg',
+			'chargify_production_subdomain'  => 'https://productionsubdomain.chargify.com',
+			'chargify_production_shared_key' => '456rtgfsrt456rsdsty456',
+			'chargify_test_API_key'          => '6787867867dfsdfgsfg',
+			'chargify_test_subdomain'        => 'https://testsubdomain.chargify.com',
+			'chargify_mode'                  => 'test',
+			'chargify_test_shared_key'       => '7856756ydsfgsdft345445'
 		];
 
 		add_option( 'chargify_settings', $chargify_options );
@@ -27,6 +29,11 @@ class Test_Option_Helpers extends WP_UnitTestCase {
 		$this->assertEquals( 'https://productionsubdomain.chargify.com', $production_subdomain );
 	}
 
+	function test_get_production_shared_key() {
+		$production_shared_key = Options\get_production_shared_key();
+		$this->assertEquals( '456rtgfsrt456rsdsty456', $production_shared_key );
+	}
+
 	function test_get_test_api_key() {
 		$test_api_key = Options\get_test_api_key();
 		$this->assertEquals( '6787867867dfsdfgsfg', $test_api_key);
@@ -35,6 +42,11 @@ class Test_Option_Helpers extends WP_UnitTestCase {
 	function test_get_test_subdomain() {
 		$test_subdomain = Options\get_test_subdomain();
 		$this->assertEquals( 'https://testsubdomain.chargify.com', $test_subdomain );
+	}
+
+	function test_get_test_shared_key() {
+		$test_shared_key = Options\get_test_shared_key();
+		$this->assertEquals( '7856756ydsfgsdft345445', $test_shared_key );
 	}
 
 	function test_chargify_mode() {
@@ -54,6 +66,12 @@ class Test_Option_Helpers extends WP_UnitTestCase {
 		$this->assertEquals( 'https://yourproductionsubdomain.chargify.com', $production_subdomain );
 	}
 
+	function test_get_production_shared_key_with_constant() {
+		define( 'CHARGIFY_PRODUCTION_SHARED_KEY', '678678234234546sdfgsd' );
+		$production_shared_key = Options\get_production_shared_key();
+		$this->assertEquals( '678678234234546sdfgsd', $production_shared_key );
+	}
+
 	function test_get_test_api_key_with_constant() {
 		define( 'CHARGIFY_TEST_API_KEY', '675675645vbvbnvbnvbn' );
 		$test_api_key = Options\get_test_api_key();
@@ -64,6 +82,12 @@ class Test_Option_Helpers extends WP_UnitTestCase {
 		define( 'CHARGIFY_TEST_SUBDOMAIN', 'https://yoursubdomain.chargify.com' );
 		$test_subdomain = Options\get_test_subdomain();
 		$this->assertEquals( 'https://yoursubdomain.chargify.com', $test_subdomain );
+	}
+
+	function test_get_test_shared_key_with_constant() {
+		define( 'CHARGIFY_TEST_SHARED_KEY', '545645dfgdfge5456' );
+		$test_shared_key = Options\get_test_shared_key();
+		$this->assertEquals( '545645dfgdfge5456', $test_shared_key );
 	}
 
 	function test_chargify_mode_with_constant() {
