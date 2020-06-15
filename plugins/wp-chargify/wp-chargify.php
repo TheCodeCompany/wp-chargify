@@ -36,3 +36,8 @@ require_once( 'includes/post-types/chargify-account.php' );
 require_once( 'includes/post-types/chargify-api-log.php' );
 require_once( 'includes/post-types/chargify-product.php' );
 require_once( 'includes/post-types/helpers.php' );
+require_once( 'includes/roles/namespace.php' );
+
+# Setup the activation and deactivation routines.
+register_activation_hook( __FILE__, 'Chargify\\Roles\\add_chargify_role' );
+register_deactivation_hook( __FILE__ , 'Chargify\\Roles\\remove_chargify_role' );
