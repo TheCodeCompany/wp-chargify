@@ -1,6 +1,7 @@
 <?php
 namespace Chargify\Endpoints\Base;
 use Chargify\Customers;
+use Chargify\Helpers\Options;
 
 function register_customer_update_webhook() {
 	register_rest_route( 'chargify/v1', '/webhook', [
@@ -60,8 +61,7 @@ function route_request( \WP_REST_Request $request ) {
  * @return bool
  */
 function verify_request( $request_body, $chargify_webhook_signature ) {
-	$shared_site_key = '9vMjsuLHhJpNIRRJJF0DCmZfp1cgQg5yQ6cSIc1ug';
-	$signature       = hash_hmac( 'sha256', $request_body, $shared_site_key );
+	$signature = hash_hmac( 'sha256', $request_body, Options\get_shared_key() );
 
 	if ( $signature === $chargify_webhook_signature ) {
 		return true;
