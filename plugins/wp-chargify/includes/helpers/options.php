@@ -141,6 +141,19 @@ function get_subdomain() {
 }
 
 /**
+ * Get the appropriate shared key.
+ *
+ * @return string
+ */
+function get_shared_key() {
+	if ( 'live' === get_mode() ) {
+		return untrailingslashit( get_production_shared_key() );
+	}
+
+	return untrailingslashit( get_test_shared_key() );
+}
+
+/**
  * Generate the Basic Authentication headers we need to send to the Chargify API.
  *
  * @return \string[][]

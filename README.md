@@ -52,3 +52,19 @@ To connect to the WordPress database simply run `vagrant sequel`.
 ## phpMyAdmin
 
 We've automatically installed and setup phpMyAdmin for you. You can visit it [here](http://chargify.local/phpmyadmin).
+
+## Webhook Development
+
+We have one webhook for Chargify that listens for `POST` requests and routes them to their respective PHP functions for processing.
+For local development the webhook URL is [http://chargify.local/wp-json/chargify/v1/webhook](http://chargify.local/wp-json/chargify/v1/webhook).
+There are two ways we can develop for Chargify's [webhooks](https://help.chargify.com/webhooks/webhooks-reference.html).
+
+### Using Postman
+
+We can use [Postman](https://www.postman.com/) to `POST` requests to our development server.
+
+### Using Vagrant Share
+
+If you're using [Chassis](https://chassis.io) for local development then you can use [Vagrant Share](https://docs.chassis.io/en/latest/guides/?highlight=share#vagrant-share)
+to generate a URL that publicly accessible and add that URL in the Chargify settings under Config -> Settings -> Webhooks.
+e.g. `http://9158347d1ca3.ngrok.io/wp-json/chargify/v1/webhook`
