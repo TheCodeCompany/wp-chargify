@@ -43,6 +43,7 @@ We provide a number of optional filters you can use:
 `chargify_show_accounts` - Set this to `false` to hide the Accounts custom post type.
 `chargify_show_products` - Set this to `false` to hide the Products custom post type.
 `chargify_show_api_logs` - Set this to `false` to hide the API logs custom post type.
+`chargify_generate_password` - Alter the password generation.
 
 = What developer functions can I use? =
 

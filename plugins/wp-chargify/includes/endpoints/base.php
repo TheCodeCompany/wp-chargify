@@ -43,9 +43,9 @@ function route_request( \WP_REST_Request $request ) {
 	 */
 	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, "Webhook - ${event}", $request_body, $payload, $event, $event_id );
 
-
 	switch ( $event ) {
 		case 'customer_update':
+		case 'customer_create':
 			Customers\maybe_update_customer( $payload );
 			break;
 		default:

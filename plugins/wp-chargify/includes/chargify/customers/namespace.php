@@ -50,12 +50,12 @@ function create_customer( $data ) {
 	$user = wp_insert_user(
 		[
 			'user_email'      => sanitize_email( $data['customer']['email'] ),
+			'user_login'      => sanitize_email( $data['customer']['email'] ),
 			'first_name'      => sanitize_text_field( $data['customer']['first_name'] ),
 			'last_name'       => sanitize_text_field( $data['customer']['last_name'] ),
-			'user_registered' => date_format( $data['customer']['created_at'], 'Y-m-d H:i:s' ),
-			'role'            => 'subscriber',
+			'user_registered' => sanitize_text_field( $data['customer']['created_at'] ),
+			'user_pass'       => apply_filters( 'chargify_generate_password', wp_generate_password() ),
+			'role'            => 'chargify_user'
 		]
 	);
-
-	// TO DO: use the ID to create a new Account CPT to link to the user.
 }
