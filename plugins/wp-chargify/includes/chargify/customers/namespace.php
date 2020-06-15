@@ -29,9 +29,10 @@ function maybe_update_customer( $data ) {
  *
  * @param $user_id
  * @param $data
+ * @return int|\WP_Error
  */
 function update_customer( $user_id, $data ) {
-	$user = wp_update_user(
+	$user_id = wp_update_user(
 		[
 			'ID'              => absint( $user_id ),
 			'user_email'      => sanitize_email( $data['customer']['email'] ),
@@ -39,15 +40,18 @@ function update_customer( $user_id, $data ) {
 			'last_name'       => sanitize_text_field( $data['customer']['last_name'] ),
 		]
 	);
+
+	return $user_id;
 }
 
 /**
  * A function to create a new WordPress user with the data from Chargify.
  *
  * @param $data
+ * @return int|\WP_Error
  */
 function create_customer( $data ) {
-	$user = wp_insert_user(
+	$user_id = wp_insert_user(
 		[
 			'user_email'      => sanitize_email( $data['customer']['email'] ),
 			'user_login'      => sanitize_email( $data['customer']['email'] ),
@@ -58,4 +62,6 @@ function create_customer( $data ) {
 			'role'            => 'chargify_user'
 		]
 	);
+
+	return $user_id;
 }

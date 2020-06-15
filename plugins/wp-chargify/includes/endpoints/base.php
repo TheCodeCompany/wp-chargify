@@ -2,6 +2,7 @@
 namespace Chargify\Endpoints\Base;
 use Chargify\Customers;
 use Chargify\Helpers\Options;
+use Chargify\Subscription;
 
 function register_customer_update_webhook() {
 	register_rest_route( 'chargify/v1', '/webhook', [
@@ -47,6 +48,9 @@ function route_request( \WP_REST_Request $request ) {
 		case 'customer_update':
 		case 'customer_create':
 			Customers\maybe_update_customer( $payload );
+			break;
+		case 'signup_success':
+			Subscription\create_subscription( $payload );
 			break;
 		default:
 			return $event;
