@@ -1,5 +1,6 @@
 <?php
 namespace Chargify\Endpoints\Base;
+use Chargify\Customers;
 
 function register_customer_update_webhook() {
 	register_rest_route( 'chargify/v1', '/webhook', [
@@ -42,7 +43,13 @@ function route_request( \WP_REST_Request $request ) {
 	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, "Webhook - ${event}", $request_body, $payload, $event, $event_id );
 
 
-	return $event;
+	switch ( $event ) {
+		case 'customer_update':
+			Customers\maybe_update_customer( $payload );
+			break;
+		default:
+			return $event;
+	}
 }
 
 /**
