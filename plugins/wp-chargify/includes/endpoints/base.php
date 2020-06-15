@@ -61,9 +61,12 @@ function route_request( \WP_REST_Request $request ) {
  * @return bool
  */
 function verify_request( $request_body, $chargify_webhook_signature ) {
+
+	$bypass = apply_filters( 'chargify_verify_request', false );
+
 	$signature = hash_hmac( 'sha256', $request_body, Options\get_shared_key() );
 
-	if ( $signature === $chargify_webhook_signature ) {
+	if ( $signature === $chargify_webhook_signature || $bypass === true ) {
 		return true;
 	}
 
