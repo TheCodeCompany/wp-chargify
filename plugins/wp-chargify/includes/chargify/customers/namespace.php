@@ -13,11 +13,13 @@ function maybe_update_customer( $data ) {
 
 	# If the user doesn't exist then we should create them.
 	if ( false === $user_id ) {
-		create_customer( $data );
+		$user_id = create_customer( $data );
+		return $user_id;
 	}
 
 	if ( ! is_wp_error( $user_id ) ) {
-		update_customer( $user_id, $data );
+		$user_id = update_customer( $user_id, $data );
+		return $user_id;
 	}
 
 	# Return the WP_Error.
