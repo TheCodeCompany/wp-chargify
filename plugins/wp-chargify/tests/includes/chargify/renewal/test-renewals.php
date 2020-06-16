@@ -56,4 +56,20 @@ class Test_Renewals extends WP_UnitTestCase {
 		$this->assertEquals( 'active', get_post_meta( $account_details->post->ID, 'chargify_subscription_status', true ) );
 		$this->assertEquals( '2069-10-09 11:49:43 -0400', get_post_meta( $account_details->post->ID, 'chargify_expiration_date', true ) );
 	}
+
+	function test_renewal_failure() {
+		$payload = [
+			'subscription' => [
+				'customer' => [
+					'email' => 'john@example.com',
+				],
+				'state'                  => 'past_due',
+				'current_period_ends_at' => '2000-10-09 11:49:43 -0400',
+			],
+		];
+		Renewal\renewal_failure( $payload );
+		$account_details = Customers\get_account_details_from_email( 'john@example.com' );
+		$this->assertEquals( 'past_due', get_post_meta( $account_details->post->ID, 'chargify_subscription_status', true ) );
+		$this->assertEquals( '2000-10-09 11:49:43 -0400', get_post_meta( $account_details->post->ID, 'chargify_expiration_date', true ) );
+	}
 }
