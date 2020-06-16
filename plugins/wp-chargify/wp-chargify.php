@@ -30,6 +30,7 @@ require_once( 'includes/chargify/renewal/namespace.php' );
 require_once( 'includes/chargify/subscription/namespace.php' );
 require_once( 'includes/endpoints/base.php' );
 require_once( 'includes/helpers/options.php' );
+require_once( 'includes/helpers/customers.php' );
 require_once( 'includes/logging/logger.php' );
 require_once( 'includes/meta-boxes/chargify-account.php' );
 require_once( 'includes/meta-boxes/chargify-api-log.php' );

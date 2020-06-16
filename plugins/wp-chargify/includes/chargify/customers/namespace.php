@@ -1,6 +1,8 @@
 <?php
 namespace Chargify\Customers;
 
+use Chargify\Helpers\Customers;
+
 /**
  * A function to check to see if the user exists. If they do update them.
  * If not, create a new user in WordPress.
@@ -9,7 +11,7 @@ namespace Chargify\Customers;
  * @return bool|false|\WP_Error
  */
 function maybe_update_customer( $data ) {
-	$user_id = email_exists( $data['customer']['email'] );
+	$user_id = Customers\get_wordpress_user_id_from_email( $data['customer']['email'] );
 
 	# If the user doesn't exist then we should create them.
 	if ( false === $user_id ) {

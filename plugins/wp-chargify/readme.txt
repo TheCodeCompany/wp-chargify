@@ -51,6 +51,9 @@ We provide a number of functions that developers can use in their themes and plu
 
 `Options\get_api_key` - This will return the appropriate API key based on your settings.
 `Options\get_subdomain` - This will return the appropriate Chargify subdomain based on your settings.
+`Customers\get_wordpress_user_id_from_email` - This function will return the WordPress User ID for the Chargify User if they exist.
+`Customers\get_account_details_from_email` - This function will return a WP_Query object with the account details based on an email address.
+`Customers\get_account_details` - This function will return a WP_Query object with the account details base on a WordPress user ID.
 
 = What WP-CLI commands are there? =
 
