@@ -26,6 +26,7 @@ require_once( 'includes/bootstrap.php' );
 require_once( 'includes/admin/settings.php' );
 require_once( 'includes/chargify/endpoints/product-families.php' );
 require_once( 'includes/chargify/customers/namespace.php' );
+require_once( 'includes/chargify/renewal/namespace.php' );
 require_once( 'includes/chargify/subscription/namespace.php' );
 require_once( 'includes/endpoints/base.php' );
 require_once( 'includes/helpers/options.php' );
