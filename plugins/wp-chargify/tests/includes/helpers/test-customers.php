@@ -48,4 +48,9 @@ class Test_Customer_Helpers extends WP_UnitTestCase {
 		$account_id = Customers\get_wordpress_user_id_from_email( 'john@example.com' );
 		$this->assertEquals( self::$user->ID, $account_id );
 	}
+
+	function test_get_account_details_from_email() {
+		$details = Customers\get_account_details_from_email( 'john@example.com' );
+		$this->assertTrue( $details->have_posts() );
+	}
 }
