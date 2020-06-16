@@ -17,13 +17,13 @@ function populate_product_post_types( $products ) {
 
 		$chargify_product = wp_insert_post( $args );
 
-		update_post_meta( $chargify_product, 'chargify_product_id', $product['id'] );
-		update_post_meta( $chargify_product, 'chargify_price', $product['price_in_cents'] / 100 );
-		update_post_meta( $chargify_product, 'chargify_initial_cost', $product['initial_charge_in_cents'] / 100 );
-		update_post_meta( $chargify_product, 'chargify_interval_unit', $product['interval_unit'] );
-		update_post_meta( $chargify_product, 'chargify_interval', $product['interval'] );
-		update_post_meta( $chargify_product, 'chargify_product_family_id', $product['product_family']['id'] );
-		update_post_meta( $chargify_product, 'chargify_product_family', $product['product_family']['name'] );
+		update_post_meta( $chargify_product, 'chargify_product_id', absint( $product['id'] ) );
+		update_post_meta( $chargify_product, 'chargify_price', sanitize_text_field( $product['price_in_cents'] / 100 ) );
+		update_post_meta( $chargify_product, 'chargify_initial_cost', sanitize_text_field( $product['initial_charge_in_cents'] / 100 ) );
+		update_post_meta( $chargify_product, 'chargify_interval_unit', sanitize_text_field( $product['interval_unit'] ) );
+		update_post_meta( $chargify_product, 'chargify_interval', absint( $product['interval'] ) );
+		update_post_meta( $chargify_product, 'chargify_product_family_id', absint( $product['product_family']['id'] ) );
+		update_post_meta( $chargify_product, 'chargify_product_family', sanitize_text_field( $product['product_family']['name'] ) );
 	}
 }
 

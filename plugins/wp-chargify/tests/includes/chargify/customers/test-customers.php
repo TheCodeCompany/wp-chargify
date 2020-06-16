@@ -5,7 +5,7 @@ class Test_Customer_Endpoints extends WP_UnitTestCase {
 		add_filter( 'chargify_verify_request', '__return_true' );
 	}
 
-	protected static $data    = [
+	protected static $data = [
 		'id' => '724192602',
 		'event' => 'customer_update',
 		'payload' => [
@@ -52,4 +52,8 @@ class Test_Customer_Endpoints extends WP_UnitTestCase {
 
 		$this->assertNotFalse( $customer_created );
 	}
+
+
+
+
 }
