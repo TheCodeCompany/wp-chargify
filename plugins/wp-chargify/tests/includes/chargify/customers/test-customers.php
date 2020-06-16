@@ -1,4 +1,5 @@
 <?php
+use Chargify\Helpers\Customers;
 class Test_Customer_Endpoints extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
@@ -48,7 +49,7 @@ class Test_Customer_Endpoints extends WP_UnitTestCase {
 
 		rest_get_server()->dispatch( $request );
 
-		$customer_created = email_exists( 'john@example.com' );
+		$customer_created = Chargify\Helpers\Customers\get_account_details_from_email( 'john@example.com' );
 
 		$this->assertNotFalse( $customer_created );
 	}
