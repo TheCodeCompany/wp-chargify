@@ -60,12 +60,12 @@ class Test_Post_Type_Helpers extends WP_UnitTestCase {
 		$product_id      = Helpers\update_product( $payload['subscription']['product'] );
 		$product_meta = get_post_meta( $product_id );
 		$contains = [
-			'chargify_price'             => [ '0' => 99 ],
-			'chargify_initial_cost'      => [ '0' => 0 ],
-			'chargify_interval_unit'     => [ '0' => 'month' ],
-			'chargify_interval'          => [ '0' => 1 ],
-			'chargify_product_family_id' => [ '0' => 0 ],
-			'chargify_product_family'    => [ '0' => 'Acme Online' ],
+			'chargify_price'             => [ 99 ],
+			'chargify_initial_cost'      => [ 0 ],
+			'chargify_interval_unit'     => [ 'month' ],
+			'chargify_interval'          => [ 1 ],
+			'chargify_product_family_id' => [ 0 ],
+			'chargify_product_family'    => [ 'Acme Online' ],
 		];
 
 		$this->assertArraySubset( $contains, $product_meta );
