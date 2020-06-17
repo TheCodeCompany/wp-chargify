@@ -4,6 +4,7 @@ use Chargify\Customers;
 use Chargify\Helpers\Options;
 use Chargify\Subscription;
 use Chargify\Renewal;
+use Chargify\Post_Types\Helpers;
 
 function register_customer_update_webhook() {
 	register_rest_route( 'chargify/v1', '/webhook', [
@@ -59,6 +60,9 @@ function route_request( \WP_REST_Request $request ) {
 			break;
 		case 'renewal_failure':
 			Renewal\renewal_failure( $payload );
+			break;
+		case 'subscription_product_change':
+			Helpers\update_product( $payload );
 			break;
 		default:
 			return $event;
