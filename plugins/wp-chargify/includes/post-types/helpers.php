@@ -112,8 +112,8 @@ function update_product( $payload ) {
 	$product_id = wp_update_post( $args );
 
 	$product_meta = [
-		'chargify_price'             => sanitize_text_field( $payload['price_in_cents'] / 100 ),
-		'chargify_initial_cost'      => sanitize_text_field( $payload['initial_charge_in_cents'] / 100 ),
+		'chargify_price'             => sanitize_text_field( (int) $payload['price_in_cents'] / 100 ),
+		'chargify_initial_cost'      => sanitize_text_field( (int) $payload['initial_charge_in_cents'] / 100 ),
 		'chargify_interval_unit'     => sanitize_text_field( $payload['interval_unit'] ),
 		'chargify_interval'          => absint( $payload['interval'] ),
 		'chargify_product_family_id' => absint( $payload['product_family']['id'] ),
