@@ -54,6 +54,7 @@ function route_request( \WP_REST_Request $request ) {
 			Subscription\create_subscription( $payload );
 			break;
 		case 'renewal_success':
+		case 'expiration_date_change':
 			Renewal\renewal_success( $payload );
 			break;
 		case 'renewal_failure':
