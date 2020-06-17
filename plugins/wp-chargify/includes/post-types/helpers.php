@@ -81,3 +81,49 @@ function resync_products( $value = '', $field_args = '', $field = '' ) {
 	# We never want to save the CMB2 option.
 	return false;
 }
+
+function update_product( $payload ) {
+
+	$wp_product = new \WP_Query(
+		[
+			'post_type' => 'chargify_product',
+			'meta_query' => [
+				[
+					'key'     => 'chargify_product_id',
+					'value'   => $payload['id'],
+					'compare' => 'IN'
+				]
+			]
+		]
+	);
+
+	# If it's an error then return the error.
+	if ( is_wp_error( $wp_product ) ) {
+		return $wp_product;
+	}
+
+	$args = [
+		'ID'           => $wp_product->post->ID,
+		'post_type'    => 'chargify_product',
+		'post_title'   => sanitize_text_field( $payload['name'] ),
+		'post_content' => wp_filter_post_kses( $payload['description'] )
+	];
+
+	$product_id = wp_update_post( $args );
+
+	$product_meta = [
+		'chargify_price'             => sanitize_text_field( (int) $payload['price_in_cents'] / 100 ),
+		'chargify_initial_cost'      => sanitize_text_field( (int) $payload['initial_charge_in_cents'] / 100 ),
+		'chargify_interval_unit'     => sanitize_text_field( $payload['interval_unit'] ),
+		'chargify_interval'          => absint( $payload['interval'] ),
+		'chargify_product_family_id' => absint( $payload['product_family']['id'] ),
+		'chargify_product_family'    => sanitize_text_field( $payload['product_family']['name'] )
+	];
+
+	foreach ( $product_meta as $key => $value ) {
+		update_post_meta( $product_id, $key, $value );
+	}
+
+	return $product_id;
+
+}
