@@ -89,10 +89,10 @@ class Chargify_API_Log
 		$logs = $query->posts;
 
 		# If we have an array then we have logs.
-		if ( is_array( $logs ) ) {
+		if ( ! empty( $logs ) ) {
 			WP_CLI\Utils\format_items( 'table', $logs, ['ID', 'post_title', 'post_date' ] );
 		} else {
-			WP_CLI::error( 'No Chargify API logs found' );
+			WP_CLI::error( 'No Chargify API logs found.' );
 		}
 	}
 }
