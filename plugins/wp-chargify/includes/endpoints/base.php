@@ -82,7 +82,7 @@ function verify_request( $request_body, $chargify_webhook_signature ) {
 
 	$signature = hash_hmac( 'sha256', $request_body, Options\get_shared_key() );
 
-	if ( $signature === $chargify_webhook_signature || $bypass === true ) {
+	if ( ( $signature === $chargify_webhook_signature ) || ( $bypass === true ) ) {
 		return true;
 	}
 

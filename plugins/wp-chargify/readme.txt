@@ -66,6 +66,9 @@ We provide a number of WP-CLI commands that developers can use:
 `wp chargify log empty`             - Delete the Chargify API logs stored in WordPress.
 `wp chargify log list`              - List the Chargify API logs stored in WordPress.
 `wp chargify log get <id>`          - Get the details of an individual Chargify API log stored in WordPress.
+`wp chargify account empty`         - Delete the Chargify account stored in WordPress.
+`wp chargify account list`          - List the Chargify account stored in WordPress.
+`wp chargify account get <id>`      - Get the details of an individual Chargify account stored in WordPress.
 
 == Screenshots ==
 
