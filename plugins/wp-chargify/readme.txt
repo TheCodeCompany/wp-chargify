@@ -64,6 +64,8 @@ We provide a number of WP-CLI commands that developers can use:
 `wp chargify product get <id>`      - Get the details of an individual product.
 `wp chargify product empty`         - Delete the Chargify Products stored in WordPress.
 `wp chargify log empty`             - Delete the Chargify API logs stored in WordPress.
+`wp chargify log list`              - List the Chargify API logs stored in WordPress.
+`wp chargify log get <id>`          - Get the details of an individual Chargify API log stored in WordPress.
 
 == Screenshots ==
 
