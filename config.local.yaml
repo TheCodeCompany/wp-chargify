@@ -12,9 +12,12 @@ extensions:
   - chassis/phpmyadmin
   - chassis/chassis_openssl
   - chassis/phpcs
+  - chassis/pretty_permalinks
 composer:
     paths:
         - /vagrant/content/plugins/wp-chargify
     options: --prefer-source --dev
 phpunit:
   version: 5.7
+hostsupdater: yes
+permalink: '/%year%/%monthnum%/%day%/%postname%/'

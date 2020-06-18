@@ -16,10 +16,16 @@ A plugin to add a paywall for WordPress content that uses [Chargify](https://www
 1. Change into the newly cloned folder: `cd chargify-plugin`.
 1. Clone this repo into a content folder: `git clone https://github.com/TheCodeCompany/wp-chargify.git content`.
 1. Copy `local-config-sample.php` and rename it to `local-config.php`. Use this file to define and PHP constants you need for the project.
+1. Run `vagrant plugin install vagrant-hostsupdater` to install the Vagrant Hostsupdater plugin.
 1. Run Vagrant `vagrant up`.
 1. Visit [http://chargify.local](http://chargify.local) to see the frontend of the site.
 1. Login to the [admin](http://chargify.local/wp/wp-admin) using username: `admin` and password: `password`.
 1. Profit!
+
+### Linux Users
+
+If you're a Linux user you will need to do the following extra step:
+1. Run `sudo apt-get install avahi-dnsconfd` in your terminal to install Avahi.
 
 ## Git Hooks
 
