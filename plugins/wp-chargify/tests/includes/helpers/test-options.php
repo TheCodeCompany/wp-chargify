@@ -1,5 +1,6 @@
 <?php
 use Chargify\Helpers\Options;
+use Chargify\Admin\Helpers;
 
 class Test_Option_Helpers extends WP_UnitTestCase {
 	public function setUp(){
@@ -106,6 +107,14 @@ class Test_Option_Helpers extends WP_UnitTestCase {
 		$subdomain = Options\get_subdomain();
 		# Because CHARGIFY_PRODUCTION_SUBDOMAIN is defined and CHARGIFY_MODE is set to live.
 		$this->assertEquals( 'https://yourproductionsubdomain.chargify.com', $subdomain );
+	}
+
+	function test_delete_options() {
+		$settings = get_option( 'chargify_settings' );
+		$this->assertNotEmpty( $settings );
+		Helpers\delete_settings();
+		$settings = get_option( 'chargify_settings' );
+		$this->assertEmpty( $settings );
 	}
 
 	public function tearDown(){
