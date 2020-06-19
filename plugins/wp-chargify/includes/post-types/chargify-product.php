@@ -39,7 +39,7 @@ function chargify_product_init() {
 		'hierarchical'          => false,
 		'show_ui'               => $show_products,
 		'show_in_nav_menus'     => false,
-		'supports'              => [ 'title', 'editor' ],
+		'supports'              => [ 'title', 'editor', 'revisions' ],
 		'has_archive'           => true,
 		'rewrite'               => true,
 		'query_var'             => true,

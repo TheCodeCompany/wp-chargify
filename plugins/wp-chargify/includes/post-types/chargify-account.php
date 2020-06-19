@@ -39,7 +39,7 @@ function chargify_account_init() {
 		'hierarchical'          => false,
 		'show_ui'               => $show_accounts,
 		'show_in_nav_menus'     => false,
-		'supports'              => [ 'title' ],
+		'supports'              => [ 'title', 'revisions' ],
 		'has_archive'           => true,
 		'rewrite'               => true,
 		'query_var'             => true,
