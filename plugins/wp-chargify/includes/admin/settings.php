@@ -27,9 +27,6 @@ function register_chargify_options_metabox() {
 
 	$products_options = new_cmb2_box( $args );
 
-	/**
-	 * A placeholder for when we add the Products options later.
-	 */
 	$products_options->add_field( [
 		'name' => __( 'Chargify Products', 'chargify' ),
 		'desc' => __( 'Select the Chargify Products you want to import below.', 'chargify' ),
@@ -69,6 +66,13 @@ function register_chargify_options_metabox() {
 	$settings_options = new_cmb2_box( $args );
 
 	$settings_options->add_field( [
+		'name' => __( 'Chargify Settings', 'chargify' ),
+		'desc' => __( 'Login to your Chargify account to locate these settings.', 'chargify' ),
+		'type' => 'title',
+		'id'   => 'chargify_products_title'
+	] );
+
+	$settings_options->add_field( [
 		'name' =>  __( 'Production API Key:', 'chargify' ),
 		'id'   => 'chargify_production_API_key',
 		'type' => 'text',
@@ -77,9 +81,9 @@ function register_chargify_options_metabox() {
 	$settings_options->add_field( [
 		'name'       =>  __( 'Production subdomain:', 'chargify' ),
 		'id'         => 'chargify_production_subdomain',
-		'default'    => 'https://productionsubdomain.chargify.com',
 		'attributes' => [
-			'class' => 'cmb2-text-url regular-text',
+			'class'       => 'cmb2-text-url regular-text',
+			'placeholder' => 'https://productionsubdomain.chargify.com',
 		],
 		'type'       => 'text_url',
 		'protocols'  => [ 'http', 'https' ],
@@ -100,9 +104,9 @@ function register_chargify_options_metabox() {
 	$settings_options->add_field( [
 		'name'       =>  __( 'Test subdomain:', 'chargify' ),
 		'id'         => 'chargify_test_subdomain',
-		'default'    => 'https://testsubdomain.chargify.com',
 		'attributes' => [
-			'class' => 'cmb2-text-url regular-text',
+			'class'       => 'cmb2-text-url regular-text',
+			'placeholder' => 'https://testsubdomain.chargify.com',
 		],
 		'type'       => 'text_url',
 		'protocols'  => [ 'http', 'https' ],
