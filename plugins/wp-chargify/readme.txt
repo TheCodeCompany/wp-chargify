@@ -70,6 +70,12 @@ We provide a number of WP-CLI commands that developers can use:
 `wp chargify account list`          - List the Chargify account stored in WordPress.
 `wp chargify account get <id>`      - Get the details of an individual Chargify account stored in WordPress.
 
+= What about revisions? =
+
+We support revisions on the Product and Account custom post types. If you would like to enable support for meta field
+revisions then we recommend you install [WP Post Meta Revisions](https://wordpress.org/plugins/wp-post-meta-revisions/)
+and add a function to support revisions for the meta fields you would like to track.
+
 == Screenshots ==
 
 1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
