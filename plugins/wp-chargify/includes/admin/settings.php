@@ -79,7 +79,7 @@ function register_chargify_options_metabox() {
 	] );
 
 	$settings_options->add_field( [
-		'name'       =>  __( 'Production subdomain:', 'chargify' ),
+		'name'       =>  __( 'Production Subdomain:', 'chargify' ),
 		'id'         => 'chargify_production_subdomain',
 		'attributes' => [
 			'class'       => 'cmb2-text-url regular-text',
@@ -102,7 +102,7 @@ function register_chargify_options_metabox() {
 	] );
 
 	$settings_options->add_field( [
-		'name'       =>  __( 'Test subdomain:', 'chargify' ),
+		'name'       =>  __( 'Test Subdomain:', 'chargify' ),
 		'id'         => 'chargify_test_subdomain',
 		'attributes' => [
 			'class'       => 'cmb2-text-url regular-text',
