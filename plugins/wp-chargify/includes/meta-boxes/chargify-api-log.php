@@ -43,6 +43,15 @@ function add_api_log_metaboxes() {
 		'id'         => '_chargify_response_headers',
 		'type'       => 'chargify_code',
 		'save_field' => false,
+		'show_on_cb' => __NAMESPACE__ . '\\maybe_show_response_headers',
+	] );
+
+	$payload->add_field( [
+		'name'       => __( 'Request Headers', 'chargify' ),
+		'id'         => '_chargify_request_headers',
+		'type'       => 'chargify_code',
+		'save_field' => false,
+		'show_on_cb' => __NAMESPACE__ . '\\maybe_show_request_headers',
 	] );
 
 	$payload->add_field( [
@@ -50,6 +59,23 @@ function add_api_log_metaboxes() {
 		'id'         => '_chargify_response_body',
 		'type'       => 'chargify_code',
 		'save_field' => false,
+		'show_on_cb' => __NAMESPACE__ . '\\maybe_show_response_body',
+	] );
+
+	$payload->add_field( [
+		'name'       => __( 'Request Body', 'chargify' ),
+		'id'         => '_chargify_request_body',
+		'type'       => 'chargify_code',
+		'save_field' => false,
+		'show_on_cb' => __NAMESPACE__ . '\\maybe_show_request_body',
+	] );
+
+	$payload->add_field( [
+		'name'       => __( 'Error', 'chargify' ),
+		'id'         => '_chargify_error',
+		'type'       => 'chargify_code',
+		'save_field' => false,
+		'show_on_cb' => __NAMESPACE__ . '\\maybe_show_error',
 	] );
 
 	$payload->add_field( [
@@ -57,7 +83,9 @@ function add_api_log_metaboxes() {
 		'id'         => '_chargify_payload',
 		'type'       => 'chargify_code',
 		'save_field' => false,
+		'show_on_cb' => __NAMESPACE__ . '\\maybe_show_payload',
 	] );
+
 
 	$payload->add_field( [
 		'name'       => __( 'Event ID', 'chargify' ),
@@ -176,7 +204,7 @@ function maybe_show_event_id ( $field ) {
 }
 
 /**
- * Determine if we should show the Event.
+ * Determine if we should show the event.
  *
  * @param $field
  * @return bool
@@ -192,7 +220,7 @@ function maybe_show_event ( $field ) {
 }
 
 /**
- * Determine if we should show the Status.
+ * Determine if we should show the status.
  *
  * @param $field
  * @return bool
@@ -201,6 +229,102 @@ function maybe_show_status ( $field ) {
 	$meta = get_post_meta( $field->object_id, '_chargify_status', true );
 
 	if ( empty( $meta ) ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Determine if we should show the payload.
+ *
+ * @param $field
+ * @return bool
+ */
+function maybe_show_payload ( $field ) {
+	$meta = get_post_meta( $field->object_id, '_chargify_payload', true );
+
+	if ( empty( $meta ) || '[]' === $meta ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Determine if we should show the response headers.
+ *
+ * @param $field
+ * @return bool
+ */
+function maybe_show_response_headers ( $field ) {
+	$meta = get_post_meta( $field->object_id, '_chargify_response_headers', true );
+
+	if ( empty( $meta ) || '[]' === $meta ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Determine if we should show the response body.
+ *
+ * @param $field
+ * @return bool
+ */
+function maybe_show_response_body ( $field ) {
+	$meta = get_post_meta( $field->object_id, '_chargify_response_body', true );
+
+	if ( empty( $meta ) || '[]' === $meta ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Determine if we should show the request body.
+ *
+ * @param $field
+ * @return bool
+ */
+function maybe_show_request_body ( $field ) {
+	$meta = get_post_meta( $field->object_id, '_chargify_request_body', true );
+
+	if ( empty( $meta ) || '[]' === $meta ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Determine if we should show the request headers.
+ *
+ * @param $field
+ * @return bool
+ */
+function maybe_show_request_headers ( $field ) {
+	$meta = get_post_meta( $field->object_id, '_chargify_request_headers', true );
+
+	if ( empty( $meta ) || '[]' === $meta ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Determine if we should show the error.
+ *
+ * @param $field
+ * @return bool
+ */
+function maybe_show_error ( $field ) {
+	$meta = get_post_meta( $field->object_id, '_chargify_error', true );
+
+	if ( empty( $meta ) || '[]' === $meta ) {
 		return false;
 	}
 
