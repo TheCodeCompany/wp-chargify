@@ -162,10 +162,22 @@ function get_api_key() {
  */
 function get_subdomain() {
 	if ( 'live' === get_mode() ) {
+		$subdomain = get_production_subdomain();
+
+		if ( is_wp_error( $subdomain ) ) {
+			return $subdomain;
+		}
+
 		return untrailingslashit( get_production_subdomain() );
 	}
 
-	return untrailingslashit( get_test_subdomain() );
+	$subdomain = get_test_subdomain();
+
+	if ( is_wp_error( $subdomain ) ) {
+		return $subdomain;
+	}
+
+	return untrailingslashit( $subdomain );
 }
 
 /**

@@ -43,7 +43,12 @@ function get_product_values() {
 
 	# GET the products from Chargify and store them in WordPress.
 	$products = Product_Families\get_products();
-	$values   = wp_list_pluck( $products, 'name', 'id' );
+
+	# If we don't have an products return an empty array.
+	if ( is_wp_error( $products ) ) {
+		return [];
+	}
+	$values = wp_list_pluck( $products, 'name', 'id' );
 	return $values;
 }
 
