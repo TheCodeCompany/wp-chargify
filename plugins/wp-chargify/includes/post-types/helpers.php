@@ -55,36 +55,42 @@ function get_product_values() {
 /**
  * A function to clear all the Chargify Products in WordPress and pull them in again from Chargify.
  *
- * @param  mixed      $value      The unsanitised value from the form.
- * @param  array      $field_args Array of field arguments.
- * @param  CMB2_Field $field      The field object
  * @return bool
  */
-function resync_products( $value = '', $field_args = '', $field = '' ) {
-	if ( $value === "on" || defined( 'WP_CLI' ) ) {
-		# Delete options
-		delete_option('chargify_products_all');
+function resync_products() {
+	# Delete options
+	delete_option('chargify_products_all');
 
-		# Delete Products CPT's
-		$products = new \WP_Query( [ 'post_type' => 'chargify_product' ] );
+	# Delete Products CPT's
+	$products = new \WP_Query( [ 'post_type' => 'chargify_product' ] );
 
-		if ( $products->have_posts() ) {
-			while ( $products->have_posts() ) {
-				$products->the_post();
-				wp_delete_post( get_the_ID(), true );
-			}
-			# We need to tell WP-CLI we successfully deleted posts.
-			if ( defined( 'WP_CLI' ) ) {
-				return true;
-			} else {
-			# We never want to save the CMB2 option.
-				return false;
-			}
+	if ( $products->have_posts() ) {
+		while ( $products->have_posts() ) {
+			$products->the_post();
+			wp_delete_post( get_the_ID(), true );
+		}
+		# We need to tell WP-CLI we successfully deleted posts.
+		if ( defined( 'WP_CLI' ) ) {
+			return true;
+		} else {
+		# We never want to save the CMB2 option.
+			return false;
 		}
 	}
+}
 
-	# We never want to save the CMB2 option.
-	return false;
+function sync_message( $cmb, $args ) {
+	if ( ! empty( $args['should_notify'] ) &&  $args['is_updated'] === true ) {
+		// Modify the updated message.
+		$args['message'] = __( 'The Chargify products have been resynced.', 'chargify' );
+
+		add_settings_error( $args['setting'], $args['code'], $args['message'], $args['type'] );
+	} else {
+		// Modify the updated message.
+		$args['message'] = __( 'Nothing to update.', 'chargify' );
+
+		add_settings_error( $args['setting'], $args['code'], $args['message'], $args['type'] );
+	}
 }
 
 function update_product( $payload ) {

@@ -23,6 +23,7 @@ function register_chargify_options_metabox() {
 		'tab_group'    => 'chargify_options',
 		'tab_title'    => __( 'Products', 'chargify' ),
 		'icon_url'     => 'dashicons-products',
+		'message_cb'   => 'Chargify\\Post_Types\\Helpers\\sync_message',
 	];
 
 	$products_options = new_cmb2_box( $args );
@@ -47,7 +48,6 @@ function register_chargify_options_metabox() {
 		'desc'            => __( 'Select this checkbox and click "Save Changes" to trigger a resync of your Chargify products.' ),
 		'id'              => 'chargify_resync_products',
 		'type'            => 'checkbox',
-		'sanitization_cb' => 'Chargify\\Post_Types\\Helpers\\resync_products',
 	]);
 
 	/**
