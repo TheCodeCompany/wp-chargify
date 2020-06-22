@@ -80,12 +80,12 @@ function resync_products() {
 }
 
 function sync_message( $cmb, $args ) {
-	if ( ! empty( $args['should_notify'] ) &&  $args['is_updated'] === true ) {
+	if ( ! empty( $args['should_notify'] ) && true === $args['is_updated'] && true === $args['is_options_page'] ) {
 		// Modify the updated message.
 		$args['message'] = __( 'The Chargify products have been resynced.', 'chargify' );
 
 		add_settings_error( $args['setting'], $args['code'], $args['message'], $args['type'] );
-	} else {
+	} elseif ( true === $args['is_options_page'] ) {
 		// Modify the updated message.
 		$args['message'] = __( 'Nothing to update.', 'chargify' );
 
