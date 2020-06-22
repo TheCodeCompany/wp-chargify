@@ -15,6 +15,10 @@ function get_production_api_key() {
 
 	$production_key = cmb2_get_option( 'chargify_settings', 'chargify_production_API_key' );
 
+	if ( false === $production_key ) {
+		return new \WP_Error( 'chargify_settings_error', __( 'Please enter a Production API Key in the Chargify settings.', 'chargify' ), [ 'status' => '400' ] );
+	}
+
 	return $production_key;
 }
 
@@ -30,6 +34,10 @@ function get_production_subdomain() {
 	}
 
 	$production_subdomain = cmb2_get_option( 'chargify_settings', 'chargify_production_subdomain' );
+
+	if ( false === $production_subdomain ) {
+		return new \WP_Error( 'chargify_settings_error', __( 'Please enter a Production subdomain in the Chargify settings.', 'chargify' ), [ 'status' => '400' ]  );
+	}
 
 	return $production_subdomain;
 }
@@ -47,6 +55,10 @@ function get_production_shared_key() {
 
 	$production_shared_key = cmb2_get_option( 'chargify_settings', 'chargify_production_shared_key' );
 
+	if ( false === $production_shared_key ) {
+		return new \WP_Error( 'chargify_settings_error', __( 'Please enter a Production Shared Key in the Chargify settings.', 'chargify' ), [ 'status' => '400' ]  );
+	}
+
 	return $production_shared_key;
 }
 
@@ -62,6 +74,10 @@ function get_test_api_key() {
 	}
 
 	$test_key = cmb2_get_option( 'chargify_settings', 'chargify_test_API_key' );
+
+	if ( false === $test_key ) {
+		return new \WP_Error( 'chargify_settings_error', __( 'Please enter a Test API Key in the Chargify settings.', 'chargify' ), [ 'status' => '400' ]  );
+	}
 
 	return $test_key;
 }
@@ -79,6 +95,10 @@ function get_test_subdomain() {
 
 	$test_subdomain = cmb2_get_option( 'chargify_settings', 'chargify_test_subdomain' );
 
+	if ( false === $test_subdomain ) {
+		return new \WP_Error( 'chargify_settings_error', __( 'Please enter a test subdomain in the Chargify settings.', 'chargify' ), [ 'status' => '400' ]  );
+	}
+
 	return $test_subdomain;
 }
 
@@ -95,6 +115,10 @@ function get_test_shared_key() {
 
 	$test_shared_key = cmb2_get_option( 'chargify_settings', 'chargify_test_shared_key' );
 
+	if ( false === $test_shared_key ) {
+		return new \WP_Error( 'chargify_settings_error', __( 'Please enter a Test Shared Key in the Chargify settings.', 'chargify' ), [ 'status' => '400' ]  );
+	}
+
 	return $test_shared_key;
 }
 
@@ -110,6 +134,10 @@ function get_mode(){
 	}
 
 	$chargify_mode = cmb2_get_option( 'chargify_settings', 'chargify_mode' );
+
+	if ( false === $chargify_mode ) {
+		return new \WP_Error( 'chargify_settings_error', __( 'Please enter a Mode in the Chargify settings.', 'chargify' ), [ 'status' => '400' ] );
+	}
 
 	return $chargify_mode;
 }
@@ -134,10 +162,22 @@ function get_api_key() {
  */
 function get_subdomain() {
 	if ( 'live' === get_mode() ) {
+		$subdomain = get_production_subdomain();
+
+		if ( is_wp_error( $subdomain ) ) {
+			return $subdomain;
+		}
+
 		return untrailingslashit( get_production_subdomain() );
 	}
 
-	return untrailingslashit( get_test_subdomain() );
+	$subdomain = get_test_subdomain();
+
+	if ( is_wp_error( $subdomain ) ) {
+		return $subdomain;
+	}
+
+	return untrailingslashit( $subdomain );
 }
 
 /**

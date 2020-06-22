@@ -10,6 +10,12 @@ use Chargify\Post_Types\Helpers;
  * @return string|array
  */
 function get_product_families() {
+	$subdomain = Options\get_subdomain();
+
+	if ( is_wp_error( $subdomain ) ) {
+		return $subdomain;
+	}
+
 	$request_endpoint = Options\get_subdomain() . '/product_families.json';
 	$request_headers  = Options\get_headers();
 	$request          = wp_safe_remote_get( $request_endpoint, $request_headers );

@@ -19,8 +19,8 @@ function route_request( \WP_REST_Request $request ) {
 	$verification               = verify_request( $request_body, $chargify_webhook_signature );
 
 	# See if the request is authenticate before we go any further.
-	if ( false === $verification ) {
-		return __( 'Unauthorized', 'chargify' );
+	if ( false === $verification || is_wp_error( $verification ) ) {
+		return new \WP_Error( 'chargify_settings_error', __( 'Unauthorised.', 'chargify' ), [ 'status' => '401' ] );
 	}
 
 	$request_endpoint = $request->get_route();
@@ -65,7 +65,7 @@ function route_request( \WP_REST_Request $request ) {
 			Helpers\update_product( $payload );
 			break;
 		default:
-			return $event;
+			return new \WP_Error( 'chargify_webhook', __( "No route found for the ${event} webhook", 'chargify' ), [ 'status' => 501 ] );
 	}
 }
 
@@ -80,7 +80,13 @@ function verify_request( $request_body, $chargify_webhook_signature ) {
 
 	$bypass = apply_filters( 'chargify_verify_request', false );
 
-	$signature = hash_hmac( 'sha256', $request_body, Options\get_shared_key() );
+	$shared_key = Options\get_shared_key();
+
+	if ( is_wp_error( $shared_key) ) {
+		return $shared_key;
+	}
+
+	$signature = hash_hmac( 'sha256', $request_body,  $shared_key );
 
 	if ( ( $signature === $chargify_webhook_signature ) || ( $bypass === true ) ) {
 		return true;

@@ -3,6 +3,18 @@ use Chargify\Helpers\Customers;
 class Test_Customer_Endpoints extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
+		# Setup some random options to test against.
+		$chargify_options = [
+			'chargify_production_API_key'    => '345345354t3erertsdfdsfg',
+			'chargify_production_subdomain'  => 'https://productionsubdomain.chargify.com',
+			'chargify_production_shared_key' => '456rtgfsrt456rsdsty456',
+			'chargify_test_API_key'          => '6787867867dfsdfgsfg',
+			'chargify_test_subdomain'        => 'https://testsubdomain.chargify.com',
+			'chargify_mode'                  => 'test',
+			'chargify_test_shared_key'       => '7856756ydsfgsdft345445'
+		];
+
+		add_option( 'chargify_settings', $chargify_options );
 		add_filter( 'chargify_verify_request', '__return_true' );
 	}
 
@@ -47,7 +59,7 @@ class Test_Customer_Endpoints extends WP_UnitTestCase {
 		$request = new WP_REST_Request( 'POST', sprintf( '/chargify/v1/webhook' ) );
 		$request->set_body_params( self::$data );
 
-		rest_get_server()->dispatch( $request );
+		$response = rest_get_server()->dispatch( $request );
 
 		$customer_created = Chargify\Helpers\Customers\get_account_details_from_email( 'john@example.com' );
 
