@@ -35,6 +35,7 @@ function add_api_log_metaboxes() {
 		'attributes' => [
 			'readonly' => 'readonly',
 		],
+		'show_on_cb' => __NAMESPACE__ . '\\maybe_show_status',
 	] );
 
 	$payload->add_field( [
@@ -66,6 +67,7 @@ function add_api_log_metaboxes() {
 		'attributes' => [
 			'readonly' => 'readonly',
 		],
+		'show_on_cb' => __NAMESPACE__ . '\\maybe_show_event_id',
 	] );
 
 	$payload->add_field( [
@@ -76,6 +78,7 @@ function add_api_log_metaboxes() {
 		'attributes' => [
 			'readonly' => 'readonly',
 		],
+		'show_on_cb' => __NAMESPACE__ . '\\maybe_show_event',
 	] );
 }
 
@@ -154,4 +157,52 @@ function render_chargify_code( $field, $selected_value, $obj_id, $obj_type, $fie
 		esc_attr( $field_id ),
 		esc_html( $selected_value )
 	);
+}
+
+/**
+ * Determine if we should show the Event ID.
+ *
+ * @param $field
+ * @return bool
+ */
+function maybe_show_event_id ( $field ) {
+	$meta = get_post_meta( $field->object_id, '_chargify_event_id', true );
+
+	if ( empty( $meta ) ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Determine if we should show the Event.
+ *
+ * @param $field
+ * @return bool
+ */
+function maybe_show_event ( $field ) {
+	$meta = get_post_meta( $field->object_id, '_chargify_event', true );
+
+	if ( empty( $meta ) ) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Determine if we should show the Status.
+ *
+ * @param $field
+ * @return bool
+ */
+function maybe_show_status ( $field ) {
+	$meta = get_post_meta( $field->object_id, '_chargify_status', true );
+
+	if ( empty( $meta ) ) {
+		return false;
+	}
+
+	return true;
 }
