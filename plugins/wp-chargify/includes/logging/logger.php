@@ -10,10 +10,11 @@ namespace Chargify\Logging\Logger;
  * @param $type             string     The type of request. e.g. 'REST' or 'webhook'.
  * @param $response_body    array      The data that the REST API endpoint returned.
  * @param $payload          array      The data we received in the request.
+ * @param $error            mixed      Any errors we received.
  * @param $event			string     The type of event we receieved in the request.
  * @param $event_id         int|string The unique event ID in Chargify.
  */
-function logger( $request_endpoint, $response_status, $response_headers, $type, $response_body = [], $payload = [], $event = '', $event_id = '') {
+function logger( $request_endpoint, $response_status, $response_headers, $type, $response_body = [], $payload = [], $error = [], $event = '', $event_id = '') {
 	$log_id = wp_insert_post(
 		[
 			'post_type'   => 'chargify_api_log',
@@ -25,9 +26,10 @@ function logger( $request_endpoint, $response_status, $response_headers, $type, 
 	update_post_meta( $log_id, '_chargify_endpoint', esc_url_raw( $request_endpoint ) );
 	update_post_meta( $log_id, '_chargify_status', absint( $response_status ) );
 	update_post_meta( $log_id, '_chargify_response_headers', wp_json_encode( $response_headers, JSON_PRETTY_PRINT ) );
-	update_post_meta( $log_id, '_chargify_response_body',  $response_body );
-	update_post_meta( $log_id, '_chargify_payload',  wp_json_encode( $payload, JSON_PRETTY_PRINT ) );
-	update_post_meta( $log_id, '_chargify_event_id',  $event_id );
-	update_post_meta( $log_id, '_chargify_event',  esc_textarea( $event) );
+	update_post_meta( $log_id, '_chargify_response_body', $response_body );
+	update_post_meta( $log_id, '_chargify_payload', wp_json_encode( $payload, JSON_PRETTY_PRINT ) );
+	update_post_meta( $log_id, '_chargify_event_id', $event_id );
+	update_post_meta( $log_id, '_chargify_event', esc_textarea( $event ) );
+	update_post_meta( $log_id, '_chargify_error', wp_json_encode( $error, JSON_PRETTY_PRINT ) );
 
 }

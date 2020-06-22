@@ -3,6 +3,7 @@ namespace Chargify\Chargify\Endpoints\Product_Families;
 
 use Chargify\Helpers\Options;
 use Chargify\Post_Types\Helpers;
+use WP_Error;
 
 /**
  * A function to request all of the product families that are in Chargify.
@@ -13,6 +14,19 @@ function get_product_families() {
 	$subdomain = Options\get_subdomain();
 
 	if ( is_wp_error( $subdomain ) ) {
+		/**
+		 * A function to log requests send to the Chargify Product Families endpoints.
+		 *
+		 * @param $request_endpoint string     The URL we are sending the request to.
+		 * @param $response_status  int        The HTTP status code that the endpoint responded with.
+		 * @param $response_headers array      The headers that the REST API endpoint returned.
+		 * @param $type             string     The type of request. e.g. 'REST' or 'webhook'.
+		 * @param $response_body    array      The data that the REST API endpoint returned.
+		 * @param $payload          array      The data we received in the request.
+		 * @param $event			string     The type of event we receieved in the request.
+		 * @param $event_id         int|string The unique event ID in Chargify.
+		 */
+		do_action( 'chargify\log_request', '/product_families.json', '400', [], 'REST', [], [], $subdomain );
 		return $subdomain;
 	}
 
@@ -44,6 +58,8 @@ function get_product_families() {
 	}
 
 	$json = json_decode( $response_body, true );
+
+	$product_families = [];
 
 	foreach ( $json as $family ) {
 		$product_families[] = $family['product_family'];
