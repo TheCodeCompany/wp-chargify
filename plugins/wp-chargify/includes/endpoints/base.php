@@ -17,15 +17,34 @@ function route_request( \WP_REST_Request $request ) {
 	$request_body               = $request->get_body();
 	$chargify_webhook_signature = $request->get_header( 'x_chargify_webhook_signature_hmac_sha_256' );
 	$verification               = verify_request( $request_body, $chargify_webhook_signature );
+	$request_endpoint = $request->get_route();
+	$response_headers = $request->get_headers();
 
 	# See if the request is authenticate before we go any further.
 	if ( false === $verification || is_wp_error( $verification ) ) {
-		return new \WP_Error( 'chargify_settings_error', __( 'Unauthorised.', 'chargify' ), [ 'status' => '401' ] );
+		$error = new \WP_Error( 'chargify_settings_error', __( 'Unauthorised.', 'chargify' ), [ 'status' => '401' ] );
+		/**
+		 * A function to log requests send to the Chargify Product Families endpoints.
+		 *
+		 * @param $request_endpoint string The URL we are sending the request to.
+		 * @param $response_status  int    The HTTP status code that the endpoint responded with.
+		 * @param $response_headers array  The headers that the REST API endpoint returned.
+		 * @param $response_body    array  The data that the REST API endpoint returned.
+		 * @param $type             string The type of request. e.g. 'REST' or 'webhook'.
+		 * @param $payload          array  The data we received in the request.
+		 * @param $error          array  The data we received in the request.
+		 * @param $event			string The type of event we receieved in the request.
+		 * @param $event_id         int    The unique event ID in Chargify.
+		 */
+		do_action( 'chargify\log_request', $request_endpoint, '400', (array) $response_headers, 'REST', $request_body, $payload = '', $error );
+
+		return $error;
 	}
 
-	$request_endpoint = $request->get_route();
-	$response_headers = $request->get_headers();
+
+
 	$response_status  = 200;
+	$error            = false;
 
 	$event            = $request->get_param( 'event' );
 	$event_id         = $request->get_param( 'id' );
@@ -41,10 +60,11 @@ function route_request( \WP_REST_Request $request ) {
 	 * @param $response_body    array  The data that the REST API endpoint returned.
 	 * @param $type             string The type of request. e.g. 'REST' or 'webhook'.
 	 * @param $payload          array  The data we received in the request.
+	 * @param $error          array  The data we received in the request.
 	 * @param $event			string The type of event we receieved in the request.
 	 * @param $event_id         int    The unique event ID in Chargify.
 	 */
-	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, "Webhook - ${event}", $request_body, $payload, $event, $event_id );
+	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, "Webhook - ${event}", $request_body, $payload, $error, $event, $event_id );
 
 	switch ( $event ) {
 		case 'customer_update':

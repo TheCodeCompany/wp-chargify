@@ -1,6 +1,7 @@
 <?php
 namespace Chargify\Post_Types\Helpers;
 use Chargify\Chargify\Endpoints\Product_Families;
+use Chargify\Post_Types\Helpers;
 
 function populate_product_post_types( $products ) {
 	# Save all the products to an option
@@ -77,15 +78,18 @@ function resync_products() {
 			return false;
 		}
 	}
+
 }
 
 function sync_message( $cmb, $args ) {
-	if ( ! empty( $args['should_notify'] ) &&  $args['is_updated'] === true ) {
+	if ( ! empty( $args['should_notify'] ) && true === $args['is_updated'] && true === $args['is_options_page'] ) {
+		Helpers\resync_products();
+		Product_Families\get_products();
 		// Modify the updated message.
 		$args['message'] = __( 'The Chargify products have been resynced.', 'chargify' );
 
 		add_settings_error( $args['setting'], $args['code'], $args['message'], $args['type'] );
-	} else {
+	} elseif ( true === $args['is_options_page'] ) {
 		// Modify the updated message.
 		$args['message'] = __( 'Nothing to update.', 'chargify' );
 
