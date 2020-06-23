@@ -2,7 +2,7 @@
 namespace Chargify\Forms\Signup;
 
 function chargify_signup_form() {
-	$metabox_id = 'chargify_signup_form';
+	$metabox_id = 'chargify_customer_details_form';
 
 	# Just a placeholder object id.
 	$object_id  = 'temp-object-id';

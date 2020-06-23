@@ -3,7 +3,7 @@ namespace Chargify\Forms\Customer_Details;
 
 function register_customer_details_form() {
 	$customer_details = new_cmb2_box( [
-		'id'           => 'chargify_signup_form',
+		'id'           => 'chargify_customer_details_form',
 		'object_types' => [ 'chargify_account' ],
 		'hookup'       => false,
 		'save_fields'  => false,
