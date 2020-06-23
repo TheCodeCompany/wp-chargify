@@ -32,6 +32,7 @@ require_once( 'includes/chargify/customers/namespace.php' );
 require_once( 'includes/chargify/renewal/namespace.php' );
 require_once( 'includes/chargify/subscription/namespace.php' );
 require_once( 'includes/endpoints/base.php' );
+require_once( 'includes/forms/customer_details.php' );
 require_once( 'includes/forms/signup.php' );
 require_once( 'includes/helpers/options.php' );
 require_once( 'includes/helpers/customers.php' );
