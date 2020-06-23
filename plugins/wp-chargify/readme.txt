@@ -44,6 +44,7 @@ We provide a number of optional filters you can use:
 `chargify_show_products` - Set this to `false` to hide the Products custom post type.
 `chargify_show_api_logs` - Set this to `false` to hide the API logs custom post type.
 `chargify_generate_password` - Alter the password generation.
+`chargify_customer_details_form` - Filter the Customer Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
 
 = What developer functions can I use? =
 
