@@ -2,21 +2,21 @@
 namespace Chargify\Forms\Signup;
 
 function register_customer_details_form() {
-	$signup_form = new_cmb2_box( [
+	$customer_details = new_cmb2_box( [
 		'id'           => 'chargify_signup_form',
 		'object_types' => [ 'chargify_account' ],
 		'hookup'       => false,
 		'save_fields'  => false,
 	]);
 
-	$signup_form->add_field( array(
+	$customer_details->add_field( array(
 		'name' => __( 'Customer Details', 'chargify' ),
 		'desc' => __( 'Please enter your details below', 'chargify' ),
 		'type' => 'title',
 		'id'   => 'chargify_customer_details_title'
 	) );
 
-	$signup_form->add_field( [
+	$customer_details->add_field( [
 		'name'       => __( 'First Name', 'chargify' ),
 		'id'         => 'chargify_first_name',
 		'type'       => 'text',
@@ -26,7 +26,7 @@ function register_customer_details_form() {
 		]
 	]);
 
-	$signup_form->add_field( [
+	$customer_details->add_field( [
 		'name'       => __( 'Last Name', 'chargify' ),
 		'id'         => 'chargify_last_name',
 		'type'       => 'text',
@@ -36,7 +36,7 @@ function register_customer_details_form() {
 		]
 	]);
 
-	$signup_form->add_field([
+	$customer_details->add_field([
 		'name'       => __( 'Email Address', 'chargify' ),
 		'id'         => 'chargify_email_address',
 		'type'       => 'text_email',
@@ -46,7 +46,7 @@ function register_customer_details_form() {
 		]
 	]);
 
-	$signup_form->add_field([
+	$customer_details->add_field([
 		'name'       => __( 'CC Emails', 'chargify' ),
 		'id'         => 'chargify_cc_emails',
 		'type'       => 'text_email',
@@ -56,7 +56,7 @@ function register_customer_details_form() {
 		]
 	]);
 
-	$signup_form->add_field( [
+	$customer_details->add_field( [
 		'name'       => __( 'Organisation', 'chargify' ),
 		'id'         => 'chargify_organisation',
 		'type'       => 'text_medium',
@@ -66,7 +66,7 @@ function register_customer_details_form() {
 		]
 	]);
 
-	$signup_form->add_field( [
+	$customer_details->add_field( [
 		'name'       => __( 'Address Line 1', 'chargify' ),
 		'id'         => 'chargify_address_1',
 		'type'       => 'text',
@@ -76,7 +76,7 @@ function register_customer_details_form() {
 		]
 	]);
 
-	$signup_form->add_field( [
+	$customer_details->add_field( [
 		'name'       => __( 'Address Line 2', 'chargify' ),
 		'id'         => 'chargify_address_2',
 		'type'       => 'text',
@@ -86,7 +86,7 @@ function register_customer_details_form() {
 		]
 	]);
 
-	$signup_form->add_field( [
+	$customer_details->add_field( [
 		'name'       => __( 'City / Town', 'chargify' ),
 		'id'         => 'chargify_city',
 		'type'       => 'text',
@@ -96,7 +96,7 @@ function register_customer_details_form() {
 		]
 	]);
 
-	$signup_form->add_field( [
+	$customer_details->add_field( [
 		'name'       => __( 'State / Province / Region', 'chargify' ),
 		'id'         => 'chargify_state',
 		'type'       => 'text',
@@ -106,7 +106,7 @@ function register_customer_details_form() {
 		]
 	]);
 
-	$signup_form->add_field( [
+	$customer_details->add_field( [
 		'name'       => __( 'Zip / Post Code', 'chargify' ),
 		'id'         => 'chargify_zip',
 		'type'       => 'text',
@@ -116,7 +116,7 @@ function register_customer_details_form() {
 		]
 	]);
 
-	$signup_form->add_field( [
+	$customer_details->add_field( [
 		'name'       => __( 'Country', 'chargify' ),
 		'id'         => 'chargify_country',
 		'type'       => 'text',
@@ -127,7 +127,7 @@ function register_customer_details_form() {
 	]);
 
 	# Filter the Customer Details form
-	apply_filters( 'chargify_customer_details_form', $signup_form );
+	apply_filters( 'chargify_customer_details_form', $customer_details );
 
 }
 
