@@ -55,9 +55,9 @@ function register_payment_fields( $signup_form ) {
 		'name'       => __( 'Expiry Year', 'chargify' ),
 		'id'         => 'chargify_payment_expiry_year',
 		'type'       => 'text',
-		'desc'       => __( 'The expiration year of the card.', 'chargify' ),
+		'desc'       => __( 'The expiration year of the card. e.g. 2025', 'chargify' ),
 		'attributes' => [
-			'placeholder' => __( '25', 'chargify' ),
+			'placeholder' => __( '2025', 'chargify' ),
 			'type'        => 'number',
 		]
 	]);
