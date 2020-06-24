@@ -46,7 +46,7 @@ function register_payment_fields( $signup_form ) {
 		'type'       => 'text',
 		'desc'       => __( 'The expiration month of the card.', 'chargify' ),
 		'attributes' => [
-			'placeholder' => __( '09', 'chargify' ),
+			'placeholder' => __( 'MM', 'chargify' ),
 			'type'        => 'number',
 		]
 	]);
@@ -57,7 +57,7 @@ function register_payment_fields( $signup_form ) {
 		'type'       => 'text',
 		'desc'       => __( 'The expiration year of the card. e.g. 2025', 'chargify' ),
 		'attributes' => [
-			'placeholder' => __( '2025', 'chargify' ),
+			'placeholder' => __( 'YYYY', 'chargify' ),
 			'type'        => 'number',
 		]
 	]);
@@ -68,7 +68,7 @@ function register_payment_fields( $signup_form ) {
 		'type'       => 'text',
 		'desc'       => __( 'The  of the Card Verification Value.', 'chargify' ),
 		'attributes' => [
-			'placeholder' => __( '123', 'chargify' ),
+			'placeholder' => __( 'CVV', 'chargify' ),
 			'type'        => 'number',
 		]
 	]);
