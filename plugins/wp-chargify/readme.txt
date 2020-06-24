@@ -25,6 +25,10 @@ A plugin to add Chargify payments to your WordPress site.
 
 This plugin is not endorsed by Chargify. It is built and maintained by [The Code Company](https://thecode.co/).
 
+= What shortcodes can I use? =
+
+`[chargify-signup-form]` - Will render a sign up form.
+
 = What PHP constants can I use? =
 
 We provide a number of optional PHP constants developers can use to override any of the Chargify options that are stored in the database.
@@ -44,7 +48,11 @@ We provide a number of optional filters you can use:
 `chargify_show_products` - Set this to `false` to hide the Products custom post type.
 `chargify_show_api_logs` - Set this to `false` to hide the API logs custom post type.
 `chargify_generate_password` - Alter the password generation.
-`chargify_customer_details_form` - Filter the Customer Details form field. Use `$customer_details->add_field` and `$customer_details->remove_field` to add and/or remove fields.
+`chargify_customer_details_fields` - Filter the Customer Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+`chargify_account_details_fields` - Filter the Account Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+`chargify_customer_billing_fields` - Filter the Customer Billing Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+`chargify_coupon_fields` - Filter the Coupon Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+`chargify_payment_fields` - Filter the Coupon Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
 
 = What developer functions can I use? =
 

@@ -22,7 +22,8 @@ function bootstrap() {
 	add_action( 'cmb2_render_chargify_code', 'Chargify\\Meta_Boxes\\API_Log\\render_chargify_code', 10, 5 );
 	add_action( 'chargify\log_request',      'Chargify\\Logging\\Logger\\logger', 10, 9 );
 	add_action( 'rest_api_init',             'Chargify\\Endpoints\\Base\\register_customer_update_webhook' );
-	add_action( 'cmb2_init',                 'Chargify\\Forms\\Customer_Details\\register_customer_details_form' );
+	add_action( 'cmb2_init',                 'Chargify\\Forms\\Signup\\chargify_signup_form' );
+	add_action( 'cmb2_render_text_password', 'Chargify\\Forms\\Password\\render_callback_for_password', 10, 5 );
 	add_shortcode( 'chargify-signup-form', 'Chargify\\Forms\\Signup\\chargify_signup_form' );
 }
 
