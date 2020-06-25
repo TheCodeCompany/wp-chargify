@@ -53,6 +53,7 @@ We provide a number of optional filters you can use:
 `chargify_customer_billing_fields` - Filter the Customer Billing Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
 `chargify_coupon_fields` - Filter the Coupon Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
 `chargify_payment_fields` - Filter the Coupon Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+`chargify_signup_metafields` - A place to filter in any metafields you need to send to Chargify.
 
 = What developer functions can I use? =
 

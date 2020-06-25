@@ -61,6 +61,16 @@ function register_customer_details_fields( $signup_form ) {
 	]);
 
 	$signup_form->add_field( [
+		'name'       => __( 'Reference', 'chargify' ),
+		'id'         => 'chargify_billing_reference',
+		'type'       => 'text_medium',
+		'desc'       => __( 'Your billing reference.', 'chargify' ),
+		'attributes' => [
+			'placeholder' => __( 'Reference', 'chargify' ),
+		]
+	]);
+
+	$signup_form->add_field( [
 		'name'       => __( 'Address Line 1', 'chargify' ),
 		'id'         => 'chargify_address_1',
 		'type'       => 'text',

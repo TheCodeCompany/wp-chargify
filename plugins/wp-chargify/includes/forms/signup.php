@@ -5,6 +5,7 @@ use Chargify\Forms\Account_Details;
 use Chargify\Forms\Billing_Details;
 use Chargify\Forms\Payment_Details;
 use Chargify\Forms\Coupon_Details;
+use Chargify\Forms\Submission;
 
 function chargify_signup_form() {
 
@@ -27,6 +28,8 @@ function chargify_signup_form() {
 	$customer_details_object_id  = 'temp-signup-object-id';
 
 	$form = cmb2_get_metabox( $signup_form_id, $customer_details_object_id );
+
+	$create_subscription = Submission\create_subscription( $form );
 
 	$signup_form_args = apply_filters( 'chargify_signup_form_args', [ 'save_button' => __( 'Signup', 'chargify' ) ] );
 
