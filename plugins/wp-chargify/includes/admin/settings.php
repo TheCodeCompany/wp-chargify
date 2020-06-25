@@ -126,7 +126,6 @@ function register_chargify_options_metabox() {
 			'test' => __( 'Test', 'chargify' ),
 			'live' => __( 'Live', 'chargify' ),
 		],
-		'default' => 'test',
 	] );
 
 }
