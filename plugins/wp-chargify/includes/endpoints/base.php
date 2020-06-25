@@ -72,7 +72,7 @@ function route_request( \WP_REST_Request $request ) {
 			Customers\maybe_update_customer( $payload );
 			break;
 		case 'signup_success':
-			Subscription\create_subscription( $payload );
+			Subscription\create_wordpress_subscription( $payload );
 			break;
 		case 'renewal_success':
 		case 'expiration_date_change':

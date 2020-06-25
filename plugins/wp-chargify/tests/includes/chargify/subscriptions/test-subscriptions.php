@@ -111,7 +111,7 @@ class Test_Subscription_Endpoints extends WP_UnitTestCase {
 	}
 
 	function test_create_subscription() {
-		$subscription_id = Subscription\create_subscription( self::$data['payload'] );
+		$subscription_id = Subscription\create_wordpress_subscription( self::$data['payload'] );
 		$this->assertNotFalse( $subscription_id );
 	}
 }

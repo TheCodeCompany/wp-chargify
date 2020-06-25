@@ -8,7 +8,7 @@ use Chargify\Customers;
  * @param $payload
  * @return int|\WP_Error
  */
-function create_subscription( $payload ) {
+function create_wordpress_subscription( $payload ) {
 	$user_id = Customers\maybe_update_customer( $payload['subscription'] );
 
 	$args = [
