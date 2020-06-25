@@ -96,6 +96,8 @@ function get_products() {
 		$response_headers = wp_remote_retrieve_headers( $request );
 		$response_body    = wp_remote_retrieve_body( $request );
 
+		$json = json_decode( $response_body, true );
+
 		/**
 		 * A function to log requests send to the Chargify Product Families endpoints.
 		 *
@@ -108,14 +110,12 @@ function get_products() {
 		 * @param $event			string     The type of event we receieved in the request.
 		 * @param $event_id         int|string The unique event ID in Chargify.
 		 */
-		do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $response_body );
+		do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $json );
 
 		# Anything other than a 200 code is an error so let's bail.
 		if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
 			return wp_remote_retrieve_response_message( $request );
 		}
-
-		$json = json_decode( $response_body, true );
 
 		foreach ( $json as $family ) {
 			$products[] = $family['product'];
