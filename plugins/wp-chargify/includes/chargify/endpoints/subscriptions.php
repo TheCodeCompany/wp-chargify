@@ -1,6 +1,7 @@
 <?php
 namespace Chargify\Endpoints\Subscription;
 use Chargify\Helpers\Options;
+use Chargify\Subscription;
 
 function create_subscription( $payload ) {
 	$subdomain = Options\get_subdomain();
@@ -53,10 +54,12 @@ function create_subscription( $payload ) {
 	 */
 	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $json, $body );
 
-	# Anything other than a 200 code is an error so let's bail.
-	if ( 200 !== $response_status ) {
+	# Anything other than a 201 code is an error so let's bail.
+	if ( 201 !== $response_status ) {
 		return wp_remote_retrieve_response_message( $request );
 	}
 
 	# Create a subscription with the result
+	$subscription = Subscription\create_wordpress_subscription( $json );
+
 }
