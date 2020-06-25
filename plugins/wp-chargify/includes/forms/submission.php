@@ -17,6 +17,7 @@ function create_subscription( $cmb2 ) {
 	$sanitized_values = $cmb2->get_sanitized_values( $_POST );
 
 	if ( $sanitized_values ) {
+		$metafields = apply_filters( 'chargify_signup_metafields', null );
 		$data = [
 			'subscription' => [
 				# TODO: Make this dynamic.
@@ -52,7 +53,7 @@ function create_subscription( $cmb2 ) {
 					'billing_zip'       => isset( $sanitized_values['chargify_billing_zip'] ) ? $sanitized_values['chargify_billing_zip'] : null,
 					'billing_country'   => isset( $sanitized_values['chargify_billing_country'] ) ? $sanitized_values['chargify_billing_country'] : null,
 				],
-				'metafields' => apply_filters( 'chargify_signup_metafields', $cmb2, $sanitized_values ),
+				'metafields' => $metafields,
 			]
 		];
 
