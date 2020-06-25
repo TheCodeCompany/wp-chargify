@@ -28,7 +28,7 @@ function create_subscription( $cmb2 ) {
 					'email'        => $sanitized_values['chargify_email_address'],
 					'cc_emails'    => isset( $sanitized_values['chargify_cc_emails'] ) ? $sanitized_values['chargify_cc_emails'] : null,
 					'organization' => isset( $sanitized_values['chargify_organisation'] ) ? $sanitized_values['chargify_organisation'] : null,
-					'reference'    => isset( $sanitized_values['chargify_billing_reference'] ) ? $sanitized_values['chargify_billing_reference'] : null,
+					'reference'    => isset( $sanitized_values['chargify_billing_reference'] ) ? $sanitized_values['chargify_billing_reference'] : (string) time(),
 					'address'      => isset( $sanitized_values['chargify_address_1'] ) ? $sanitized_values['chargify_address_1'] : null,
 					'address_2'    => isset( $sanitized_values['chargify_address_2'] ) ? $sanitized_values['chargify_address_2'] : null,
 					'city'         => isset( $sanitized_values['chargify_city'] ) ? $sanitized_values['chargify_city'] : null,
@@ -36,8 +36,8 @@ function create_subscription( $cmb2 ) {
 					'zip'          => isset( $sanitized_values['chargify_zip'] ) ? $sanitized_values['chargify_zip'] : null,
 					'country'      => isset( $sanitized_values['chargify_country'] ) ? $sanitized_values['chargify_country'] : null,
 					'phone'        => isset( $sanitized_values['chargify_phone'] ) ? $sanitized_values['chargify_phone'] : null,
-					'verified'     => isset( $sanitized_values['chargify_verified'] ) ? $sanitized_values['chargify_verified'] : null,
-					'tax_exempt'   => isset( $sanitized_values['chargify_tax_exempt'] ) ? $sanitized_values['chargify_tax_exempt'] : null,
+					'verified'     => isset( $sanitized_values['chargify_verified'] ) ? $sanitized_values['chargify_verified'] : false,
+					'tax_exempt'   => isset( $sanitized_values['chargify_tax_exempt'] ) ? $sanitized_values['chargify_tax_exempt'] : false,
 					'vat_number'   => isset( $sanitized_values['chargify_vat_number'] ) ? $sanitized_values['chargify_vat_number'] : null,
 				],
 				'credit_card_attributes' => [
@@ -52,10 +52,13 @@ function create_subscription( $cmb2 ) {
 					'billing_state'     => isset( $sanitized_values['chargify_billing_state'] ) ? $sanitized_values['chargify_billing_state'] : null,
 					'billing_zip'       => isset( $sanitized_values['chargify_billing_zip'] ) ? $sanitized_values['chargify_billing_zip'] : null,
 					'billing_country'   => isset( $sanitized_values['chargify_billing_country'] ) ? $sanitized_values['chargify_billing_country'] : null,
-				],
-				'metafields' => $metafields,
+				]
 			]
 		];
+
+		if ( $metafields ) {
+			$data['subscription']['metafields'] = $metafields;
+		}
 
 		$subscription = Subscription\create_subscription( wp_json_encode( $data ) );
 

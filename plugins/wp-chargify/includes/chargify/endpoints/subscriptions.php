@@ -37,6 +37,8 @@ function create_subscription( $payload ) {
 
 	$json = json_decode( $response_body, true );
 
+	$body = json_decode( $data['body'], true );
+
 	/**
 	 * A function to log requests send to the Chargify Subscriptions endpoints.
 	 *
@@ -49,7 +51,7 @@ function create_subscription( $payload ) {
 	 * @param $event			string     The type of event we receieved in the request.
 	 * @param $event_id         int|string The unique event ID in Chargify.
 	 */
-	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $json );
+	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $json, $body );
 
 	# Anything other than a 200 code is an error so let's bail.
 	if ( 200 !== $response_status ) {
