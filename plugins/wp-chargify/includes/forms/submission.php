@@ -18,7 +18,7 @@ function create_subscription( $cmb2 ) {
 
 	if ( $sanitized_values ) {
 		$metafields = apply_filters( 'chargify_signup_metafields', null );
-		$data = [
+		$chargify_data = [
 			'subscription' => [
 				# TODO: Make this dynamic.
 				'product_handle' => 'database-standard',
@@ -57,10 +57,15 @@ function create_subscription( $cmb2 ) {
 		];
 
 		if ( $metafields ) {
-			$data['subscription']['metafields'] = $metafields;
+			$chargify_data['subscription']['metafields'] = $metafields;
 		}
 
-		$subscription = Subscription\create_subscription( wp_json_encode( $data ) );
+		$wordpress_data = [
+			'username' => $sanitized_values['wordpress_username'],
+			'password' => $sanitized_values['wordpress_password'],
+		];
+
+		$subscription = Subscription\create_subscription( wp_json_encode( $chargify_data ), $wordpress_data );
 
 	}
 	return false;

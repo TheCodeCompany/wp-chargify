@@ -12,7 +12,7 @@ function register_account_details_fields( $signup_form ) {
 
 	$signup_form->add_field( [
 		'name'       => __( 'Username', 'chargify' ),
-		'id'         => 'chargify_username',
+		'id'         => 'wordpress_username',
 		'type'       => 'text',
 		'desc'       => __( 'Your username.', 'chargify' ),
 		'attributes' => [
@@ -22,7 +22,7 @@ function register_account_details_fields( $signup_form ) {
 
 	$signup_form->add_field( [
 		'name'       => __( 'Password', 'chargify' ),
-		'id'         => 'chargify_password',
+		'id'         => 'wordpress_password',
 		'type'       => 'text',
 		'desc'       => __( 'Your password.', 'chargify' ),
 		'attributes' => [

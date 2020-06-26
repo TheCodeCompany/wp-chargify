@@ -3,7 +3,7 @@ namespace Chargify\Endpoints\Subscription;
 use Chargify\Helpers\Options;
 use Chargify\Subscription;
 
-function create_subscription( $payload ) {
+function create_subscription( $chargify_data, $wordpress_data ) {
 	$subdomain = Options\get_subdomain();
 	$request_endpoint = Options\get_subdomain() . '/subscriptions.json';
 	$request_headers  = Options\get_headers();
@@ -27,7 +27,7 @@ function create_subscription( $payload ) {
 
 	$data = [
 		'headers' => $request_headers['headers'],
-		'body'    => $payload,
+		'body'    => $chargify_data,
 	];
 
 	$request          = wp_safe_remote_post( $request_endpoint, $data );
@@ -36,7 +36,7 @@ function create_subscription( $payload ) {
 	$response_headers = wp_remote_retrieve_headers( $request );
 	$response_body    = wp_remote_retrieve_body( $request );
 
-	$json = json_decode( $response_body, true );
+	$chargify_subscription = json_decode( $response_body, true );
 
 	$body = json_decode( $data['body'], true );
 
@@ -52,7 +52,7 @@ function create_subscription( $payload ) {
 	 * @param $event			string     The type of event we receieved in the request.
 	 * @param $event_id         int|string The unique event ID in Chargify.
 	 */
-	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $json, $body );
+	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $chargify_subscription, $body );
 
 	# Anything other than a 201 code is an error so let's bail.
 	if ( 201 !== $response_status ) {
@@ -60,6 +60,6 @@ function create_subscription( $payload ) {
 	}
 
 	# Create a subscription with the result
-	$subscription = Subscription\create_wordpress_subscription( $json );
+	$subscription = Subscription\create_wordpress_subscription( $chargify_subscription, $wordpress_data );
 
 }
