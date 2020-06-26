@@ -24,6 +24,10 @@ function bootstrap() {
 	add_action( 'chargify\log_request',      'Chargify\\Logging\\Logger\\logger', 10, 9 );
 	add_action( 'rest_api_init',             'Chargify\\Endpoints\\Base\\register_customer_update_webhook' );
 	add_filter( 'get_sample_permalink_html', 'Chargify\\Meta_Boxes\\Helpers\\hide_permalink', 10, 2 );
+	add_action( 'cmb2_init',                 'Chargify\\Forms\\Signup\\chargify_signup_form' );
+	add_action( 'cmb2_render_text_password', 'Chargify\\Forms\\Password\\render_callback_for_password', 10, 5 );
+	add_filter( 'get_sample_permalink_html', 'Chargify\\Meta_Boxes\\Helpers\\hide_permalink', 10, 2 );
+	add_shortcode( 'chargify-signup-form',   'Chargify\\Forms\\Signup\\chargify_signup_form' );
 }
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\bootstrap' );

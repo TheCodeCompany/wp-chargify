@@ -201,7 +201,8 @@ function get_shared_key() {
 function get_headers() {
 	$headers = [
 		'headers' => [
-			'Authorization' => 'Basic ' . base64_encode( get_api_key() . ':' . 'x' )
+			'Authorization' => 'Basic ' . base64_encode( get_api_key() . ':' . 'x' ),
+			'content-type'  => 'application/json',
 		],
 	];
 

@@ -26,7 +26,7 @@ function logger( $request_endpoint, $response_status, $response_headers, $type, 
 	update_post_meta( $log_id, '_chargify_endpoint', esc_url_raw( $request_endpoint ) );
 	update_post_meta( $log_id, '_chargify_status', absint( $response_status ) );
 	update_post_meta( $log_id, '_chargify_response_headers', wp_json_encode( $response_headers, JSON_PRETTY_PRINT ) );
-	update_post_meta( $log_id, '_chargify_response_body', $response_body );
+	update_post_meta( $log_id, '_chargify_response_body', wp_json_encode( $response_body, JSON_PRETTY_PRINT ) );
 	update_post_meta( $log_id, '_chargify_payload', wp_json_encode( $payload, JSON_PRETTY_PRINT ) );
 	update_post_meta( $log_id, '_chargify_event_id', $event_id );
 	update_post_meta( $log_id, '_chargify_event', esc_textarea( $event ) );
