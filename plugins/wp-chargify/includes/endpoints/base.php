@@ -36,7 +36,7 @@ function route_request( \WP_REST_Request $request ) {
 		 * @param $event			string The type of event we receieved in the request.
 		 * @param $event_id         int    The unique event ID in Chargify.
 		 */
-		do_action( 'chargify\log_request', $request_endpoint, '400', (array) $response_headers, 'REST', $request_body, $payload = '', $error );
+		do_action( 'chargify\log_request', $request_endpoint, '400', (array) $response_headers, 'REST - verification failure', $request_body, $payload = '', $error );
 
 		return $error;
 	}
