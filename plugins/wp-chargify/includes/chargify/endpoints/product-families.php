@@ -26,7 +26,7 @@ function get_product_families() {
 		 * @param $event			string     The type of event we receieved in the request.
 		 * @param $event_id         int|string The unique event ID in Chargify.
 		 */
-		do_action( 'chargify\log_request', '/product_families.json', '400', [], 'REST', [], [], $subdomain );
+		do_action( 'chargify\log_request', '/product_families.json', '400', [], 'REST - get_product_families', [], [], $subdomain );
 		return $subdomain;
 	}
 
@@ -50,7 +50,7 @@ function get_product_families() {
 	 * @param $event			string     The type of event we receieved in the request.
 	 * @param $event_id         int|string The unique event ID in Chargify.
 	 */
-	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $response_body );
+	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST - get_product_families', $response_body );
 
 	# Anything other than a 200 code is an error so let's bail.
 	if ( 200 !== $response_status ) {
@@ -110,7 +110,7 @@ function get_products() {
 		 * @param $event			string     The type of event we receieved in the request.
 		 * @param $event_id         int|string The unique event ID in Chargify.
 		 */
-		do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $json );
+		do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST - get_products', $json );
 
 		# Anything other than a 200 code is an error so let's bail.
 		if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
