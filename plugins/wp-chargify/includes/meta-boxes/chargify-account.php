@@ -96,3 +96,11 @@ function account_meta_boxes() {
 	] );
 
 }
+
+/**
+ * Remove the Publish meta box for our Accounts.
+ */
+function remove_publish_meta_box() {
+	remove_meta_box( 'metabox_id', 'chargify_account', 'default_position' );
+	remove_meta_box( 'submitdiv', 'chargify_account', 'side' );
+}
