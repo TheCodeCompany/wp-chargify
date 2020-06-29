@@ -27,3 +27,67 @@ function create_wordpress_subscription( $chargify_subscription, $wordpress_data 
 
 	return $subscription_id;
 }
+
+/**
+ * A function to check if a user has a subscription to a product.
+ *
+ * @param $product_id     The product ID in Chargify.
+ * @param string $user_id A WordPress user ID.
+ * @return array|bool     An array of user IDs, true or false.
+ */
+function has_product_subscription( $product_id, $user_id = '' ) {
+
+	if ( $product_id && $user_id ) {
+		$subscription_check = new \WP_Query(
+			[
+				'post_type'  => 'chargify_account',
+				'meta_query' => [
+					'relation' => 'AND',
+					[
+						'meta_key' => 'chargify_wordpress_user_id',
+						'value'    => $user_id,
+						'compare'  => '=',
+					],
+					[
+						'meta_key' => 'chargify_products_multicheck',
+						'value'    => $product_id,
+						'compare'  => '=',
+					]
+				]
+			]
+		);
+
+		if ( $subscription_check->have_posts() ) {
+			wp_reset_postdata();
+			return true;
+		}
+	} else {
+		$subscription_check = new \WP_Query(
+			[
+				'post_type'  => 'chargify_account',
+				'meta_query' => [
+					[
+						'meta_key' => 'chargify_products_multicheck',
+						'value'    => $product_id,
+						'compare'  => '=',
+					]
+				]
+			]
+		);
+
+		$user_ids = [];
+		if ( $subscription_check->have_posts() ) {
+			while ( $subscription_check->have_posts() ) {
+				$subscription_check->the_post();
+				$user_ids[] = get_post_meta( get_the_ID(), 'chargify_wordpress_user_id', true );
+			}
+		}
+		wp_reset_postdata();
+	}
+
+	if ( ! empty( $user_ids ) ) {
+		return $user_ids;
+	}
+
+	return false;
+}
