@@ -28,6 +28,7 @@ function bootstrap() {
 	add_action( 'cmb2_render_text_password', 'Chargify\\Forms\\Password\\render_callback_for_password', 10, 5 );
 	add_filter( 'get_sample_permalink_html', 'Chargify\\Meta_Boxes\\Helpers\\hide_permalink', 10, 2 );
 	add_shortcode( 'chargify-signup-form',   'Chargify\\Forms\\Signup\\chargify_signup_form' );
+	add_filter( 'query_vars',                'Chargify\\Forms\\Submission\\query_vars' );
 }
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\bootstrap' );

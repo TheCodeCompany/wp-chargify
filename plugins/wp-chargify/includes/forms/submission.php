@@ -4,6 +4,13 @@ use Chargify\Endpoints\Subscription;
 use WP_Error;
 
 function create_subscription( $cmb2 ) {
+	$product_handle = get_query_var( 'product_handle' );
+
+	if ( empty( $product_handle ) ) {
+		# Filter the Chargify Product handle.
+		$product_handle = apply_filters( 'chargify_default_product', $product_handle );
+	}
+
 	# If we don't have any post data we can bail.
     if ( empty( $_POST ) ) {
 		return false;
@@ -17,11 +24,11 @@ function create_subscription( $cmb2 ) {
 	$sanitized_values = $cmb2->get_sanitized_values( $_POST );
 
 	if ( $sanitized_values ) {
-		$metafields = apply_filters( 'chargify_signup_metafields', null );
+		$metafields     = apply_filters( 'chargify_signup_metafields', null );
+
 		$chargify_data = [
 			'subscription' => [
-				# TODO: Make this dynamic.
-				'product_handle' => 'database-standard',
+				'product_handle' => esc_attr( $product_handle ),
 				'customer_attributes' => [
 					'first_name'   => $sanitized_values['chargify_first_name'],
 					'last_name'    => $sanitized_values['chargify_last_name'],
@@ -69,4 +76,15 @@ function create_subscription( $cmb2 ) {
 
 	}
 	return false;
+}
+
+/**
+ * A function to register our query parameter for the product handle.
+ *
+ * @param $query_vars
+ * @return mixed
+ */
+function query_vars( $query_vars ) {
+	$query_vars[] = 'product_handle';
+	return $query_vars;
 }
