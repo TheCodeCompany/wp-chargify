@@ -91,3 +91,43 @@ function has_product_subscription( $product_id, $user_id = '' ) {
 
 	return false;
 }
+
+/**
+ * A function to check if a user has an active subscription to a product.
+ *
+ * @param $product_id     The product ID in Chargify.
+ * @param string $user_id A WordPress user ID.
+ * @return bool
+ */
+function has_active_product_subscription( $product_id, $user_id ) {
+	$active_subscription_check = new \WP_Query(
+		[
+			'post_type'  => 'chargify_account',
+			'meta_query' => [
+				'relation' => 'AND',
+				[
+					'meta_key' => 'chargify_wordpress_user_id',
+					'value'    => $user_id,
+					'compare'  => '=',
+				],
+				[
+					'meta_key' => 'chargify_products_multicheck',
+					'value'    => $product_id,
+					'compare'  => '=',
+				],
+				[
+					'meta_key' => 'chargify_subscription_status',
+					'value'    => 'active',
+					'compare'  => '=',
+				]
+			]
+		]
+	);
+
+	if ( $active_subscription_check->have_posts() ) {
+		wp_reset_postdata();
+		return true;
+	}
+
+	return false;
+}
