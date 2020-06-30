@@ -128,4 +128,43 @@ function register_chargify_options_metabox() {
 		],
 	] );
 
+	/**
+	 * Registers the Webhook options.
+	 */
+	$args = [
+		'id'           => 'webhooks_page',
+		'title'        => __( 'Webhooks', 'chargify' ),
+		'object_types' => [ 'options-page' ],
+		'option_key'   => 'chargify_webhooks',
+		'parent_slug'  => 'chargify_options',
+		'tab_group'    => 'chargify_options',
+		'tab_title'    => __( 'Webhooks', 'chargify' ),
+	];
+
+	$webhooks_options = new_cmb2_box( $args );
+
+	$url = 'https://www.example.com';
+
+	$webhooks_options->add_field( [
+		'name' => __( 'Webhooks Settings', 'chargify' ),
+		'desc' => __( "Your current webhook URL is: ${url}.", 'chargify' ),
+		'type' => 'title',
+		'id'   => 'chargify_products_title'
+	] );
+
+	$webhooks_options->add_field( [
+		'name'       => __( 'Webhooks', 'chargify' ),
+		'desc'       => __( 'Select the Chargify webhooks you\'d like to listen for in WordPress', 'chargify' ),
+		'id'         => 'chargify_webhooks_multicheck',
+		'type'       => 'multicheck',
+		'options' => [
+			'customer_update'             => '<code>customer_update</code>',
+			'customer_create'             => '<code>customer_create</code>',
+			'signup_success'              => '<code>signup_success</code>',
+			'renewal_success'             => '<code>renewal_success</code>',
+			'renewal_failure'             => '<code>renewal_failure</code>',
+			'subscription_product_change' => '<code>subscription_product_change</code>',
+		]
+	] );
+
 }
