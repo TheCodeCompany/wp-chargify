@@ -55,6 +55,7 @@ We provide a number of optional filters you can use:
 `chargify_payment_fields` - Filter the Coupon Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
 `chargify_signup_metafields` - A place to filter in any metafields you need to send to Chargify.
 `chargify_default_product` - A filter to specify a default product in Chargify. You can pass `product_handle` to the signup form to set this. e.g. `www.yoursite.com/signup?product_handle=database-standard`.
+`chargify_signup_form_args` - A filter to alter additional form fields such as the text on on the signup button and turn off CSS styles.
 
 = What developer functions can I use? =
 
