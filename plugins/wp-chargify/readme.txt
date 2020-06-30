@@ -88,6 +88,7 @@ We provide a number of WP-CLI commands that developers can use:
 `wp chargify account list`          - List the Chargify account stored in WordPress.
 `wp chargify account get <id>`      - Get the details of an individual Chargify account stored in WordPress.
 `wp chargify settings empty`        - Delete all the Chargify related settings stored in WordPress.
+`wp chargify webhook list`          - List the last webhooks that were sent from Chargify.
 
 = What about revisions? =
 
