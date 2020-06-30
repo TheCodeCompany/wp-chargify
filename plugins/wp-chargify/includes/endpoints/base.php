@@ -84,9 +84,15 @@ function route_request( \WP_REST_Request $request ) {
 		case 'subscription_product_change':
 			Helpers\update_product( $payload );
 			break;
-		default:
-			return new \WP_Error( 'chargify_webhook', __( "No route found for the ${event} webhook", 'chargify' ), [ 'status' => 501 ] );
 	}
+
+	/**
+	 * An action so that developers can add additional webhooks and complex business logic.
+	 *
+	 * @param $event   string The type of event we received in the request.
+	 * @param $payload array  The data we received in the request.
+	 */
+	do_action( 'chargify\webhook', $event, $payload );
 }
 
 /**

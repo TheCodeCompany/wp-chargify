@@ -57,6 +57,12 @@ We provide a number of optional filters you can use:
 `chargify_default_product` - A filter to specify a default product in Chargify. You can pass `product_handle` to the signup form to set this. e.g. `www.yoursite.com/signup?product_handle=database-standard`.
 `chargify_signup_form_args` - A filter to alter additional form fields such as the text on on the signup button and turn off CSS styles.
 
+= What actions can I use? +
+
+We provide a number of options actions you can use:
+
+`chargify\webhook` - Provides you with an action to handle additional [webhooks](https://help.chargify.com/webhooks/webhooks-reference.html) that aren't supported inside the plugin. You can also handle additional business logic for webhooks here.
+
 = What developer functions can I use? =
 
 We provide a number of functions that developers can use in their themes and plugins. You will need to import the appropriate namespaces to use them.
