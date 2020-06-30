@@ -17,7 +17,8 @@ function register_account_details_fields( $signup_form ) {
 		'desc'       => __( 'Your username.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'Username', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -28,7 +29,8 @@ function register_account_details_fields( $signup_form ) {
 		'attributes' => [
 			'placeholder' => __( 'Password', 'chargify' ),
 			'type'        => 'password',
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	# Filter the Customer Details form

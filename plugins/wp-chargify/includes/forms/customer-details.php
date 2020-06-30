@@ -17,7 +17,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Your first name.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'First Name', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -27,7 +28,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Your first name.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'Last Name', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field([
@@ -37,7 +39,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Your email address.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'you@yourcompany.com', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field([
@@ -47,7 +50,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Comma separated.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'accounting@yourcompany.com', 'chargify' )
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -57,7 +61,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Your organisation name.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'Organisation', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -67,7 +72,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Your billing reference.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'Reference', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -77,7 +83,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Street address, P.O. Box, Company Name, c/o.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'Address Line 1', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -87,7 +94,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Apartment, suite , unit, building, floor, etc.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'Address Line 2', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -97,7 +105,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Your city or town.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'City / Town', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -107,7 +116,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Your state, province or region.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'State / Province / Region', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -117,7 +127,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Your Zip or Post Code.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'Zip / Post Code', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -127,7 +138,8 @@ function register_customer_details_fields( $signup_form ) {
 		'desc'       => __( 'Your country.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'Country', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	# Filter the Customer Details form

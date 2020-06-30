@@ -88,3 +88,18 @@ function query_vars( $query_vars ) {
 	$query_vars[] = 'product_handle';
 	return $query_vars;
 }
+
+/**
+ * Sets the frontend post form field values if form has already been submitted.
+ *
+ * @param $args
+ * @param $field
+ * @return string
+ */
+function maybe_set_default_from_posted_values( $args, $field ) {
+	if ( ! empty( $_POST[ $field->id() ] ) ) {
+		return $_POST[ $field->id() ];
+	}
+
+	return '';
+}
