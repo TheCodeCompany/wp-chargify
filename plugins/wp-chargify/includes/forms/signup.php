@@ -29,6 +29,7 @@ function chargify_signup_form() {
 
 	$form = cmb2_get_metabox( $signup_form_id, $customer_details_object_id );
 
+	# Create a subscription in Chargify.
 	$create_subscription = Submission\create_subscription( $form );
 
 	$signup_form_args = apply_filters( 'chargify_signup_form_args',
