@@ -16,7 +16,8 @@ function register_payment_fields( $signup_form ) {
 		'desc'       => __( 'The first name on the card.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'First Name', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -26,7 +27,8 @@ function register_payment_fields( $signup_form ) {
 		'desc'       => __( 'The last name on the card.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'Last Name', 'chargify' ),
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -37,7 +39,8 @@ function register_payment_fields( $signup_form ) {
 		'attributes' => [
 			'placeholder' => __( '1234 1234 1234 1234', 'chargify' ),
 			'type'        => 'number',
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -48,7 +51,8 @@ function register_payment_fields( $signup_form ) {
 		'attributes' => [
 			'placeholder' => __( 'MM', 'chargify' ),
 			'type'        => 'number',
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -59,7 +63,8 @@ function register_payment_fields( $signup_form ) {
 		'attributes' => [
 			'placeholder' => __( 'YYYY', 'chargify' ),
 			'type'        => 'number',
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 	$signup_form->add_field( [
@@ -70,7 +75,8 @@ function register_payment_fields( $signup_form ) {
 		'attributes' => [
 			'placeholder' => __( 'CVV', 'chargify' ),
 			'type'        => 'number',
-		]
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
 
