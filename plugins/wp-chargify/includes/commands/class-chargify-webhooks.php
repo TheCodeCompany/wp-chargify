@@ -39,5 +39,13 @@ class Chargify_Webhooks {
 			WP_CLI::error( $webhooks );
 		}
 	}
+
+	function set() {
+		WP_CLI::log( "Setting the Chargify webhooks..." );
+
+		$webhooks = cmb2_get_option( 'chargify_webhooks', 'chargify_webhooks_multicheck' );
+
+		$success = Webhooks\set_webhooks( $webhooks );
+	}
 }
 \WP_CLI::add_command( 'chargify webhooks', __NAMESPACE__ . '\\Chargify_Webhooks' );
