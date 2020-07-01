@@ -12,6 +12,7 @@ A plugin to add a paywall for WordPress content that uses [Chargify](https://www
 
 ## Setup
 
+### Chassis
 1. Clone Chassis into a new folder: `git clone https://github.com/Chassis/Chassis.git chargify-plugin`.
 1. Change into the newly cloned folder: `cd chargify-plugin`.
 1. Clone this repo into a content folder: `git clone https://github.com/TheCodeCompany/wp-chargify.git content`.
@@ -22,10 +23,37 @@ A plugin to add a paywall for WordPress content that uses [Chargify](https://www
 1. Login to the [admin](http://chargify.local/wp/wp-admin) using username: `admin` and password: `password`.
 1. Profit!
 
-### Linux Users
+#### Linux Users
 
 If you're a Linux user you will need to do the following extra step:
 1. Run `sudo apt-get install avahi-dnsconfd` in your terminal to install Avahi.
+
+### Devilbox
+1. Setup Devilbox and run it as per their [guide](https://devilbox.readthedocs.io/en/latest/getting-started/install-the-devilbox.html).
+1. Devilbox should now be running with a WordPress install.
+1. At this stage of the plugins life, the plugin is yet to have a stand alone install method.
+Copy the plugin directory `wp-chargify` from the `/plugins/wp-chargify` into your WordPress plugins dir.
+1. Install the dependency plugin classic-editor.
+1. Setup Classic Editor plugin to work for the Products post type.
+
+#### Build tools.
+At this stage the built files will not be committed.
+In this case navigate to the wp-chargify plugin dir and run the following;
+
+```bash
+composer install
+npm install
+```
+
+Depending on versions of php it may be required to run a alternative command for composer.
+
+```bash
+composer install --ignore-platform-reqs
+```
+
+Note;
+A symlink to the wp-chargify directory allows your local environment to stay up to date.
+However, this is not feasible to commit for your primary project.
 
 ## Git Hooks
 
@@ -73,4 +101,10 @@ We can use [Postman](https://www.postman.com/) to `POST` requests to our develop
 
 If you're using [Chassis](https://chassis.io) for local development then you can use [Vagrant Share](https://docs.chassis.io/en/latest/guides/?highlight=share#vagrant-share)
 to generate a URL that publicly accessible and add that URL in the Chargify settings under Config -> Settings -> Webhooks.
+e.g. `http://9158347d1ca3.ngrok.io/wp-json/chargify/v1/webhook`
+
+### Using Ngrok on Devilbox
+
+If you're using Devilbox for local development then you can use Ngrok. First setup Ngrok according to this [Devilbox guide](https://devilbox.readthedocs.io/en/latest/custom-container/enable-ngrok.html)
+then using the Ngrok link found at http://localhost:4040 add that URL in the Chargify settings under Config -> Settings -> Webhooks.
 e.g. `http://9158347d1ca3.ngrok.io/wp-json/chargify/v1/webhook`
