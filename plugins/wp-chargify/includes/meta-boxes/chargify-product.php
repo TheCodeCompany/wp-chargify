@@ -103,20 +103,6 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'        => __( 'Active', 'chargify' ),
-			'description' => __( 'Is the product able to be used in WordPress?', 'chargify' ),
-			'id'          => 'chargify_active_status',
-			'type'        => 'radio_inline',
-			'options'     => [
-				'yes' => __( 'Yes', 'chargify' ),
-				'no'  => __( 'No', 'chargify' ),
-			],
-			'default'     => 'no',
-		]
-	);
-
-	$cmb2->add_field(
-		[
 			'name'       => __( 'Product Family', 'chargify' ),
 			'desc'       => __( 'The family that the product belongs to in Chargify.', 'chargify' ),
 			'id'         => 'chargify_product_family',
