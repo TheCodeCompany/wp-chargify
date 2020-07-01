@@ -1,5 +1,7 @@
 <?php
 namespace Chargify\Admin;
+use Chargify\Helpers\Options;
+
 /**
  * Hook in and register a metabox to handle a the Chargify options page.
  */
@@ -143,7 +145,7 @@ function register_chargify_options_metabox() {
 
 	$webhooks_options = new_cmb2_box( $args );
 
-	$url = 'https://www.example.com';
+	$url = Options\get_webhook_url();
 
 	$webhooks_options->add_field( [
 		'name' => __( 'Webhooks Settings', 'chargify' ),

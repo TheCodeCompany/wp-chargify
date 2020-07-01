@@ -38,6 +38,7 @@ We provide a number of optional PHP constants developers can use to override any
 `CHARGIFY_TEST_API_KEY` - Use this to set the Chargify Test API key.
 `CHARGIFY_TEST_SUBDOMAIN` - Use this to set the Chargify Test subdomain.
 `CHARGIFY_MODE` - Use this to set the mode. i.e. 'test' or 'live'.
+`CHARGIFY_WEBHOOK_URL` - Set this constant if you are developing locally and want to use ngrok. e.g. `define( 'CHARGIFY_WEBHOOK_URL', 'http://70b296211bca.ngrok.io' );`
 
 = What filters can I use? =
 

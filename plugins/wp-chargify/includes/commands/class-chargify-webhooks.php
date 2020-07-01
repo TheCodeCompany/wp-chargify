@@ -9,7 +9,7 @@ class Chargify_Webhooks {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp chargify product list
+	 *     wp chargify webhooks list
 	 *
 	 * @when after_wp_load
 	 */
