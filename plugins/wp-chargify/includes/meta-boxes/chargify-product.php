@@ -33,6 +33,19 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
+			'name'       => __( 'Product Handle', 'chargify' ),
+			'desc'       => __( 'The product handle in Chargify.', 'chargify' ),
+			'id'         => 'chargify_product_handle',
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field(
+		[
 			'name'        => __( 'Price', 'chargify' ),
 			'description' => __( 'The price of the product in Chargify.', 'chargify' ),
 			'id'          => __( 'chargify_price' ),
