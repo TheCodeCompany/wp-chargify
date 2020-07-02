@@ -7,5 +7,6 @@ namespace Chargify\Admin\Helpers;
 function delete_settings() {
 	delete_option( 'chargify_settings' );
 	delete_option( 'chargify_options' );
+	delete_option( 'chargify_webhooks' );
 	delete_option( 'chargify_products_all' );
 }
