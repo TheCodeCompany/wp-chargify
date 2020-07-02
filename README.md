@@ -108,3 +108,57 @@ e.g. `http://9158347d1ca3.ngrok.io/wp-json/chargify/v1/webhook`
 If you're using Devilbox for local development then you can use Ngrok. First setup Ngrok according to this [Devilbox guide](https://devilbox.readthedocs.io/en/latest/custom-container/enable-ngrok.html)
 then using the Ngrok link found at http://localhost:4040 add that URL in the Chargify settings under Config -> Settings -> Webhooks.
 e.g. `http://9158347d1ca3.ngrok.io/wp-json/chargify/v1/webhook`
+
+## Assets
+The assets source code and build tools directories lay outside of the plugin directory to ensure they remain separate.
+
+IMPORTANT: ALL SCRIPTS SHOULD BE RUN FROM REPO ROOT.
+
+This plugin uses two script files to ease the process.
+The first is for the build before committing and deployment to production
+The second and a second for local development.
+
+### Production Build
+Open your terminal and go to the project folder.
+
+```bash
+$ cd ~/path/to/repo
+$ ./scripts/build.sh
+```
+
+### Local Development
+Remember to run the build after pulling the latest version of your branch.
+Browser sync has not been included due to the nature of this being a plugin.
+
+Navigate to the repo root and run the script with none or any combination of these following parameters, order is not important.
+
+- composer, will rebuild the composer assets before dev start.
+- install, will rebuild the package.json assets before dev start.
+- yarn, will use yarn instead of npm.
+- dashboard, will use the webpack dashboard.
+
+Example 1;
+The following will start watching for development changes using npm.
+
+```bash
+$ cd ~/path/to/repo
+$ ./scripts/dev.sh
+```
+
+Example 2;
+The following will rebuild the composer files, using yarn,
+install all dependencies from the package.json,
+and then start dev dashboard to watch for development changes.
+
+```bash
+$ cd ~/path/to/repo
+$ ./scripts/dev.sh composer install yarn dashboard
+```
+
+Example 3;
+The following will no rebuild any dependencies and starts webpack dashboard to watch for development changes.
+
+```bash
+$ cd ~/path/to/repo
+$ ./scripts/dev.sh composer install yarn dashboard
+```

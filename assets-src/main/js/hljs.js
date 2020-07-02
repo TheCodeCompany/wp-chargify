@@ -1,4 +1,6 @@
-/* global hljs: false */
+// Library Imports.
+import $ from 'jquery';
+import hljs from 'highlight.js';
 
 ( function ( $ ) {
 	$( () => {
