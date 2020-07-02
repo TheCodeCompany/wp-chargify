@@ -11,10 +11,17 @@ class Test_Customer_Endpoints extends WP_UnitTestCase {
 			'chargify_test_API_key'          => '6787867867dfsdfgsfg',
 			'chargify_test_subdomain'        => 'https://testsubdomain.chargify.com',
 			'chargify_mode'                  => 'test',
-			'chargify_test_shared_key'       => '7856756ydsfgsdft345445'
+			'chargify_test_shared_key'       => '7856756ydsfgsdft345445',
+		];
+
+		$webhook_options = [
+			'chargify_webhooks_multicheck' => [
+				'customer_update'
+			]
 		];
 
 		add_option( 'chargify_settings', $chargify_options );
+		add_option( 'chargify_webhooks', $webhook_options );
 		add_filter( 'chargify_verify_request', '__return_true' );
 	}
 

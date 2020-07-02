@@ -66,24 +66,29 @@ function route_request( \WP_REST_Request $request ) {
 	 */
 	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, "Webhook - ${event}", $request_body, $payload, $error, $event, $event_id );
 
-	switch ( $event ) {
-		case 'customer_update':
-		case 'customer_create':
-			Customers\maybe_update_customer( $payload, [] );
-			break;
-		case 'signup_success':
-			Subscription\create_wordpress_subscription( $payload, [] );
-			break;
-		case 'renewal_success':
-		case 'expiration_date_change':
-			Renewal\renewal_success( $payload );
-			break;
-		case 'renewal_failure':
-			Renewal\renewal_failure( $payload );
-			break;
-		case 'subscription_product_change':
-			Helpers\update_product( $payload );
-			break;
+	$active_hooks = cmb2_get_option( 'chargify_webhooks', 'chargify_webhooks_multicheck' );
+
+	# Check if the webhook is activated.
+	if ( array_key_exists( $event, $active_hooks ) && $active_hooks !== false ) {
+		switch ( $event ) {
+			case 'customer_update':
+			case 'customer_create':
+				Customers\maybe_update_customer( $payload, [] );
+				break;
+			case 'signup_success':
+				Subscription\create_wordpress_subscription( $payload, [] );
+				break;
+			case 'renewal_success':
+			case 'expiration_date_change':
+				Renewal\renewal_success( $payload );
+				break;
+			case 'renewal_failure':
+				Renewal\renewal_failure( $payload );
+				break;
+			case 'subscription_product_change':
+				Helpers\update_product( $payload );
+				break;
+		}
 	}
 
 	/**
