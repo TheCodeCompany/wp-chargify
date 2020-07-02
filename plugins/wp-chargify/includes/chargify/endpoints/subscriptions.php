@@ -56,6 +56,15 @@ function create_subscription( $chargify_data, $wordpress_data ) {
 
 	# Anything other than a 201 code is an error so let's bail.
 	if ( 201 !== $response_status ) {
+
+		if ( isset( $chargify_subscription['errors'] ) ) {
+			// Pass all Chargify messages back.
+			apply_chargify_form_messages( $chargify_subscription['errors'] );
+		} else {
+			// Default message.
+			apply_chargify_form_messages( wp_remote_retrieve_response_message( $request ) );
+		}
+
 		return wp_remote_retrieve_response_message( $request );
 	}
 

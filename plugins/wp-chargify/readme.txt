@@ -49,6 +49,8 @@ We provide a number of optional filters you can use:
 `chargify_show_products` - Set this to `false` to hide the Products custom post type.
 `chargify_show_api_logs` - Set this to `false` to hide the API logs custom post type.
 `chargify_generate_password` - Alter the password generation.
+`chargify_message_details_fields` - ilter the Message Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+`chargify_form_message_html` - Filter the message html. $html and array of $form_messages that can manipulate the html, with html required as the return value.
 `chargify_customer_details_fields` - Filter the Customer Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
 `chargify_account_details_fields` - Filter the Account Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
 `chargify_customer_billing_fields` - Filter the Customer Billing Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
