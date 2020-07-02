@@ -143,6 +143,23 @@ function get_mode(){
 }
 
 /**
+ * A function to get the webhook URl.
+ *
+ * @return string
+ */
+function get_webhook_url() {
+	$suffix = 'wp-json/chargify/v1/webhook';
+
+	if ( defined( 'CHARGIFY_WEBHOOK_URL' ) ) {
+		$webhook_endpoint = trailingslashit( CHARGIFY_WEBHOOK_URL ) . $suffix;
+	} else {
+		$webhook_endpoint = WP_HOME . $suffix;
+	}
+
+	return $webhook_endpoint;
+}
+
+/**
  * Get the appropriate API key.
  *
  * @return array|string
