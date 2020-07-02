@@ -1,5 +1,7 @@
 <?php
 namespace Chargify\Admin;
+use Chargify\Helpers\Options;
+
 /**
  * Hook in and register a metabox to handle a the Chargify options page.
  */
@@ -128,4 +130,98 @@ function register_chargify_options_metabox() {
 		],
 	] );
 
+	/**
+	 * Registers the Webhook options.
+	 */
+	$args = [
+		'id'           => 'webhooks_page',
+		'title'        => __( 'Webhooks', 'chargify' ),
+		'object_types' => [ 'options-page' ],
+		'option_key'   => 'chargify_webhooks',
+		'parent_slug'  => 'chargify_options',
+		'tab_group'    => 'chargify_options',
+		'tab_title'    => __( 'Webhooks', 'chargify' ),
+	];
+
+	$webhooks_options = new_cmb2_box( $args );
+
+	$url = Options\get_webhook_url();
+
+	$webhooks_options->add_field( [
+		'name' => __( 'Webhooks Settings', 'chargify' ),
+		'desc' => __( "Your current webhook URL is: ${url}.", 'chargify' ),
+		'type' => 'title',
+		'id'   => 'chargify_products_title'
+	] );
+
+	$webhooks_options->add_field( [
+		'name'       => __( 'Webhooks', 'chargify' ),
+		'desc'       => __( 'Select the Chargify webhooks you\'d like to listen for in WordPress', 'chargify' ),
+		'id'         => 'chargify_webhooks_multicheck',
+		'type'       => 'multicheck',
+		'options' => [
+			'billing_date_change'         => '<code>billing_date_change</code>',
+			'component_allocation_change' => '<code>component_allocation_change</code>',
+			'customer_create'             => '<code>customer_create</code>',
+			'customer_update'             => '<code>customer_update</code>',
+			'dunning_step_reached'        => '<code>dunning_step_reached</code>',
+			'expiration_date_change'      => '<code>expiration_date_change</code>',
+			'expiring_card'               => '<code>expiring_card</code>',
+			'invoice_issued'              => '<code>invoice_issued</code>',
+			'metered_usage'               => '<code>metered_usage</code>',
+			'payment_failure'             => '<code>payment_failure</code>',
+			'payment_success'             => '<code>payment_success</code>',
+			'prepaid_usage'               => '<code>prepaid_usage</code>',
+			'renewal_failure'             => '<code>renewal_failure</code>',
+			'renewal_success'             => '<code>renewal_success</code>',
+			'signup_success'              => '<code>signup_success</code>',
+			'signup_failure'              => '<code>signup_failure</code>',
+			'subscription_card_update'    => '<code>subscription_card_update</code>',
+			'subscription_product_change' => '<code>subscription_product_change</code>',
+			'subscription_state_change'   => '<code>subscription_state_change</code>',
+			'upcoming_renewal_notice'     => '<code>upcoming_renewal_notice</code>',
+			'upgrade_downgrade_failure'   => '<code>upgrade_downgrade_failure</code>',
+			'upgrade_downgrade_success'   => '<code>upgrade_downgrade_success</code>',
+			'pending_cancellation_change' => '<code>pending_cancellation_change</code>',
+		],
+		'default_cb' => __NAMESPACE__ . '\\set_default_webhooks',
+	] );
+
+	$webhooks_options->add_field( [
+		'name'    => __( 'Webhooks:', 'chargify' ),
+		'id'      => 'chargify_webhook_status',
+		'type'    => 'radio_inline',
+		'options' => [
+			'true'  => __( 'Enabled', 'chargify' ),
+			'false' => __( 'Disabled', 'chargify' ),
+		],
+		'default_cb' => __NAMESPACE__ . '\\get_webhook_default',
+	] );
+
+}
+
+/**
+ * A function to return the default Webhook option
+ *
+ * @return string
+ */
+function get_webhook_default() {
+	return 'false';
+}
+
+/**
+ * Set the default webhooks we expect to receive when the plugin is active.
+ *
+ * @return array
+ */
+function set_default_webhooks() {
+	return [
+		'customer_update',
+		'customer_create',
+		'signup_success',
+		'renewal_success',
+		'expiration_date_change',
+		'renewal_failure',
+		'subscription_product_change'
+	];
 }

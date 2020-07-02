@@ -38,6 +38,7 @@ We provide a number of optional PHP constants developers can use to override any
 `CHARGIFY_TEST_API_KEY` - Use this to set the Chargify Test API key.
 `CHARGIFY_TEST_SUBDOMAIN` - Use this to set the Chargify Test subdomain.
 `CHARGIFY_MODE` - Use this to set the mode. i.e. 'test' or 'live'.
+`CHARGIFY_WEBHOOK_URL` - Set this constant if you are developing locally and want to use ngrok. e.g. `define( 'CHARGIFY_WEBHOOK_URL', 'http://70b296211bca.ngrok.io' );`
 
 = What filters can I use? =
 
@@ -50,6 +51,9 @@ We provide a number of optional filters you can use:
 `chargify_generate_password` - Alter the password generation.
 
 == Chargify signup form filters. ==
+
+`chargify_message_details_fields` - ilter the Message Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+`chargify_form_message_html` - Filter the message html. $html and array of $form_messages that can manipulate the html, with html required as the return value.
 
 `chargify_customer_details_fields` - Filter the Customer Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
 	Available fields by id;
@@ -136,6 +140,7 @@ We provide a number of WP-CLI commands that developers can use:
 `wp chargify account list`          - List the Chargify account stored in WordPress.
 `wp chargify account get <id>`      - Get the details of an individual Chargify account stored in WordPress.
 `wp chargify settings empty`        - Delete all the Chargify related settings stored in WordPress.
+`wp chargify webhook list`          - List the last webhooks that were sent from Chargify.
 
 = What about revisions? =
 
