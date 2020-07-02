@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "NODE_ENV=development webpack --r @babel/register --watch --progress",
     "dev-dashboard": "NODE_ENV=development webpack-dashboard -- webpack --r @babel/register --watch --progress",
-    "prod": "NODE_ENV=production webpack --r @babel/register",
-	},
+    "prod": "NODE_ENV=production webpack --r @babel/register"
+  },
   "keywords": [
     "webpack",
     "assets"
@@ -43,6 +43,7 @@
     "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.2",
     "sass-mq": "^5.0.1",
+    "terser-webpack-plugin": "^3.0.6",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",

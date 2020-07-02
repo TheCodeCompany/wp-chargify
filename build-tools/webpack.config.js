@@ -1,9 +1,9 @@
 import path from 'path';
 import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin'; // Used instead of Uglify JS.
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import DashboardPlugin from 'webpack-dashboard/plugin';
 import autoprefixer from 'autoprefixer';
 
@@ -34,21 +34,24 @@ const cssPlugin = new MiniCssExtractPlugin( {
 } );
 
 // Keeping it clean and fresh.
-const cleanPlugin = new CleanWebpackPlugin( [ 'dist' ], {
+const cleanPlugin = new CleanWebpackPlugin( {
 	root: rootDir,
 } );
 
 // Minify JS.
-const uglifyPlugin = new UglifyJsPlugin( {
-	uglifyOptions: {
+const terserPlugin = new TerserPlugin(
+	{
 		sourceMap: true,
-		warnings: false,
-		output: {
-			comments: false
-		},
-		ie8: false
+		terserOptions: {
+			warnings: false,
+			output: {
+				comments: false
+			},
+			ie8: false,
+			safari10: false,
+		}
 	}
-} );
+);
 
 // Minify CSS.
 const optimizeCssPlugin = new OptimizeCSSAssetsPlugin( {
@@ -130,7 +133,7 @@ export default {
 		jquery: "jQuery",
 	},
 	optimization: {
-		minimizer: [ uglifyPlugin, optimizeCssPlugin ]
+		minimizer: [ terserPlugin, optimizeCssPlugin ]
 	},
 	plugins: [
 		cleanPlugin,
