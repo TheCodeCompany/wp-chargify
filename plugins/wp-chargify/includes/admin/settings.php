@@ -171,7 +171,7 @@ function register_chargify_options_metabox() {
 
 	$webhooks_options->add_field( [
 		'name'    => __( 'Webhooks:', 'chargify' ),
-		'id'      => 'chargify_mode',
+		'id'      => 'chargify_webhook_status',
 		'type'    => 'radio_inline',
 		'options' => [
 			'enabled'  => __( 'Enabled', 'chargify' ),
