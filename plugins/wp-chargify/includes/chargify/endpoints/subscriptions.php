@@ -59,10 +59,10 @@ function create_subscription( $chargify_data, $wordpress_data ) {
 
 		if ( isset( $chargify_subscription['errors'] ) ) {
 			// Pass all Chargify messages back.
-			$_POST['chargify_form_messages']['errors'] = $chargify_subscription['errors'];
+			apply_chargify_form_messages( $chargify_subscription['errors'] );
 		} else {
 			// Default message.
-			$_POST['chargify_form_messages']['errors'] = wp_remote_retrieve_response_message( $request );
+			apply_chargify_form_messages( wp_remote_retrieve_response_message( $request ) );
 		}
 
 		return wp_remote_retrieve_response_message( $request );

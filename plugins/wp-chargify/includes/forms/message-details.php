@@ -47,7 +47,7 @@ function register_message_details_fields( $signup_form ) {
 function render_messages_html() {
 
 	$html                   = '';
-	$chargify_form_messages = $_POST['chargify_form_messages']; //phpcs:ignore
+	$chargify_form_messages = get_chargify_form_messages();
 	$form_messages          = [];
 
 	/*
