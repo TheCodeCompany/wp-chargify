@@ -74,6 +74,12 @@ function get_webhooks() {
 	return $webhooks;
 }
 
+/**
+ * A function to send the webhooks we want to use for the site.
+ *
+ * @param $webhooks
+ * @return array|string|\WP_Error
+ */
 function set_webhooks( $webhooks ) {
 	$subdomain        = Options\get_subdomain();
 	$request_endpoint = Options\get_subdomain() . '/endpoints.json';
@@ -136,9 +142,103 @@ function set_webhooks( $webhooks ) {
 
 }
 
+/**
+ * A function to enable or disabled the webhooks for the site.
+ *
+ * @param $status
+ * @return array|string|\WP_Error
+ */
+function toggle_webhooks( $value ) {
+	$subdomain        = Options\get_subdomain();
+	$request_endpoint = Options\get_subdomain() . '/webhooks/settings.json';
+
+	if ( is_wp_error( $subdomain ) ) {
+		/**
+		 * A function to log requests send to the Chargify webhooks endpoints.
+		 *
+		 * @param $request_endpoint string     The URL we are sending the request to.
+		 * @param $response_status  int        The HTTP status code that the endpoint responded with.
+		 * @param $response_headers array      The headers that the REST API endpoint returned.
+		 * @param $type             string     The type of request. e.g. 'REST' or 'webhook'.
+		 * @param $response_body    array      The data that the REST API endpoint returned.
+		 * @param $payload          array      The data we received in the request.
+		 * @param $event			string     The type of event we receieved in the request.
+		 * @param $event_id         int|string The unique event ID in Chargify.
+		 */
+		do_action( 'chargify\log_request', $request_endpoint, '400', [], 'REST - toggle_webhooks', [], [], $subdomain );
+		return $subdomain;
+	}
+
+	$headers  = Options\get_headers();
+
+	if ( 'true' === $value ) {
+		$status = true;
+	} else {
+		$status = false;
+	}
+
+	$data = [
+		'webhooks_enabled' => $status
+	];
+
+	$payload = wp_json_encode( $data );
+
+	$request_args = [
+		'headers' => $headers['headers'],
+		'body'    => $payload,
+		'method'  => 'PUT',
+	];
+
+	$request = wp_safe_remote_post( $request_endpoint, $request_args );
+
+	// Grab info from successful responses so we can log requests.
+	$response_status  = wp_remote_retrieve_response_code( $request );
+	$response_headers = wp_remote_retrieve_headers( $request );
+	$response_body    = wp_remote_retrieve_body( $request );
+
+	$json = json_decode( $response_body, true );
+
+	/**
+	 * A function to log requests send to the Chargify webhooks endpoints.
+	 *
+	 * @param $request_endpoint string     The URL we are sending the request to.
+	 * @param $response_status  int        The HTTP status code that the endpoint responded with.
+	 * @param $response_headers array      The headers that the REST API endpoint returned.
+	 * @param $type             string     The type of request. e.g. 'REST' or 'webhook'.
+	 * @param $response_body    array      The data that the REST API endpoint returned.
+	 * @param $payload          array      The data we received in the request.
+	 * @param $event			string     The type of event we receieved in the request.
+	 * @param $event_id         int|string The unique event ID in Chargify.
+	 */
+	do_action( 'chargify\log_request', $request_endpoint, $response_status, $response_headers, 'REST - toggle_webhooks', $json, $data );
+
+}
+
+/**
+ * A function to activate the endpoints we want to use on our site.
+ *
+ * @param $field_id
+ * @param $updated
+ * @param $action
+ * @param $field
+ */
 function maybe_update_webhook( $field_id, $updated, $action, $field ) {
 	if ( 'chargify_webhooks_multicheck' === $field_id && true === $updated ) {
 		# Update the webhooks
 		set_webhooks( $field->value );
+	}
+}
+
+/**
+ * A function to toggle whether or not we are using the endpoints.
+ *
+ * @param $field_id
+ * @param $updated
+ * @param $action
+ * @param $field
+ */
+function maybe_toggle_webhooks( $field_id, $updated, $action, $field ) {
+	if ( 'chargify_webhook_status' === $field_id && true === $updated ) {
+		toggle_webhooks( $field->value );
 	}
 }

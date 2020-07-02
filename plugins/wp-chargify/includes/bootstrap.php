@@ -30,6 +30,7 @@ function bootstrap() {
 	add_shortcode( 'chargify-signup-form',   'Chargify\\Forms\\Signup\\chargify_signup_form' );
 	add_filter( 'query_vars',                'Chargify\\Forms\\Submission\\query_vars' );
 	add_action( 'cmb2_save_field',           'Chargify\\Webhooks\\maybe_update_webhook', 10, 4 );
+	add_action( 'cmb2_save_field',           'Chargify\\Webhooks\\maybe_toggle_webhooks', 10, 4 );
 }
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\bootstrap' );

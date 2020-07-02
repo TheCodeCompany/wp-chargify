@@ -174,8 +174,8 @@ function register_chargify_options_metabox() {
 		'id'      => 'chargify_webhook_status',
 		'type'    => 'radio_inline',
 		'options' => [
-			'enabled'  => __( 'Enabled', 'chargify' ),
-			'disabled' => __( 'Disabled', 'chargify' ),
+			'true'  => __( 'Enabled', 'chargify' ),
+			'false' => __( 'Disabled', 'chargify' ),
 		],
 		'default_cb' => __NAMESPACE__ . '\\get_webhook_default',
 	] );
@@ -188,5 +188,5 @@ function register_chargify_options_metabox() {
  * @return string
  */
 function get_webhook_default() {
-	return 'disabled';
+	return 'false';
 }
