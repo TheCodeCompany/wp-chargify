@@ -183,7 +183,8 @@ function register_chargify_options_metabox() {
 			'upgrade_downgrade_failure'   => '<code>upgrade_downgrade_failure</code>',
 			'upgrade_downgrade_success'   => '<code>upgrade_downgrade_success</code>',
 			'pending_cancellation_change' => '<code>pending_cancellation_change</code>',
-		]
+		],
+		'default_cb' => __NAMESPACE__ . '\\set_default_webhooks',
 	] );
 
 	$webhooks_options->add_field( [
@@ -206,4 +207,21 @@ function register_chargify_options_metabox() {
  */
 function get_webhook_default() {
 	return 'false';
+}
+
+/**
+ * Set the default webhooks we expect to receive when the plugin is active.
+ *
+ * @return array
+ */
+function set_default_webhooks() {
+	return [
+		'customer_update',
+		'customer_create',
+		'signup_success',
+		'renewal_success',
+		'expiration_date_change',
+		'renewal_failure',
+		'subscription_product_change'
+	];
 }
