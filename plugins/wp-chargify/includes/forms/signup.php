@@ -33,7 +33,6 @@ function chargify_signup_form() {
 			'save_fields'  => false,
 			'autocomplete' => 'on',
 			'attributes'   => [
-				'class'        => 'test',
 				'autocomplete' => 'on',
 			],
 		]
