@@ -1,6 +1,8 @@
 vendor/
-node_modules/
 .idea/
 .DS_Store
 *.log
 plugins/members
+build-tools/node_modules/
+build-tools/package-lock.json
+build-tools/yarn.lock

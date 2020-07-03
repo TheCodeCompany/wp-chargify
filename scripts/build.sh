@@ -4,11 +4,11 @@
 set -e
 
 echo "==== BUILD COMPOSER FILES  ============================="
-#cd ./plugins/wp-chargify
-#composer install --ignore-platform-reqs
+cd ./plugins/wp-chargify
+composer install --ignore-platform-reqs
 
 ## Return to prev dir being repo root dir, ready for next command.
-#cd -
+cd -
 
 echo "==== BUILD ASSET FILES  ================================"
 cd ./build-tools
