@@ -1,35 +1,51 @@
 <?php
+/**
+ * The functions that help create a subscription from the form data.
+ *
+ * @file    wp-chargify/includes/forms/submission.php
+ * @package WPChargify
+ */
+
 namespace Chargify\Forms\Submission;
+
 use Chargify\Endpoints\Subscription;
+use CMB2;
 use WP_Error;
 
+/**
+ * Create a subscription, filter all of the form data into an array ready for the subscription submission.
+ *
+ * @param CMB2 $cmb2 The CMB2 object.
+ *
+ * @return mixed
+ */
 function create_subscription( $cmb2 ) {
 	$product_handle = get_query_var( 'product_handle' );
 
 	if ( empty( $product_handle ) ) {
-		# Filter the Chargify Product handle.
+		// Filter the Chargify Product handle.
 		$product_handle = apply_filters( 'chargify_default_product', $product_handle );
 	}
 
-	# If we don't have any post data we can bail.
-    if ( empty( $_POST ) ) {
+	// If we don't have any post data we can bail.
+	if ( empty( $_POST ) ) {
 		return false;
 	}
 
-    // check required $_POST variables and security nonce
-    if ( ! isset( $_POST['submit-cmb'], $_POST['object_id'], $_POST[ $cmb2->nonce() ] )  || ! wp_verify_nonce( $_POST[ $cmb2->nonce() ], $cmb2->nonce() ) ) {
+	// check required $_POST variables and security nonce.
+	if ( ! isset( $_POST['submit-cmb'], $_POST['object_id'], $_POST[ $cmb2->nonce() ] ) || ! wp_verify_nonce( $_POST[ $cmb2->nonce() ], $cmb2->nonce() ) ) { // phpcs:ignore
 		return new WP_Error( 'security_fail', __( 'Security check failed.', 'chargify' ) );
 	}
 
 	$sanitized_values = $cmb2->get_sanitized_values( $_POST );
 
 	if ( $sanitized_values ) {
-		$metafields     = apply_filters( 'chargify_signup_metafields', null );
+		$metafields = apply_filters( 'chargify_signup_metafields', null );
 
 		$chargify_data = [
 			'subscription' => [
-				'product_handle' => esc_attr( $product_handle ),
-				'customer_attributes' => [
+				'product_handle'         => esc_attr( $product_handle ),
+				'customer_attributes'    => [
 					'first_name'   => $sanitized_values['chargify_first_name'],
 					'last_name'    => $sanitized_values['chargify_last_name'],
 					'email'        => $sanitized_values['chargify_email_address'],
@@ -59,8 +75,8 @@ function create_subscription( $cmb2 ) {
 					'billing_state'     => isset( $sanitized_values['chargify_billing_state'] ) ? $sanitized_values['chargify_billing_state'] : null,
 					'billing_zip'       => isset( $sanitized_values['chargify_billing_zip'] ) ? $sanitized_values['chargify_billing_zip'] : null,
 					'billing_country'   => isset( $sanitized_values['chargify_billing_country'] ) ? $sanitized_values['chargify_billing_country'] : null,
-				]
-			]
+				],
+			],
 		];
 
 		if ( $metafields ) {
@@ -75,30 +91,34 @@ function create_subscription( $cmb2 ) {
 		$subscription = Subscription\create_subscription( wp_json_encode( $chargify_data ), $wordpress_data );
 
 	}
+
 	return false;
 }
 
 /**
  * A function to register our query parameter for the product handle.
  *
- * @param $query_vars
+ * @param array $query_vars The query args to append to.
+ *
  * @return mixed
  */
 function query_vars( $query_vars ) {
 	$query_vars[] = 'product_handle';
+
 	return $query_vars;
 }
 
 /**
  * Sets the frontend post form field values if form has already been submitted.
  *
- * @param $args
- * @param $field
+ * @param object $field_args Current field args.
+ * @param object $field      Current field object.
+ *
  * @return string
  */
-function maybe_set_default_from_posted_values( $args, $field ) {
-	if ( ! empty( $_POST[ $field->id() ] ) ) {
-		return $_POST[ $field->id() ];
+function maybe_set_default_from_posted_values( $field_args, $field ) {
+	if ( ! empty( $_POST[ $field->id() ] ) ) { // phpcs:ignore
+		return $_POST[ $field->id() ]; // phpcs:ignore
 	}
 
 	return '';
