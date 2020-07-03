@@ -28,6 +28,8 @@ require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 require_once( 'includes/bootstrap.php' );
 require_once( 'includes/admin/settings.php' );
 require_once( 'includes/admin/helpers.php' );
+require_once( 'includes/libraries/enqueues.php' );
+require_once( 'includes/libraries/enqueues-functions.php' );
 require_once( 'includes/chargify/endpoints/product-families.php' );
 require_once( 'includes/chargify/endpoints/subscriptions.php' );
 require_once('includes/chargify/endpoints/webhooks.php');
