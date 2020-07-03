@@ -31,10 +31,6 @@ function chargify_signup_form() {
 			'object_types' => [ 'chargify_account' ],
 			'hookup'       => false,
 			'save_fields'  => false,
-			'autocomplete' => 'on',
-			'attributes'   => [
-				'autocomplete' => 'on',
-			],
 		]
 	);
 
