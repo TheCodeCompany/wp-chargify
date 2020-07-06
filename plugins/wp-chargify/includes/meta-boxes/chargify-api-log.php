@@ -135,7 +135,8 @@ function remove_autosave() {
 function main_styles_and_scripts() {
 
 	// TODO: add conditionals for enqueues at a latter date when the main style and js has contents.
-	return;
+	// Currently only used in the signup form shortcode.
+	// Consider splitting the builds. Signup form JS possibly could be injected inline from a file, at the head of teh form.
 
 	$main_assets_handle = 'wp-chargify-main';
 
@@ -160,6 +161,23 @@ function main_styles_and_scripts() {
 	);
 
 	wp_enqueue_script_auto_ver( $main_assets_handle );
+}
+
+/**
+ * Any JS config params to pass from php to the JS build file.
+ *
+ * @return array
+ */
+function get_main_script_config() {
+	return [
+		// TODO Set these three options from WP admin options and a WP filter during the second stage of this feature.
+		'signupDefaultCountry'   => 'AU', // Australia is the default country for select dropdowns in the signup form.
+		'signupCountriesPopular' => [
+			'AU',
+			'NZ',
+		],
+		'signupCountries'        => [],
+	];
 }
 
 /**

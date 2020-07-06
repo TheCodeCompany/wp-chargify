@@ -65,13 +65,27 @@ function register_customer_billing_fields( $signup_form ) {
 		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
 
+	// Country ordered before state for the dropdown pair.
+	$signup_form->add_field( [
+		'name'       => __( 'Country', 'chargify' ),
+		'id'         => 'chargify_billing_country',
+		'type'       => 'select',
+		'desc'       => __( 'Your country.', 'chargify' ),
+		'attributes' => [
+			'placeholder' => __( 'Country', 'chargify' ),
+			'style'       => 'width: 100%',
+		],
+		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
+	]);
+
 	$signup_form->add_field( [
 		'name'       => __( 'State / Province / Region', 'chargify' ),
 		'id'         => 'chargify_billing_state',
-		'type'       => 'text',
+		'type'       => 'select',
 		'desc'       => __( 'Your state, province or region.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'State / Province / Region', 'chargify' ),
+			'style'       => 'width: 100%',
 		],
 		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
@@ -83,17 +97,6 @@ function register_customer_billing_fields( $signup_form ) {
 		'desc'       => __( 'Your Zip or Post Code.', 'chargify' ),
 		'attributes' => [
 			'placeholder' => __( 'Zip / Post Code', 'chargify' ),
-		],
-		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
-	]);
-
-	$signup_form->add_field( [
-		'name'       => __( 'Country', 'chargify' ),
-		'id'         => 'chargify_billing_country',
-		'type'       => 'text',
-		'desc'       => __( 'Your country.', 'chargify' ),
-		'attributes' => [
-			'placeholder' => __( 'Country', 'chargify' ),
 		],
 		'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values'
 	]);
