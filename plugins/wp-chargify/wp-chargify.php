@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-account.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-api-log.php';
+	require_once dirname(__FILE__) . '/includes/commands/class-chargify-component.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-product-families.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-product.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-settings.php';
@@ -28,6 +29,7 @@ require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 require_once( 'includes/bootstrap.php' );
 require_once( 'includes/admin/settings.php' );
 require_once( 'includes/admin/helpers.php' );
+require_once( 'includes/chargify/endpoints/components.php' );
 require_once( 'includes/chargify/endpoints/product-families.php' );
 require_once( 'includes/chargify/endpoints/subscriptions.php' );
 require_once( 'includes/chargify/endpoints/webhooks.php' );
