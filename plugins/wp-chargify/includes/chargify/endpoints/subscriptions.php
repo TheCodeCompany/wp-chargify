@@ -4,7 +4,7 @@ use Chargify\Helpers\Options;
 use Chargify\Subscription;
 
 function create_subscription( $chargify_data, $wordpress_data ) {
-	$subdomain        = Options\get_subdomain();
+	$subdomain = Options\get_subdomain();
 	$request_endpoint = Options\get_subdomain() . '/subscriptions.json';
 	$request_headers  = Options\get_headers();
 
@@ -25,7 +25,6 @@ function create_subscription( $chargify_data, $wordpress_data ) {
 		return $subdomain;
 	}
 
-	// TODO update $chargify_data to handle products, components, quantities and price points.
 	$data = [
 		'headers' => $request_headers['headers'],
 		'body'    => $chargify_data,
