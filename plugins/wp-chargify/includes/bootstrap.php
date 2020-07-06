@@ -32,6 +32,10 @@ function bootstrap() {
 	add_filter( 'query_vars',                'Chargify\\Forms\\Submission\\query_vars' );
 	add_action( 'cmb2_save_field',           'Chargify\\Webhooks\\maybe_update_webhook', 10, 4 );
 	add_action( 'cmb2_save_field',           'Chargify\\Webhooks\\maybe_toggle_webhooks', 10, 4 );
+
+	// Controllers.
+	new Controllers\EnqueuesController();
+	new Controllers\ValidateCouponController();
 }
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\bootstrap' );
