@@ -49,14 +49,65 @@ We provide a number of optional filters you can use:
 `chargify_show_products` - Set this to `false` to hide the Products custom post type.
 `chargify_show_api_logs` - Set this to `false` to hide the API logs custom post type.
 `chargify_generate_password` - Alter the password generation.
+
+== Chargify signup form filters. ==
+
+`chargify_message_details_fields` - Filter the Message Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+`chargify_form_message_html` - Filter the message html. $html and array of $form_messages that can manipulate the html, with html required as the return value.
+
 `chargify_customer_details_fields` - Filter the Customer Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+	Available fields by id;
+    - 'chargify_customer_details_title'
+    - 'chargify_first_name'
+    - 'chargify_last_name'
+    - 'chargify_email_address'
+    - 'chargify_cc_emails'
+    - 'chargify_organisation'
+    - 'chargify_billing_reference'
+    - 'chargify_address_1'
+    - 'chargify_address_2'
+    - 'chargify_city'
+    - 'chargify_state'
+    - 'chargify_zip'
+    - 'chargify_country'
+
 `chargify_account_details_fields` - Filter the Account Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+	Available fields by id;
+    - 'chargify_account_details_title'
+    - 'wordpress_username'
+    - 'wordpress_password'
+
 `chargify_customer_billing_fields` - Filter the Customer Billing Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+	Available fields by id;
+    - 'chargify_billing_title'
+    - 'chargify_billing_first_name'
+    - 'chargify_billing_last_name'
+    - 'chargify_billing_address_1'
+    - 'chargify_billing_address_2'
+    - 'chargify_billing_city'
+    - 'chargify_billing_state'
+    - 'chargify_billing_zip'
+    - 'chargify_billing_country'
+
 `chargify_coupon_fields` - Filter the Coupon Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
-`chargify_payment_fields` - Filter the Coupon Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+	Available fields by id;
+    - 'chargify_coupon_title'
+    - 'chargify_coupon_code'
+
+`chargify_payment_fields` - Filter the Payment Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
+	Available fields by id;
+    - 'chargify_payment_title'
+    - 'chargify_payment_first_name'
+    - 'chargify_payment_last_name'
+    - 'chargify_payment_card_number'
+    - 'chargify_payment_expiry_month'
+    - 'chargify_payment_expiry_year'
+    - 'chargify_payment_cvv'
+
 `chargify_signup_metafields` - A place to filter in any metafields you need to send to Chargify.
 `chargify_default_product` - A filter to specify a default product in Chargify. You can pass `product_handle` to the signup form to set this. e.g. `www.yoursite.com/signup?product_handle=database-standard`.
 `chargify_signup_form_args` - A filter to alter additional form fields such as the text on on the signup button and turn off CSS styles.
+`chargify_signup_form_attributes` - A filter to alter attributes on the signup 'from' element.
 
 = What actions can I use? +
 

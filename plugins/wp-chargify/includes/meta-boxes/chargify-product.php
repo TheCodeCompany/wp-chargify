@@ -35,7 +35,7 @@ function product_meta_boxes() {
 		[
 			'name'       => __( 'Product Handle', 'chargify' ),
 			'desc'       => __( 'The handle of the product in Chargify.', 'chargify' ),
-			'id'         => 'chargify_product_name',
+			'id'         => 'chargify_product_handle',
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
