@@ -46,6 +46,46 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
+			'name'       => __( 'Price Point ID', 'chargify' ),
+			'desc'       => __( 'The price point id of the product in Chargify.', 'chargify' ),
+			'id'         => 'chargify_product_price_point_id',
+			'type'       => 'text_small',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'number',
+			],
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Price Point Handle', 'chargify' ),
+			'desc'       => __( 'The price point handle of the product in Chargify.', 'chargify' ),
+			'id'         => 'chargify_product_price_point_handle',
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Is default Price Point', 'chargify' ),
+			'desc'       => __( 'Is this the default price point of the product in Chargify.', 'chargify' ),
+			'id'         => 'chargify_product_price_point_is_default',
+			'type'       => 'checkbox',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field(
+		[
 			'name'        => __( 'Price', 'chargify' ),
 			'description' => __( 'The price of the product in Chargify.', 'chargify' ),
 			'id'          => __( 'chargify_price' ),

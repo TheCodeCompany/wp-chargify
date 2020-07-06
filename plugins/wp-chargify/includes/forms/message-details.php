@@ -19,7 +19,6 @@ use CMB2;
  */
 function register_message_details_fields( $signup_form ) {
 
-
 	$signup_form->add_field(
 		[
 			'name'         => __( '', 'chargify' ),
