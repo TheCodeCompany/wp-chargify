@@ -8,9 +8,11 @@ function bootstrap() {
 	add_action( 'cmb2_admin_init',           'Chargify\\Admin\\register_chargify_options_metabox' );
 	add_action( 'cmb2_admin_init',           'Chargify\\Meta_Boxes\\API_Log\\add_api_log_metaboxes' );
 	add_action( 'init',                      'Chargify\\Post_Types\\Account\\chargify_account_init' );
+	add_action( 'init',                      'Chargify\\Post_Types\\Component\\chargify_component_init' );
 	add_action( 'init',                      'Chargify\Post_Types\\API_Log\\chargify_api_log_init' );
 	add_action( 'init',                      'Chargify\\Post_Types\\Product\\chargify_product_init' );
 	add_filter( 'post_updated_messages',     'Chargify\\Post_Types\\Account\\chargify_account_updated_messages' );
+	add_filter( 'post_updated_messages',     'Chargify\\Post_Types\\Component\\chargify_component_updated_messages' );
 	add_filter( 'post_updated_messages',     'Chargify\\Post_Types\\API_Log\\chargify_api_log_updated_messages' );
 	add_filter( 'post_updated_messages',     'Chargify\\Post_Types\\Product\\chargify_product_updated_messages' );
 	add_action( 'cmb2_admin_init',           'Chargify\\Meta_Boxes\\Account\\account_meta_boxes');

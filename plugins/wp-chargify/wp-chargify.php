@@ -52,6 +52,7 @@ require_once( 'includes/meta-boxes/chargify-api-log.php' );
 require_once( 'includes/meta-boxes/chargify-product.php' );
 require_once( 'includes/meta-boxes/helpers.php' );
 require_once( 'includes/post-types/chargify-account.php' );
+require_once(  'includes/post-types/chargify-component.php' );
 require_once( 'includes/post-types/chargify-api-log.php' );
 require_once( 'includes/post-types/chargify-product.php' );
 require_once( 'includes/post-types/helpers.php' );
