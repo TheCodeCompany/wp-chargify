@@ -21,7 +21,7 @@ function register_message_details_fields( $signup_form ) {
 
 	$signup_form->add_field(
 		[
-			'name'         => __( '', 'chargify' ),
+			'name'         => '',
 			'id'           => 'chargify_form_messages',
 			'type'         => 'title',
 			'before_field' => 'Chargify\\Forms\\Message_Details\\render_messages_html',

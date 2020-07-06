@@ -99,6 +99,23 @@ function register_hidden_details_fields( $signup_form ) {
 		]
 	);
 
+	// Used for visuals and coupon.
+	$signup_form->add_field(
+		[
+			'id'         => 'total_in_cents',
+			'type'       => 'hidden',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+		]
+	);
+
+	$signup_form->add_field(
+		[
+			'id'         => 'total_in_cents_discounted',
+			'type'       => 'hidden',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+		]
+	);
+
 	// Filter the Hidden Details form.
 	return apply_filters( 'chargify_hidden_details_fields', $signup_form );
 }
