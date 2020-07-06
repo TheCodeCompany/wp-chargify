@@ -98,15 +98,17 @@ function register_customer_billing_fields( $signup_form ) {
 		]
 	);
 
+	// Country ordered before state for the dropdown pair.
 	$signup_form->add_field(
 		[
-			'name'       => __( 'Zip / Post Code', 'chargify' ),
-			'id'         => 'chargify_billing_zip',
-			'type'       => 'text',
-			'desc'       => __( 'Your Zip or Post Code.', 'chargify' ),
+			'name'       => __( 'State / Province / Region', 'chargify' ),
+			'id'         => 'chargify_billing_state',
+			'type'       => 'select',
+			'desc'       => __( 'Your state, province or region.', 'chargify' ),
 			'attributes' => [
-				'placeholder' => __( 'Zip / Post Code', 'chargify' ),
+				'placeholder' => __( 'State / Province / Region', 'chargify' ),
 				'required'    => null,
+				'style'       => 'width: 100%',
 			],
 			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
 		]
@@ -128,6 +130,36 @@ function register_customer_billing_fields( $signup_form ) {
 		]
 	);
 
+	// Country ordered before state for the dropdown pair.
+	$signup_form->add_field(
+		[
+			'name'       => __( 'Country', 'chargify' ),
+			'id'         => 'chargify_billing_country',
+			'type'       => 'select',
+			'desc'       => __( 'Your country.', 'chargify' ),
+			'attributes' => [
+				'placeholder' => __( 'Country', 'chargify' ),
+				'required'    => null,
+				'style'       => 'width: 100%',
+			],
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+		]
+	);
+
+
+	$signup_form->add_field(
+		[
+			'name'       => __( 'Zip / Post Code', 'chargify' ),
+			'id'         => 'chargify_billing_zip',
+			'type'       => 'text',
+			'desc'       => __( 'Your Zip or Post Code.', 'chargify' ),
+			'attributes' => [
+				'placeholder' => __( 'Zip / Post Code', 'chargify' ),
+				'required'    => null,
+			],
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+		]
+	);
 	// Filter the Billing Details form.
 	return apply_filters( 'chargify_customer_billing_fields', $signup_form );
 }

@@ -164,12 +164,12 @@ function register_customer_details_fields( $signup_form ) {
 
 	$signup_form->add_field(
 		[
-			'name'       => __( 'Zip / Post Code', 'chargify' ),
-			'id'         => 'chargify_zip',
-			'type'       => 'text',
-			'desc'       => __( 'Your Zip or Post Code.', 'chargify' ),
+			'name'       => __( 'Country', 'chargify' ),
+			'id'         => 'chargify_country',
+			'type'       => 'select',
+			'desc'       => __( 'Your country.', 'chargify' ),
 			'attributes' => [
-				'placeholder' => __( 'Zip / Post Code', 'chargify' ),
+				'placeholder' => __( 'Country', 'chargify' ),
 			],
 			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
 		]
@@ -177,12 +177,12 @@ function register_customer_details_fields( $signup_form ) {
 
 	$signup_form->add_field(
 		[
-			'name'       => __( 'Country', 'chargify' ),
-			'id'         => 'chargify_country',
-			'type'       => 'select',
-			'desc'       => __( 'Your country.', 'chargify' ),
+			'name'       => __( 'Zip / Post Code', 'chargify' ),
+			'id'         => 'chargify_zip',
+			'type'       => 'text',
+			'desc'       => __( 'Your Zip or Post Code.', 'chargify' ),
 			'attributes' => [
-				'placeholder' => __( 'Country', 'chargify' ),
+				'placeholder' => __( 'Zip / Post Code', 'chargify' ),
 			],
 			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
 		]
