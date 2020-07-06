@@ -9,7 +9,6 @@
 namespace Chargify\Forms\Signup;
 
 use Chargify\Forms\Message_Details;
-use Chargify\Forms\Hidden_details;
 use Chargify\Forms\Customer_Details;
 use Chargify\Forms\Account_Details;
 use Chargify\Forms\Billing_Details;
@@ -36,7 +35,6 @@ function chargify_signup_form() {
 	);
 
 	// Add all of the form fields.
-	$signup_form_fields = Hidden_details\register_hidden_details_fields( $signup_form_fields );
 	$signup_form_fields = Message_Details\register_message_details_fields( $signup_form_fields );
 	$signup_form_fields = Customer_Details\register_customer_details_fields( $signup_form_fields );
 	$signup_form_fields = Account_Details\register_account_details_fields( $signup_form_fields );

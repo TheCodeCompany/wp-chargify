@@ -44,18 +44,7 @@ function create_subscription( $cmb2 ) {
 
 		$chargify_data = [
 			'subscription' => [
-				'product'                => [
-					'product_family_id'            => isset( $sanitized_values['product_family_id'] ) ? $sanitized_values['product_family_id'] : null,
-					'product_id'                   => isset( $sanitized_values['product_id'] ) ? $sanitized_values['product_id'] : null,
-					'product_handle'               => isset( $sanitized_values['product_handle'] ) ? $sanitized_values['product_handle'] : null,
-					'price_point_id'               => isset( $sanitized_values['price_point_id'] ) ? $sanitized_values['price_point_id'] : null,
-					'price_point_handle'           => isset( $sanitized_values['price_point_handle'] ) ? $sanitized_values['price_point_handle'] : null,
-					'component_id'                 => isset( $sanitized_values['component_id'] ) ? $sanitized_values['component_id'] : null,
-					'component_handle'             => isset( $sanitized_values['component_handle'] ) ? $sanitized_values['component_handle'] : null,
-					'component_price_point_id'     => isset( $sanitized_values['component_price_point_id'] ) ? $sanitized_values['component_price_point_id'] : null,
-					'component_price_point_handle' => isset( $sanitized_values['component_price_point_handle'] ) ? $sanitized_values['component_price_point_handle'] : null,
-					'component_quantity'           => isset( $sanitized_values['component_quantity'] ) ? $sanitized_values['component_quantity'] : null,
-				],
+				'product_handle'         => esc_attr( $product_handle ),
 				'customer_attributes'    => [
 					'first_name'   => $sanitized_values['chargify_first_name'],
 					'last_name'    => $sanitized_values['chargify_last_name'],
@@ -130,8 +119,6 @@ function query_vars( $query_vars ) {
 function maybe_set_default_from_posted_values( $field_args, $field ) {
 	if ( ! empty( $_POST[ $field->id() ] ) ) { // phpcs:ignore
 		return $_POST[ $field->id() ]; // phpcs:ignore
-	} elseif ( ! empty( $_GET[ $field->id() ] ) ) { // phpcs:ignore
-		return $_GET[ $field->id() ]; // phpcs:ignore
 	}
 
 	return '';
