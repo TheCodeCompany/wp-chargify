@@ -59,10 +59,6 @@ export class CountryStateSelector {
 			// Build the country list.
 			this.buildCountryLists();
 
-			// TODO delete.
-			console.log( this.countriesPopularList );
-			console.log( this.countriesFullList );
-
 			// Add select 2.
 			$( this.selectFieldCountry ).select2( {
 				dropdownAutoWidth: true,
