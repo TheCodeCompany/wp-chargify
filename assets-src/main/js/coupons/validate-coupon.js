@@ -6,9 +6,9 @@ import { configParams } from "../config";
 
 // Grab config params.
 const {
-	ajax_url,
-	coupon_validation_action,
-	coupon_validation_nonce,
+	ajaxURL,
+	validateCouponAction,
+	validateCouponNonce,
 } = configParams;
 
 export class ValidateCoupon {
@@ -66,8 +66,11 @@ export class ValidateCoupon {
 			// If there is a coupon proceed.
 			if ( coupon.length ) {
 				this.submitting( true );
+
+				// TODO.
 				this.showDiscountEls( false );
 				this.clearDiscountEls();
+
 				// Start process.
 				// STEP 1. Check via admin ajax that the coupon is valid, and retrieve its information.
 				this.applyCoupon().then( ( response ) => {
@@ -103,13 +106,92 @@ export class ValidateCoupon {
 		} );
 	}
 
+	/**
+	 * Gather the base product data that may be used by the endpoint to verify the coupon.
+	 * Typically the product family id is the only thing required, however if its not present the other fields may be used to back trace and find within the controller.
+	 *
+	 * @returns {{product_family_id: string, component_id: string, component_price_point_id: string, price_point_handle: string, price_point_id: string, product_id: string, component_price_point_handle: string, product_handle: string, component_handle: string}}
+	 */
+	productDetails() {
+
+		let productDetails = {
+			product_family_id: '',
+			product_id: '',
+			product_handle: '',
+			price_point_id: '',
+			price_point_handle: '',
+			component_id: '',
+			component_handle: '',
+			component_price_point_id: '',
+			component_price_point_handle: '',
+		}
+
+		// Gather the values from the inputs.
+		const productFamilyIdField = $( '#product_family_id');
+		if ( productFamilyIdField.length && productFamilyIdField.val() ) {
+			productDetails[ 'product_family_id' ] = productFamilyIdField.val();
+		}
+
+		// Gather the values from the inputs.
+		const productIdField = $( '#product_id');
+		if ( productIdField.length && productIdField.val() ) {
+			productDetails[ 'product_id' ] = productIdField.val();
+		}
+
+		// Gather the values from the inputs.
+		const productHandleField = $( '#product_handle');
+		if ( productHandleField.length && productHandleField.val() ) {
+			productDetails[ 'product_handle' ] = productHandleField.val();
+		}
+
+		// Gather the values from the inputs.
+		const productPricePointIdField = $( '#price_point_id');
+		if ( productPricePointIdField.length && productPricePointIdField.val() ) {
+			productDetails[ 'price_point_id' ] = productPricePointIdField.val();
+		}
+
+		// Gather the values from the inputs.
+		const productPricePointHandleField = $( '#price_point_handle');
+		if ( productPricePointHandleField.length && productPricePointHandleField.val() ) {
+			productDetails[ 'price_point_handle' ] = productPricePointHandleField.val();
+		}
+
+		// Gather the values from the inputs.
+		const productComponentIdField = $( '#component_id');
+		if ( productComponentIdField.length && productComponentIdField.val() ) {
+			productDetails[ 'component_id' ] = productComponentIdField.val();
+		}
+
+		// Gather the values from the inputs.
+		const productComponentHandleField = $( '#component_handle');
+		if ( productComponentHandleField.length && productComponentHandleField.val() ) {
+			productDetails[ 'component_handle' ] = productComponentHandleField.val();
+		}
+
+		// Gather the values from the inputs.
+		const productComponentPricePointIdField = $( '#component_price_point_id');
+		if ( productComponentPricePointIdField.length && productComponentPricePointIdField.val() ) {
+			productDetails[ 'component_price_point_id' ] = productComponentPricePointIdField.val();
+		}
+
+		// Gather the values from the inputs.
+		const productComponentPricePointHandleField = $( '#component_price_point_handle');
+		if ( productComponentPricePointHandleField.length && productComponentPricePointHandleField.val() ) {
+			productDetails[ 'component_price_point_handle' ] = productComponentPricePointHandleField.val();
+		}
+
+		return productDetails;
+	}
+
 	async applyCoupon() {
 		const data = {
-			action: coupon_validation_action,
-			wp_nonce: coupon_validation_nonce,
-			product_family_id: this.productFamilyIdEl.val(),
+			action: validateCouponAction,
+			wp_nonce: validateCouponNonce,
 			coupon_code: this.couponInputEl.val(),
+			...this.productDetails(),
 		};
+
+		console.log( data ); return;
 
 		return await $.post( ajax_url, data, ( response ) => {
 			// TODO
@@ -147,12 +229,12 @@ export class ValidateCoupon {
 	 * Reset the coupon information if the input changes after the coupons been applied
 	 */
 	onInput() {
-		this.couponInputEl.on('input', () => {
+		this.couponInputEl.on( 'input', () => {
 			if ( this.couponApplied ) {
 				this.clearDiscountEls();
 				this.showDiscountEls( false );
 			}
-		});
+		} );
 	}
 
 	/**
@@ -307,10 +389,6 @@ export class ValidateCoupon {
 	
 	get couponInputEl() {
 		return this._couponInputEl;
-	}
-
-	get productFamilyIdEl() {
-		return this._productFamilyIdEl;
 	}
 
 	get couponApplied() {
