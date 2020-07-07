@@ -1,5 +1,10 @@
 <?php
 namespace Chargify\Meta_Boxes\API_Log;
+use function Chargify\Libraries\wp_enqueue_script_auto_ver;
+use function Chargify\Libraries\wp_enqueue_style_auto_ver;
+use function Chargify\Libraries\wp_localize_script_auto_ver;
+use function Chargify\Libraries\wp_register_script_auto_ver;
+
 /**
  * Add our meta boxes for our API Log.
  */
@@ -127,44 +132,102 @@ function remove_autosave() {
 	}
 }
 
+function main_styles_and_scripts() {
+
+	// TODO: add conditionals for enqueues at a latter date when the main style and js has contents.
+	// Currently only used in the signup form shortcode.
+	// Consider splitting the builds. Signup form JS possibly could be injected inline from a file, at the head of teh form.
+
+	$main_assets_handle = 'wp-chargify-main';
+
+	wp_enqueue_style_auto_ver(
+		$main_assets_handle,
+		plugins_url( 'wp-chargify/includes/assets/css/' . $main_assets_handle . '.css' )
+	);
+
+	wp_register_script_auto_ver(
+		$main_assets_handle,
+		plugins_url( 'wp-chargify/includes/assets/js/' . $main_assets_handle . '.js' ),
+		[ 'jquery' ],
+		true,
+		true,
+		true
+	);
+
+	wp_localize_script_auto_ver(
+		$main_assets_handle,
+		'wpChargifyMainConfig',
+		get_main_script_config()
+	);
+
+	wp_enqueue_script_auto_ver( $main_assets_handle );
+}
+
+/**
+ * Any JS config params to pass from php to the JS build file.
+ *
+ * @return array
+ */
+function get_main_script_config() {
+	return [
+		// TODO Set these three options from WP admin options and a WP filter during the second stage of this feature.
+		'signupDefaultCountry'   => 'AU', // Australia is the default country for select dropdowns in the signup form.
+		'signupCountriesPopular' => [
+			'AU',
+			'NZ',
+		],
+		'signupCountries'        => [],
+	];
+}
 
 /**
  * Enqueue the style and script for our custom metaboxes.
+ *
+ * @param int $hook Hook suffix for the current admin page.
  */
-function cmb2_styles_and_scripts( $page ) {
-	if ( 'post.php' !== $page ) {
-		return;
-	}
+function admin_styles_and_scripts( $hook ) {
 
-	if ( 'chargify_api_log' !== get_post_type() ) {
+	if ( is_admin() && 'post.php' !== $hook &&
+		'chargify_api_log' !== get_post_type() ) {
 		return;
 	}
 
 	// As CMB2 enqueues their styles on all pages we needed to remove it and add it back on our custom post type.
 	wp_enqueue_style( 'cmb2-styles' );
 
-	wp_enqueue_style(
-		'chargify-cmb2-api-log-theme',
-		plugins_url( 'assets/css/cmb2.css', dirname( __FILE__ ) ),
-		[],
-		'1.0.0'
+	$admin_assets_handle = 'wp-chargify-admin';
+
+	wp_enqueue_style_auto_ver(
+		$admin_assets_handle,
+		plugins_url( 'wp-chargify/includes/assets/css/' . $admin_assets_handle . '.css' )
 	);
 
-	wp_enqueue_script(
-		'chargify-cmb2-api-log-highlight-js',
-		plugins_url( 'assets/js/highlight.pack.js', dirname( __FILE__ ) ),
-		[],
-		'10.0.3'
+	wp_register_script_auto_ver(
+		$admin_assets_handle,
+		plugins_url( 'wp-chargify/includes/assets/js/' . $admin_assets_handle . '.js' ),
+		[ 'jquery' ],
+		true,
+		true,
+		true
 	);
 
-	wp_enqueue_script(
-		'chargify-cmb2-api-log-admin-highlight-js',
-		plugins_url( 'assets/js/main.js', dirname( __FILE__ ) ),
-		[ 'jquery', 'chargify-cmb2-api-log-highlight-js' ],
-		'1.0.0'
+	wp_localize_script_auto_ver(
+		$admin_assets_handle,
+		'wpChargifyAdminConfig',
+		get_admin_script_config()
 	);
+
+	wp_enqueue_script_auto_ver( $admin_assets_handle );
 }
 
+/**
+ * Any JS config params to pass from php to the JS build file.
+ *
+ * @return array
+ */
+function get_admin_script_config() {
+	return [];
+}
 
 /**
  * Render our custom code field.

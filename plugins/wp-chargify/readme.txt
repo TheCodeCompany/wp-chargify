@@ -67,8 +67,8 @@ We provide a number of optional filters you can use:
     - 'chargify_address_1'
     - 'chargify_address_2'
     - 'chargify_city'
-    - 'chargify_state'
     - 'chargify_zip'
+    - 'chargify_state'
     - 'chargify_country'
 
 `chargify_account_details_fields` - Filter the Account Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
@@ -85,8 +85,8 @@ We provide a number of optional filters you can use:
     - 'chargify_billing_address_1'
     - 'chargify_billing_address_2'
     - 'chargify_billing_city'
-    - 'chargify_billing_state'
     - 'chargify_billing_zip'
+    - 'chargify_billing_state'
     - 'chargify_billing_country'
 
 `chargify_coupon_fields` - Filter the Coupon Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
