@@ -2,6 +2,7 @@
 namespace Chargify\Chargify\Endpoints\Components;
 
 use Chargify\Helpers\Options;
+use Chargify\Post_Types\Helpers;
 
 /**
  * A function to request all of the components that are in Chargify.
@@ -62,6 +63,8 @@ function get_components() {
 	foreach ( $json as $family ) {
 		$components[] = $family['component'];
 	}
+
+	Helpers\populate_component_post_types( $components );
 
 	return $components;
 }

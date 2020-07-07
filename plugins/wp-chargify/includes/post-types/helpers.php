@@ -2,6 +2,7 @@
 namespace Chargify\Post_Types\Helpers;
 use Chargify\Chargify\Endpoints\Product_Families;
 use Chargify\Post_Types\Helpers;
+use Chargify\Chargify\Endpoints\Components;
 
 function populate_product_post_types( $products ) {
 	# Save all the products to an option
@@ -54,14 +55,34 @@ function get_product_values() {
 	return $values;
 }
 
+function populate_component_post_types( $components ) {
+	# Save all the components to an option
+	update_option( 'chargify_components_all', $components, false );
+
+	# Map the component data to our Component Custom Post type.
+	foreach ( $components as $component ) {
+		$args = [
+			'post_type'    => 'chargify_product',
+			'post_title'   => sanitize_text_field( $component['name'] ),
+			'post_content' => wp_filter_post_kses( $component['description'] ),
+			'post_status'  => 'publish',
+		];
+
+		$chargify_component = wp_insert_post( $args );
+
+		update_post_meta( $chargify_component, 'chargify_component_id', absint( $component['id'] ) );
+	}
+}
+
 /**
  * A function to clear all the Chargify Products in WordPress and pull them in again from Chargify.
  *
  * @return bool
  */
-function resync_products() {
+function resync_chargify() {
 	# Delete options
-	delete_option('chargify_products_all');
+	delete_option('chargify_products_all' );
+	delete_option('chargify_components_all' );
 
 	# Delete Products CPT's
 	$products = new \WP_Query( [ 'post_type' => 'chargify_product' ] );
@@ -71,21 +92,33 @@ function resync_products() {
 			$products->the_post();
 			wp_delete_post( get_the_ID(), true );
 		}
-		# We need to tell WP-CLI we successfully deleted posts.
-		if ( defined( 'WP_CLI' ) ) {
-			return true;
-		} else {
-		# We never want to save the CMB2 option.
-			return false;
+	}
+
+	# Delete Components CPT's
+	$components = new \WP_Query( [ 'post_type' => 'chargify_component' ] );
+
+	if ( $components->have_posts() ) {
+		while ( $components->have_posts() ) {
+			$components->the_post();
+			wp_delete_post( get_the_ID(), true );
 		}
+	}
+
+	# We need to tell WP-CLI we successfully deleted posts.
+	if ( defined( 'WP_CLI' ) ) {
+		return true;
+	} else {
+		# We never want to save the CMB2 option.
+		return false;
 	}
 
 }
 
 function sync_message( $cmb, $args ) {
 	if ( ! empty( $args['should_notify'] ) && true === $args['is_updated'] && true === $args['is_options_page'] ) {
-		Helpers\resync_products();
+		Helpers\resync_chargify();
 		Product_Families\get_products();
+		Components\get_components();
 		// Modify the updated message.
 		$args['message'] = __( 'The Chargify products have been resynced.', 'chargify' );
 

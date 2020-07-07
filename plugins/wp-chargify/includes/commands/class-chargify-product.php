@@ -101,7 +101,7 @@ class Chargify_Products {
 	 */
 	function empty() {
 		WP_CLI::log( "Deleting the products in WordPress..." );
-		$products = Helpers\resync_products();
+		$products = Helpers\resync_chargify();
 		if ( false === $products ) {
 			WP_CLI::error( "There were no products to delete." );
 		} else {
