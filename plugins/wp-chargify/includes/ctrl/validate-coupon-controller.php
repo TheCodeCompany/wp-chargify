@@ -9,6 +9,7 @@
 namespace Chargify\Controllers;
 
 use Chargify\Libraries\Requests;
+use function Chargify\Helpers\products\get_product_family_id;
 use function wp_create_nonce;
 use function wp_verify_nonce;
 use function Chargify\Chargify\Endpoints\Coupons\validate_coupon;
@@ -63,8 +64,23 @@ class ValidateCouponController {
 
 		if ( wp_verify_nonce( $wp_nonce, self::NONCE_KEY ) ) {
 
-			$product_family_id = $this->request->post_variables( 'product_family_id' );
+			$product_family_id = $this->request->post_variables( 'product_family_id', false );
 			$coupon_code       = $this->request->post_variables( 'coupon_code' );
+
+			if ( ! $product_family_id ) {
+				$product_details = [
+					'product_id'                   => $this->request->post_variables( 'product_id', false ),
+					'product_handle'               => $this->request->post_variables( 'product_handle', false ),
+					'price_point_id'               => $this->request->post_variables( 'price_point_id', false ),
+					'price_point_handle'           => $this->request->post_variables( 'price_point_handle', false ),
+					'component_id'                 => $this->request->post_variables( 'component_id', false ),
+					'component_handle'             => $this->request->post_variables( 'component_handle', false ),
+					'component_price_point_id'     => $this->request->post_variables( 'component_price_point_id', false ),
+					'component_price_point_handle' => $this->request->post_variables( 'component_price_point_handle', false ),
+				];
+
+				$product_family_id = get_product_family_id( $product_details );
+			}
 
 			if ( is_numeric( $product_family_id ) && ! empty( $coupon_code ) ) {
 				$response = validate_coupon( $product_family_id, $coupon_code );

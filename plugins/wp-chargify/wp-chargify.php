@@ -24,12 +24,16 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-webhooks.php';
 }
 
+define( 'WP_CHARGIFY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'WP_CHARGIFY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
 require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 require_once( 'includes/bootstrap.php' );
 require_once( 'includes/admin/settings.php' );
 require_once( 'includes/admin/helpers.php' );
 require_once( 'includes/libraries/enqueues.php' );
 require_once( 'includes/libraries/enqueues-functions.php' );
+require_once( 'includes/libraries/requests.php' );
 
 // Controllers.
 require_once( 'includes/ctrl/enqueues-controller.php' );
@@ -55,6 +59,7 @@ require_once( 'includes/forms/submission.php' );
 require_once( 'includes/helpers/customers.php' );
 require_once( 'includes/helpers/forms.php' );
 require_once( 'includes/helpers/options.php' );
+require_once( 'includes/helpers/products.php' );
 require_once( 'includes/logging/logger.php' );
 require_once( 'includes/meta-boxes/chargify-account.php' );
 require_once( 'includes/meta-boxes/chargify-api-log.php' );

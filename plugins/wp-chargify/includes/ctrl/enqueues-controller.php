@@ -50,12 +50,12 @@ class EnqueuesController {
 
 		wp_enqueue_style_auto_ver(
 			$assets_handle,
-			plugins_url( 'wp-chargify/includes/assets/css/' . $assets_handle . '.css' )
+			WP_CHARGIFY_PLUGIN_URL . 'includes/assets/css/' . $assets_handle . '.css'
 		);
 
 		wp_register_script_auto_ver(
 			$assets_handle,
-			plugins_url( 'wp-chargify/includes/assets/js/' . $assets_handle . '.js' ),
+			WP_CHARGIFY_PLUGIN_URL . 'includes/assets/js/' . $assets_handle . '.js',
 			[ 'jquery' ],
 			true,
 			true,
@@ -91,12 +91,12 @@ class EnqueuesController {
 
 		wp_enqueue_style_auto_ver(
 			$assets_handle,
-			plugins_url( 'wp-chargify/includes/assets/css/' . $assets_handle . '.css' )
+			WP_CHARGIFY_PLUGIN_URL . 'includes/assets/css/' . $assets_handle . '.css'
 		);
 
 		wp_register_script_auto_ver(
 			$assets_handle,
-			plugins_url( 'wp-chargify/includes/assets/js/' . $assets_handle . '.js' ),
+			WP_CHARGIFY_PLUGIN_URL . 'includes/assets/js/' . $assets_handle . '.js',
 			[ 'jquery' ],
 			true,
 			true,
@@ -121,7 +121,7 @@ class EnqueuesController {
 		return [
 			'ajaxURL'              => admin_url( 'admin-ajax.php' ),
 			'validateCouponAction' => ValidateCouponController::action(),
-			'validateCouponNonce'
+			'validateCouponNonce'  => ValidateCouponController::nonce(),
 		];
 	}
 

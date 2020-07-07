@@ -41,7 +41,7 @@ function register_coupon_fields( $signup_form ) {
 	$signup_form->add_field(
 		[
 			'name'       => '',
-			'id'         => 'chargify_coupon_verify',
+			'id'         => 'chargify_coupon_verify_button',
 			'type'       => 'text',
 			'attributes' => [
 				'value' => 'Verify Coupon',

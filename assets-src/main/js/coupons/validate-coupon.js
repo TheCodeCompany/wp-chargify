@@ -1,21 +1,21 @@
 import $ from 'jquery';
 
-import { check, log, centsToDollars } from '../helpers';
-import { Base } from './index';
-import { configParams } from "../config";
+import { log } from '../../../helpers/logger';
+import check from '../../../helpers/check-data-types';
+// import { check, log, centsToDollars } from '../helpers';
 
 // Grab config params.
 const {
 	ajaxURL,
 	validateCouponAction,
 	validateCouponNonce,
-} = configParams;
+} = window.wpChargifyMainConfig;
 
 export class ValidateCoupon {
 
 	// Buttons.
-	_validateButton;
-	_validateButtonHtml;
+	_validateButtonEl;
+	_validateButtonElHtml;
 
 	_productFamilyIdEl;
 	_couponInputEl;
@@ -24,18 +24,26 @@ export class ValidateCoupon {
 	/**
 	 * Constructor for the validate coupon js.
 	 *
-	 * @param {jQuery|HTMLElement|string} validateButtonSelector The container of valid id selector to use with jQuery.
-	 * @param {jQuery|HTMLElement|string} couponInputSelector The container of valid id selector to use with jQuery.
+	 * @param {jQuery|HTMLElement|string} validateButtonID The container of valid id selector to use with jQuery.
+	 * @param {jQuery|HTMLElement|string} couponInputID The container of valid id selector to use with jQuery.
+	 *
+	 * TODO.
+	 * need elements
+	 * current price in cents, hidden, with attached current price in dollars visual.
+	 * discount %
+	 * discount fixed %
+	 * discounted price in cents, hidden, with attached current price in dollars visual only if discount is different to current.
 	 */
-	constructor( validateButtonSelector, couponInputSelector ) {
-		this.validateButton = $( validateButtonSelector );
-		this.couponInputEl = $( couponInputSelector );
+	constructor( validateButtonID, couponInputID ) {
+		this.validateButtonEl = $( validateButtonID );
+		this.couponInputEl = $( couponInputID );
 
-		// Sanity check that the form exists.
-		if ( this.validateButton.length && this.couponInputEl.length ) {
 
-			this._validateButtonHtml = this.validateButton.html();
-			this._productFamilyIdEl = $( '#product_family_id' );
+		// Sanity check that the elements exists.
+		if ( this.validateButtonEl.length && this.couponInputEl.length ) {
+
+			// The original button html.
+			this.validateButtonElHtml = this.validateButtonEl.html();
 
 			// functionality.
 			this.onInput();
@@ -44,7 +52,7 @@ export class ValidateCoupon {
 		} else {
 			log( {
 				type: 'debug',
-				message: 'No validate coupon button on this page.',
+				message: 'No coupon fields on this page.',
 			} );
 		}
 	}
@@ -58,7 +66,7 @@ export class ValidateCoupon {
 	 */
 	onSubmit() {
 		// Form should be valid before submit button works.
-		this.validateButton.click( ( e ) => {
+		this.validateButtonEl.click( ( e ) => {
 			e.preventDefault();
 
 			const coupon = this.couponInputEl.val();
@@ -69,11 +77,11 @@ export class ValidateCoupon {
 
 				// TODO.
 				this.showDiscountEls( false );
-				this.clearDiscountEls();
+				// this.clearDiscountEls();
 
 				// Start process.
 				// STEP 1. Check via admin ajax that the coupon is valid, and retrieve its information.
-				this.applyCoupon().then( ( response ) => {
+				this.validateCoupon().then( ( response ) => {
 					if ( response.success ) {
 						log( {
 							type: 'info',
@@ -81,7 +89,8 @@ export class ValidateCoupon {
 							details: { response },
 						} );
 
-						// TODO continue testing. TCCSTAGINGTESTFIXED, TCCSTAGINGTESTPERCENT
+						// TODO continue testing.
+						// TODO delete Current Test Codes; TCCTESTCOUPONFIXED, TCCTESTCOUPONPERCENT
 
 						const { data } = response;
 						const { coupon } = data;
@@ -99,9 +108,10 @@ export class ValidateCoupon {
 					this.clearDiscountEls();
 					this.showDiscountEls( false );
 					this.submitting( false, 'fail' );
-					this.pageMessage.scrollToPageMessage();
-					this.couponInputEl.trigger( 'page_message' );
 				} );
+			} else {
+				console.log( 'empty coupon' );
+				// TODO, there must be a valid coupon.
 			}
 		} );
 	}
@@ -183,7 +193,12 @@ export class ValidateCoupon {
 		return productDetails;
 	}
 
-	async applyCoupon() {
+	/**
+	 * Connects with WP ajax to validate the coupon.
+	 *
+	 * @returns {Promise<*>}
+	 */
+	async validateCoupon() {
 		const data = {
 			action: validateCouponAction,
 			wp_nonce: validateCouponNonce,
@@ -191,26 +206,30 @@ export class ValidateCoupon {
 			...this.productDetails(),
 		};
 
-		console.log( data ); return;
+		console.log( data );
 
-		return await $.post( ajax_url, data, ( response ) => {
-			// TODO
+		return await $.post( ajaxURL, data, ( response ) => {
 			let message = '';
-			if ( ! check.isUndefined( response ) ) {
+
+			if ( check.isDefined( response ) ) {
 				// If message is present display it.
-				if ( ! check.isUndefined( response.message ) ) {
+				if ( check.isDefined( response.message ) ) {
 					const type = response.success ? 'success' : 'warning';
 					message = response.message;
 				}
 			} else {
-				message = 'An unexpected error validating coupon, please contact us for assistance.';
+				message = 'An unexpected error validating coupon.';
+
 				response = {};
 				response.success = false;
 				log( {
 					type: 'error',
-					message: 'Response undefined in applyCoupon()',
+					message: 'Response undefined in validateCoupon().',
 				} );
 			}
+			
+			// TODO show message.
+
 			return response;
 		} ).fail( ( xhr, status, error ) => {
 			log( {
@@ -230,6 +249,7 @@ export class ValidateCoupon {
 	 */
 	onInput() {
 		this.couponInputEl.on( 'input', () => {
+			console.log( 'coupon input' );
 			if ( this.couponApplied ) {
 				this.clearDiscountEls();
 				this.showDiscountEls( false );
@@ -340,12 +360,12 @@ export class ValidateCoupon {
 	 * @param type
 	 */
 	submitting( value, type = 'loading' ) {
-		if ( this.validateButton ) {
-			this.validateButton.prop( 'disabled', value );
+		if ( this.validateButtonEl ) {
+			this.validateButtonEl.prop( 'disabled', value );
 			if ( value ) {
-				this.validateButton.html( 'Validating...' );
+				this.validateButtonEl.html( 'Validating...' );
 			} else {
-				this.validateButton.html( this.validateButtonHtml );
+				this.validateButtonEl.html( this.validateButtonElHtml );
 			}
 		} else {
 			log( {
@@ -359,16 +379,16 @@ export class ValidateCoupon {
 	 * Setters.
 	 * ------------------------------------------------------------------------------------------ */
 
-	set validateButton( value ) {
-		this._validateButton = value;
+	set validateButtonEl( value ) {
+		this._validateButtonEl = value;
 	}
 
 	set couponInputEl( value ) {
 		this._couponInputEl = value;
 	}
 
-	set validateButtonHtml( value ) {
-		this._validateButtonHtml = value;
+	set validateButtonElHtml( value ) {
+		this._validateButtonElHtml = value;
 	}
 
 	set couponApplied( value ) {
@@ -379,12 +399,12 @@ export class ValidateCoupon {
 	 * Getters.
 	 * ------------------------------------------------------------------------------------------ */
 
-	get validateButton() {
-		return this._validateButton;
+	get validateButtonEl() {
+		return this._validateButtonEl;
 	}
 
-	get validateButtonHtml() {
-		return this._validateButtonHtml;
+	get validateButtonElHtml() {
+		return this._validateButtonElHtml;
 	}
 	
 	get couponInputEl() {
