@@ -141,8 +141,8 @@ function component_meta_boxes() {
 			'id'         => 'chargify_component_archived',
 			'type'       => 'radio_inline',
 			'options'    => [
-				'true'  => __( 'True', 'chargify' ),
-				'false' => __( 'False', 'chargify' ),
+				'1' => __( 'True', 'chargify' ),
+				'0' => __( 'False', 'chargify' ),
 			],
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -158,8 +158,8 @@ function component_meta_boxes() {
 			'id'         => 'chargify_component_taxable',
 			'type'       => 'radio_inline',
 			'options'    => [
-				'true'  => __( 'True', 'chargify' ),
-				'false' => __( 'False', 'chargify' ),
+				'1' => __( 'True', 'chargify' ),
+				'0' => __( 'False', 'chargify' ),
 			],
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -242,8 +242,8 @@ function component_meta_boxes() {
 			'id'         => 'chargify_component_recurring',
 			'type'       => 'radio_inline',
 			'options'    => [
-				'true'  => __( 'True', 'chargify' ),
-				'false' => __( 'False', 'chargify' ),
+				'1' => __( 'True', 'chargify' ),
+				'0' => __( 'False', 'chargify' ),
 			],
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -295,8 +295,8 @@ function component_meta_boxes() {
 			'id'         => 'chargify_component_fractional_quantities',
 			'type'       => 'radio_inline',
 			'options'    => [
-				'true'  => __( 'True', 'chargify' ),
-				'false' => __( 'False', 'chargify' ),
+				'1' => __( 'True', 'chargify' ),
+				'0' => __( 'False', 'chargify' ),
 			],
 			'attributes' => [
 				'readonly' => 'readonly',
