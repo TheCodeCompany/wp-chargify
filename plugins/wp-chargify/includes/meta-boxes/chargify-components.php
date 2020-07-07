@@ -172,7 +172,7 @@ function component_meta_boxes() {
 		[
 			'name'       => __( 'Default Price Point ID', 'chargify' ),
 			'desc'       => __( 'The Default Price Point ID of the component in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_default_price_point',
+			'id'         => 'chargify_component_default_price_point_id',
 			'type'       => 'text_small',
 			'attributes' => [
 				'readonly' => 'readonly',

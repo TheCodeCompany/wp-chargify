@@ -62,7 +62,7 @@ function populate_component_post_types( $components ) {
 	# Map the component data to our Component Custom Post type.
 	foreach ( $components as $component ) {
 		$args = [
-			'post_type'    => 'chargify_product',
+			'post_type'    => 'chargify_component',
 			'post_title'   => sanitize_text_field( $component['name'] ),
 			'post_content' => wp_filter_post_kses( $component['description'] ),
 			'post_status'  => 'publish',
@@ -71,6 +71,25 @@ function populate_component_post_types( $components ) {
 		$chargify_component = wp_insert_post( $args );
 
 		update_post_meta( $chargify_component, 'chargify_component_id', absint( $component['id'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_handle', sanitize_text_field( $component['handle'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_pricing_scheme', sanitize_text_field( $component['pricing_scheme'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_unit_name', sanitize_text_field( $component['unit_name'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_unit_price', sanitize_text_field( $component['unit_price'] ) );
+		update_post_meta( $chargify_component, 'chargify_product_family', sanitize_text_field( $component['product_family_name'] ) );
+		update_post_meta( $chargify_component, 'chargify_product_family_id', absint( $component['product_family_id'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_kind', sanitize_text_field( $component['kind'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_archived', sanitize_text_field( $component['archived'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_taxable', sanitize_text_field( $component['taxable'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_default_price_point_id', sanitize_text_field( $component['default_price_point_id'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_price_point_count', absint( $component['price_point_count'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_price_points_url', esc_url_raw( $component['price_points_url'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_default_price_point_name', sanitize_text_field( $component['default_price_point_name'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_tax_code', sanitize_text_field( $component['tax_code'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_recurring', sanitize_text_field( $component['recurring'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_upgrade_charge', sanitize_text_field( $component['upgrade_charge'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_downgrade_credit', sanitize_text_field( $component['downgrade_credit'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_fractional_quantities', sanitize_text_field( $component['allow_fractional_quantities'] ) );
+
 	}
 }
 
