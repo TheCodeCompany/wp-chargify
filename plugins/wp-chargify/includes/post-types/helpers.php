@@ -2,6 +2,7 @@
 namespace Chargify\Post_Types\Helpers;
 use Chargify\Chargify\Endpoints\Product_Families;
 use Chargify\Post_Types\Helpers;
+use Chargify\Chargify\Endpoints\Components;
 
 function populate_product_post_types( $products ) {
 	# Save all the products to an option
@@ -54,14 +55,53 @@ function get_product_values() {
 	return $values;
 }
 
+function populate_component_post_types( $components ) {
+	# Save all the components to an option
+	update_option( 'chargify_components_all', $components, false );
+
+	# Map the component data to our Component Custom Post type.
+	foreach ( $components as $component ) {
+		$args = [
+			'post_type'    => 'chargify_component',
+			'post_title'   => sanitize_text_field( $component['name'] ),
+			'post_content' => wp_filter_post_kses( $component['description'] ),
+			'post_status'  => 'publish',
+		];
+
+		$chargify_component = wp_insert_post( $args );
+
+		update_post_meta( $chargify_component, 'chargify_component_id', absint( $component['id'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_handle', sanitize_text_field( $component['handle'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_pricing_scheme', sanitize_text_field( $component['pricing_scheme'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_unit_name', sanitize_text_field( $component['unit_name'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_unit_price', sanitize_text_field( $component['unit_price'] ) );
+		update_post_meta( $chargify_component, 'chargify_product_family', sanitize_text_field( $component['product_family_name'] ) );
+		update_post_meta( $chargify_component, 'chargify_product_family_id', absint( $component['product_family_id'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_kind', sanitize_text_field( $component['kind'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_archived', sanitize_text_field( $component['archived'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_taxable', sanitize_text_field( $component['taxable'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_default_price_point_id', sanitize_text_field( $component['default_price_point_id'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_price_point_count', absint( $component['price_point_count'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_price_points_url', esc_url_raw( $component['price_points_url'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_default_price_point_name', sanitize_text_field( $component['default_price_point_name'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_tax_code', sanitize_text_field( $component['tax_code'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_recurring', sanitize_text_field( $component['recurring'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_upgrade_charge', sanitize_text_field( $component['upgrade_charge'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_downgrade_credit', sanitize_text_field( $component['downgrade_credit'] ) );
+		update_post_meta( $chargify_component, 'chargify_component_fractional_quantities', sanitize_text_field( $component['allow_fractional_quantities'] ) );
+
+	}
+}
+
 /**
  * A function to clear all the Chargify Products in WordPress and pull them in again from Chargify.
  *
  * @return bool
  */
-function resync_products() {
+function resync_chargify() {
 	# Delete options
-	delete_option('chargify_products_all');
+	delete_option('chargify_products_all' );
+	delete_option('chargify_components_all' );
 
 	# Delete Products CPT's
 	$products = new \WP_Query( [ 'post_type' => 'chargify_product' ] );
@@ -71,21 +111,33 @@ function resync_products() {
 			$products->the_post();
 			wp_delete_post( get_the_ID(), true );
 		}
-		# We need to tell WP-CLI we successfully deleted posts.
-		if ( defined( 'WP_CLI' ) ) {
-			return true;
-		} else {
-		# We never want to save the CMB2 option.
-			return false;
+	}
+
+	# Delete Components CPT's
+	$components = new \WP_Query( [ 'post_type' => 'chargify_component' ] );
+
+	if ( $components->have_posts() ) {
+		while ( $components->have_posts() ) {
+			$components->the_post();
+			wp_delete_post( get_the_ID(), true );
 		}
+	}
+
+	# We need to tell WP-CLI we successfully deleted posts.
+	if ( defined( 'WP_CLI' ) ) {
+		return true;
+	} else {
+		# We never want to save the CMB2 option.
+		return false;
 	}
 
 }
 
 function sync_message( $cmb, $args ) {
 	if ( ! empty( $args['should_notify'] ) && true === $args['is_updated'] && true === $args['is_options_page'] ) {
-		Helpers\resync_products();
+		Helpers\resync_chargify();
 		Product_Families\get_products();
+		Components\get_components();
 		// Modify the updated message.
 		$args['message'] = __( 'The Chargify products have been resynced.', 'chargify' );
 
