@@ -48,7 +48,7 @@ function register_chargify_options_metabox() {
 	$products_options->add_field([
 		'name'            => __( 'Resync Products', 'chargify' ),
 		'desc'            => __( 'Select this checkbox and click "Save Changes" to trigger a resync of your Chargify products.' ),
-		'id'              => 'chargify_resync_products',
+		'id'              => 'chargify_resync_chargify',
 		'type'            => 'checkbox',
 	]);
 
