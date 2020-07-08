@@ -38,7 +38,7 @@ function register_customer_billing_fields( $signup_form ) {
 				'placeholder' => __( 'First Name', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -52,7 +52,7 @@ function register_customer_billing_fields( $signup_form ) {
 				'placeholder' => __( 'Last Name', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -66,7 +66,7 @@ function register_customer_billing_fields( $signup_form ) {
 				'placeholder' => __( 'Address Line 1', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -80,7 +80,7 @@ function register_customer_billing_fields( $signup_form ) {
 				'placeholder' => __( 'Address Line 2', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -94,7 +94,7 @@ function register_customer_billing_fields( $signup_form ) {
 				'placeholder' => __( 'City / Town', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 	$signup_form->add_field(
@@ -107,7 +107,7 @@ function register_customer_billing_fields( $signup_form ) {
 				'placeholder' => __( 'Zip / Post Code', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -123,7 +123,7 @@ function register_customer_billing_fields( $signup_form ) {
 				'required'    => null,
 				'style'       => 'width: 100%',
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -139,7 +139,7 @@ function register_customer_billing_fields( $signup_form ) {
 				'required'    => null,
 				'style'       => 'width: 100%',
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 

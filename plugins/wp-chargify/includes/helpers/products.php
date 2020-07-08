@@ -13,7 +13,6 @@ namespace Chargify\Helpers\products;
  *
  * @param array $product_details Array with product attributes.
  * This array can contain.
- * product_family_id,
  * product_id,
  * product_handle,
  * price_point_id,
@@ -28,9 +27,10 @@ namespace Chargify\Helpers\products;
 function get_product_family_id( $product_details ) {
 
 	$product_family_id = false;
+	// TODO use product meta and latter switch to the product model.
 
 	// TODO lookup via the database product model to find product family id.
-	if ( ! empty( $array['product_handle'] ) && is_numeric( $array['product_id'] ) ) {
+	if ( ! empty( $array['product_id'] ) && is_numeric( $array['product_id'] ) ) {
 		$product_id = $array['product_id'];
 		// TODO look up by product id.
 

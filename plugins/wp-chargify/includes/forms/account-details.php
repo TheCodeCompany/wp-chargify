@@ -37,7 +37,7 @@ function register_account_details_fields( $signup_form ) {
 			'attributes' => [
 				'placeholder' => __( 'Username', 'chargify' ),
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -51,7 +51,7 @@ function register_account_details_fields( $signup_form ) {
 				'placeholder' => __( 'Password', 'chargify' ),
 				'type'        => 'password',
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
