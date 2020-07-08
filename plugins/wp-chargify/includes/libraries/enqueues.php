@@ -14,6 +14,7 @@ use function wp_register_script;
 use function wp_localize_script;
 use function wp_enqueue_script;
 
+
 /**
  * This class is used as a helper to enqueue assets.
  * Identifies and enqueues unminified versions for local if the file exists.
@@ -54,7 +55,7 @@ class Enqueue {
 		self::store_enqueue_data( $identifier, $src, $type, $async );
 
 		$handle  = self::get_enqueue_handle( $identifier, $type );
-		$src     = self::get_src( $identifier, $type );
+		$src     = self::get_src( $identifier, $type, $version );
 		$version = self::get_version( $identifier, $type, $version );
 
 		wp_register_script( $handle, $src, $deps, $version, $in_footer );
@@ -77,7 +78,7 @@ class Enqueue {
 		self::store_enqueue_data( $identifier, $src, $type );
 
 		$handle  = self::get_enqueue_handle( $identifier, $type );
-		$src     = self::get_src( $identifier, $type );
+		$src     = self::get_src( $identifier, $type, $version );
 		$version = self::get_version( $identifier, $type, $version );
 
 		wp_register_style( $handle, $src, $deps, $version );
@@ -97,7 +98,7 @@ class Enqueue {
 	public static function enqueue_script( $identifier, $src = '', $deps = [], $version = null, $in_footer = true, $async = true ) {
 		$handle = self::get_enqueue_handle( $identifier, 'js' );
 
-		if ( is_string( $handle ) && ! empty( $handle ) ) {
+		if ( is_string( $handle ) ) {
 			wp_enqueue_script( $handle );
 		} elseif ( ! empty( $src ) ) {
 			// Attempt to register and enqueue.
@@ -120,7 +121,7 @@ class Enqueue {
 	public static function enqueue_style( $identifier, $src = '', $deps = [], $version = null ) {
 		$handle = self::get_enqueue_handle( $identifier, 'css' );
 
-		if ( is_string( $handle ) && ! empty( $handle ) ) {
+		if ( is_string( $handle ) ) {
 			wp_enqueue_style( $handle );
 		} elseif ( ! empty( $src ) ) {
 			// Attempt to register and enqueue.
@@ -179,7 +180,7 @@ class Enqueue {
 				'path_uri'       => $path_uri,
 				'src_absolute'   => '',
 				'src'            => '',
-				'version'        => '',
+				'version'        => false,
 			],
 		];
 
@@ -315,13 +316,22 @@ class Enqueue {
 	/**
 	 * Get the full src path including the asset file name and extension.
 	 *
-	 * @param string $identifier The calling identifier.
-	 * @param string $type       File type, css or js.
+	 * @param string           $identifier The calling identifier.
+	 * @param string           $type       File type, css or js.
+	 * @param null|bool|string $version    The version to apply to the asset.
 	 *
 	 * @return string
 	 */
-	protected static function get_src( $identifier, $type ) {
-		return self::get_stored_value( $identifier, 'src', $type );
+	protected static function get_src( $identifier, $type, $version ) {
+
+		$version = self::get_version( $identifier, $type, $version );
+		$src     = self::get_stored_value( $identifier, 'src', $type );
+
+		if ( $version ) {
+			$src = preg_replace( '@\.([^./\?]+)(\?.*)?$@', '.' . $version . '.$1', $src );
+		}
+
+		return $src;
 	}
 
 	/**
@@ -335,7 +345,11 @@ class Enqueue {
 	 */
 	protected static function get_version( $identifier, $type, $version = null ) {
 		if ( true === $version ) {
-			$version = self::get_stored_value( $identifier, 'version', $type );
+			if ( self::is_local() ) {
+				$version = false;
+			} else {
+				$version = self::get_stored_value( $identifier, 'version', $type );
+			}
 		}
 
 		return $version;
@@ -377,4 +391,3 @@ class Enqueue {
 
 // Initialize the constructor, this is a standalone feature.
 new Enqueue();
-
