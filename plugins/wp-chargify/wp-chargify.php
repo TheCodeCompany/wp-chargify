@@ -77,7 +77,6 @@ require_once( 'includes/forms/submission.php' );
 require_once( 'includes/helpers/customers.php' );
 require_once( 'includes/helpers/forms.php' );
 require_once( 'includes/helpers/options.php' );
-require_once( 'includes/helpers/products.php' );
 require_once( 'includes/logging/logger.php' );
 require_once( 'includes/meta-boxes/chargify-account.php' );
 require_once( 'includes/meta-boxes/chargify-api-log.php' );

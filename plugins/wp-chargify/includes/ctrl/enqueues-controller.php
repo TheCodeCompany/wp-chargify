@@ -118,11 +118,41 @@ class EnqueuesController {
 	 * @return array
 	 */
 	protected function get_main_script_config() {
-		return [
+
+		$base_config = [
 			'ajaxURL'              => admin_url( 'admin-ajax.php' ),
 			'validateCouponAction' => ValidateCouponController::action(),
 			'validateCouponNonce'  => ValidateCouponController::nonce(),
 		];
+
+		// Defaults, can be filtered by the theme.
+		$chargify_signup_country_and_states = [
+			'signupDefaultCountry'   => 'AU', // Australia is the default country for select dropdowns in the signup form.
+			'signupCountriesPopular' => [
+				'AU',
+				'NZ',
+				'US',
+				'GB',
+				'ZA',
+				'SG',
+				'CA',
+				'FR',
+				'IN',
+				'DE',
+			],
+			'signupCountries'        => [],
+		];
+
+		$chargify_signup_country_and_states = apply_filters( 'chargify_signup_country_and_states', $chargify_signup_country_and_states );
+
+		if ( ! empty( $chargify_signup_country_and_states ) &&
+			is_array( $chargify_signup_country_and_states ) ) {
+			$base_config = array_merge( $base_config, $chargify_signup_country_and_states );
+		}
+
+		$base_config = apply_filters( 'chargify_base_js_config', $base_config );
+
+		return $base_config;
 	}
 
 	/**

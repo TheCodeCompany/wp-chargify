@@ -52,27 +52,9 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 *
 	 * @return GenericPost|ChargifyProduct|null
 	 */
-	public function get_by_product_id( $product_id ) {
+	public function get_by_product_id( $product_id_handle, $product_price_point_id_handle ) {
 
-		$args = [
-			'post_type'  => $this->get_post_type(),
-			'meta_query' => [ // phpcs:ignore
-				[
-					'key'     => ChargifyProduct::META_CHARGIFY_PRODUCT_ID,
-					'value'   => $product_id,
-					'compare' => '=',
-				],
-			],
-		];
-
-		// Should only be one.
-		$posts = get_posts( $args );
-
-		if ( is_array( $posts ) && count( $posts ) === 1 ) {
-			return $this->wrap( $posts[0] );
-		} else {
-			return null;
-		}
+		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_PRODUCT_ID, $product_id );
 	}
 
 	/**
@@ -84,12 +66,25 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 */
 	public function get_by_product_handle( $product_handle ) {
 
+		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_PRODUCT_HANDLE, $product_handle );
+	}
+
+	/**
+	 * Get the Chargify Product by unique meta id, fails if more than one found.
+	 *
+	 * @param string $meta_key   The meta key.
+	 * @param mixed  $meta_value The meta value, usualy int or string, must be unique, like product id, handle etc.
+	 *
+	 * @return GenericPost|ChargifyProduct|null
+	 */
+	public function get_by_unique_meta( $meta_key, $meta_value ) {
+
 		$args = [
 			'post_type'  => $this->get_post_type(),
 			'meta_query' => [ // phpcs:ignore
 				[
-					'key'     => ChargifyProduct::META_CHARGIFY_PRODUCT_HANDLE,
-					'value'   => $product_handle,
+					'key'     => $meta_key,
+					'value'   => $meta_value,
 					'compare' => '=',
 				],
 			],
@@ -103,7 +98,6 @@ class ChargifyProductFactory extends GenericPostFactory {
 		} else {
 			return null;
 		}
-
 	}
 
 	/**

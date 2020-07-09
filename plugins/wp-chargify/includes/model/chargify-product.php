@@ -108,7 +108,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return int|null
 	 */
-	public function get_product_id( $new_fetch = false ) {
+	public function get_chargify_product_id( $new_fetch = false ) {
 
 		if ( null === $this->chargify_product_id || $new_fetch ) {
 			$this->chargify_product_id = $this->get_meta( self::META_CHARGIFY_PRODUCT_ID );
@@ -125,7 +125,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return null|string
 	 */
-	public function get_product_handle( $new_fetch = false ) {
+	public function get_chargify_product_handle( $new_fetch = false ) {
 
 		if ( null === $this->chargify_product_handle || $new_fetch ) {
 			$this->chargify_product_handle = $this->get_meta( self::META_CHARGIFY_PRODUCT_HANDLE );
@@ -142,7 +142,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return null|string
 	 */
-	public function get_price( $new_fetch = false ) {
+	public function get_chargify_price( $new_fetch = false ) {
 
 		if ( null === $this->chargify_price || $new_fetch ) {
 			$this->chargify_price = $this->get_meta( self::META_CHARGIFY_PRICE );
@@ -159,7 +159,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return null|string
 	 */
-	public function get_initial_cost( $new_fetch = false ) {
+	public function get_chargify_initial_cost( $new_fetch = false ) {
 
 		if ( null === $this->chargify_initial_cost || $new_fetch ) {
 			$this->chargify_initial_cost = $this->get_meta( self::META_CHARGIFY_INITIAL_COST );
@@ -176,7 +176,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return null|string
 	 */
-	public function get_interval_unit( $new_fetch = false ) {
+	public function get_chargify_interval_unit( $new_fetch = false ) {
 
 		if ( null === $this->chargify_interval_unit || $new_fetch ) {
 			$this->chargify_interval_unit = $this->get_meta( self::META_CHARGIFY_INTERVAL_UNIT );
@@ -193,7 +193,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return null|string
 	 */
-	public function get_interval( $new_fetch = false ) {
+	public function get_chargify_interval( $new_fetch = false ) {
 
 		if ( null === $this->chargify_interval || $new_fetch ) {
 			$this->chargify_interval = $this->get_meta( self::META_CHARGIFY_INTERVAL );
@@ -210,7 +210,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return int
 	 */
-	public function get_product_family_id( $new_fetch = false ) {
+	public function get_chargify_product_family_id( $new_fetch = false ) {
 
 		if ( null === $this->chargify_product_family_id || $new_fetch ) {
 			$this->chargify_product_family_id = (int) $this->get_meta( self::META_CHARGIFY_PRODUCT_FAMILY_ID );
@@ -227,7 +227,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return null|string
 	 */
-	public function get_product_family( $new_fetch = false ) {
+	public function get_chargify_product_family( $new_fetch = false ) {
 
 		if ( null === $this->chargify_product_family || $new_fetch ) {
 			$this->chargify_product_family = $this->get_meta( self::META_CHARGIFY_PRODUCT_FAMILY );
@@ -244,7 +244,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return int|null
 	 */
-	public function get_price_point_id( $new_fetch = false ) {
+	public function get_chargify_price_point_id( $new_fetch = false ) {
 
 		if ( null === $this->chargify_price_point_id || $new_fetch ) {
 			$this->chargify_price_point_id = $this->get_meta( self::META_CHARGIFY_PRODUCT_PRICE_POINT_ID );
@@ -261,7 +261,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return null|string
 	 */
-	public function get_price_point_handle( $new_fetch = false ) {
+	public function get_chargify_price_point_handle( $new_fetch = false ) {
 
 		if ( null === $this->chargify_price_point_handle || $new_fetch ) {
 			$this->chargify_price_point_handle = $this->get_meta( self::META_CHARGIFY_PRODUCT_PRICE_POINT_HANDLE );
