@@ -1,5 +1,8 @@
 <?php
+
 namespace Chargify\Meta_Boxes\API_Log;
+
+use Chargify\Endpoints\ValidateCouponController;
 use function Chargify\Libraries\wp_enqueue_script_auto_ver;
 use function Chargify\Libraries\wp_enqueue_style_auto_ver;
 use function Chargify\Libraries\wp_localize_script_auto_ver;
@@ -130,85 +133,6 @@ function remove_autosave() {
 	if ( 'chargify_api_log' === get_post_type() ) {
 		wp_dequeue_script( 'autosave' );
 	}
-}
-
-function main_styles_and_scripts() {
-
-	// TODO: add conditionals for enqueues at a latter date when the main style and js has contents.
-	return;
-
-	$main_assets_handle = 'wp-chargify-main';
-
-	wp_enqueue_style_auto_ver(
-		$main_assets_handle,
-		plugins_url( 'wp-chargify/includes/assets/css/' . $main_assets_handle . '.css' )
-	);
-
-	wp_register_script_auto_ver(
-		$main_assets_handle,
-		plugins_url( 'wp-chargify/includes/assets/js/' . $main_assets_handle . '.js' ),
-		[ 'jquery' ],
-		true,
-		true,
-		true
-	);
-
-	wp_localize_script_auto_ver(
-		$main_assets_handle,
-		'wpChargifyMainConfig',
-		get_main_script_config()
-	);
-
-	wp_enqueue_script_auto_ver( $main_assets_handle );
-}
-
-/**
- * Enqueue the style and script for our custom metaboxes.
- *
- * @param int $hook Hook suffix for the current admin page.
- */
-function admin_styles_and_scripts( $hook ) {
-
-	if ( is_admin() && 'post.php' !== $hook &&
-		'chargify_api_log' !== get_post_type() ) {
-		return;
-	}
-
-	// As CMB2 enqueues their styles on all pages we needed to remove it and add it back on our custom post type.
-	wp_enqueue_style( 'cmb2-styles' );
-
-	$admin_assets_handle = 'wp-chargify-admin';
-
-	wp_enqueue_style_auto_ver(
-		$admin_assets_handle,
-		plugins_url( 'wp-chargify/includes/assets/css/' . $admin_assets_handle . '.css' )
-	);
-
-	wp_register_script_auto_ver(
-		$admin_assets_handle,
-		plugins_url( 'wp-chargify/includes/assets/js/' . $admin_assets_handle . '.js' ),
-		[ 'jquery' ],
-		true,
-		true,
-		true
-	);
-
-	wp_localize_script_auto_ver(
-		$admin_assets_handle,
-		'wpChargifyAdminConfig',
-		get_admin_script_config()
-	);
-
-	wp_enqueue_script_auto_ver( $admin_assets_handle );
-}
-
-/**
- * Any JS config params to pass from php to the JS build file.
- *
- * @return array
- */
-function get_admin_script_config() {
-	return [];
 }
 
 /**

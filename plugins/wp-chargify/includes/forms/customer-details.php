@@ -151,19 +151,6 @@ function register_customer_details_fields( $signup_form ) {
 
 	$signup_form->add_field(
 		[
-			'name'       => __( 'State / Province / Region', 'chargify' ),
-			'id'         => 'chargify_state',
-			'type'       => 'text',
-			'desc'       => __( 'Your state, province or region.', 'chargify' ),
-			'attributes' => [
-				'placeholder' => __( 'State / Province / Region', 'chargify' ),
-			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
-		]
-	);
-
-	$signup_form->add_field(
-		[
 			'name'       => __( 'Zip / Post Code', 'chargify' ),
 			'id'         => 'chargify_zip',
 			'type'       => 'text',
@@ -177,9 +164,22 @@ function register_customer_details_fields( $signup_form ) {
 
 	$signup_form->add_field(
 		[
+			'name'       => __( 'State / Province / Region', 'chargify' ),
+			'id'         => 'chargify_state',
+			'type'       => 'select',
+			'desc'       => __( 'Your state, province or region.', 'chargify' ),
+			'attributes' => [
+				'placeholder' => __( 'State / Province / Region', 'chargify' ),
+			],
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+		]
+	);
+
+	$signup_form->add_field(
+		[
 			'name'       => __( 'Country', 'chargify' ),
 			'id'         => 'chargify_country',
-			'type'       => 'text',
+			'type'       => 'select',
 			'desc'       => __( 'Your country.', 'chargify' ),
 			'attributes' => [
 				'placeholder' => __( 'Country', 'chargify' ),

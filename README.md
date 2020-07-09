@@ -156,9 +156,9 @@ $ ./scripts/dev.sh composer install yarn dashboard
 ```
 
 Example 3;
-The following will no rebuild any dependencies and starts webpack dashboard to watch for development changes.
+The following will not rebuild any dependencies and starts webpack dashboard to watch for development changes.
 
 ```bash
 $ cd ~/path/to/repo
-$ ./scripts/dev.sh composer install yarn dashboard
+$ ./scripts/dev.sh yarn dashboard
 ```

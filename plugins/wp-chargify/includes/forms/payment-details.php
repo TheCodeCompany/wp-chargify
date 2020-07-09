@@ -38,7 +38,7 @@ function register_payment_fields( $signup_form ) {
 				'placeholder' => __( 'First Name', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -52,7 +52,7 @@ function register_payment_fields( $signup_form ) {
 				'placeholder' => __( 'Last Name', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -67,7 +67,7 @@ function register_payment_fields( $signup_form ) {
 				'type'        => 'number',
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -83,7 +83,7 @@ function register_payment_fields( $signup_form ) {
 				'min'         => '0',
 				'max'         => '12',
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -100,7 +100,7 @@ function register_payment_fields( $signup_form ) {
 				'max'         => '2100',
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -115,7 +115,7 @@ function register_payment_fields( $signup_form ) {
 				'type'        => 'number',
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 

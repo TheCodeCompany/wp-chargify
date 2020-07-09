@@ -9,4 +9,5 @@ function delete_settings() {
 	delete_option( 'chargify_options' );
 	delete_option( 'chargify_webhooks' );
 	delete_option( 'chargify_products_all' );
+	delete_option( 'chargify_components_all' );
 }

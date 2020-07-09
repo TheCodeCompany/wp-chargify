@@ -6,7 +6,16 @@ namespace Chargify\Roles;
  */
 function add_chargify_role() {
 	$subscriber = get_role( 'subscriber' );
-	add_role( 'chargify_user', __( 'Chargify User', 'chargify' ), $subscriber->capabilities );
+
+	if ( $subscriber ) {
+		$capabilities = $subscriber->capabilities;
+	} else {
+		$capabilities = [
+			'read' => true, // Same as the standard subscriber.
+		];
+	}
+
+	add_role( 'chargify_user', __( 'Chargify User', 'chargify' ), $capabilities );
 }
 
 /**

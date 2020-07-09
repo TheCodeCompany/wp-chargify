@@ -11,6 +11,7 @@ namespace Chargify\Forms\Submission;
 use Chargify\Endpoints\Subscription;
 use CMB2;
 use WP_Error;
+use function Chargify\Helpers\products\get_product_family_id;
 
 /**
  * Create a subscription, filter all of the form data into an array ready for the subscription submission.
@@ -118,6 +119,26 @@ function query_vars( $query_vars ) {
 
 	return $query_vars;
 }
+/**
+ * Sets the frontend post form field values if form has already been submitted.
+ *
+ * @param object $field_args Current field args.
+ * @param object $field      Current field object.
+ *
+ * @return string
+ */
+function maybe_get_field_default_value( $meta_key ) {
+
+	$value = '';
+
+	if ( ! empty( $_POST[ $meta_key ] ) ) { // phpcs:ignore
+		$value = $_POST[ $meta_key ]; // phpcs:ignore
+	} elseif ( ! empty( $_GET[ $meta_key ] ) ) { // phpcs:ignore
+		$value = $_GET[ $meta_key ]; // phpcs:ignore
+	}
+
+	return $value;
+}
 
 /**
  * Sets the frontend post form field values if form has already been submitted.
@@ -127,12 +148,57 @@ function query_vars( $query_vars ) {
  *
  * @return string
  */
-function maybe_set_default_from_posted_values( $field_args, $field ) {
-	if ( ! empty( $_POST[ $field->id() ] ) ) { // phpcs:ignore
-		return $_POST[ $field->id() ]; // phpcs:ignore
-	} elseif ( ! empty( $_GET[ $field->id() ] ) ) { // phpcs:ignore
-		return $_GET[ $field->id() ]; // phpcs:ignore
+function maybe_set_default_value( $field_args, $field ) {
+
+	return maybe_get_field_default_value( $field->id() );
+}
+
+/**
+ * Sets the frontend post form field values if form has already been submitted.
+ * TODO: product model, most of the inside of this should reside in a model.
+ *
+ * @param object $field_args Current field args.
+ * @param object $field      Current field object.
+ *
+ * @return string
+ */
+function maybe_set_default_product_info( $field_args, $field ) {
+
+	// Try to gather info from GET or POST first.
+	$value = maybe_set_default_value( $field_args, $field );
+
+	// TODO: product model. move to model as constants.
+	$product_details = [
+		'product_id',
+		'product_handle',
+		'price_point_id',
+		'price_point_handle',
+		'component_id',
+		'component_handle',
+		'component_price_point_id',
+		'component_price_point_handle',
+	];
+
+	$found_product_details = [];
+
+	if ( empty( $value ) ) {
+		foreach( $product_details as $meta_key ) {
+			$detail = maybe_get_field_default_value( $meta_key );
+			if ( ! empty( $detail ) ) {
+				$found_product_details[ $meta_key ] = $detail;
+			}
+		}
+
+		// TODO: product model.
+		switch ( $field->id() ) {
+			// Currently only setup for product family ID.
+			case 'product_family_id':
+				$value = get_product_family_id( $product_details );
+				break;
+			default:
+				break;
+		}
 	}
 
-	return '';
+	return $value;
 }
