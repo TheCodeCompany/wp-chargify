@@ -47,6 +47,8 @@ require_once( 'includes/libraries/model.php' );
 require_once( 'includes/libraries/model-factory.php' );
 require_once( 'includes/libraries/generic-post.php' );
 require_once( 'includes/libraries/generic-post-factory.php' );
+require_once( 'includes/libraries/user.php' );
+require_once( 'includes/libraries/user-factory.php' );
 
 // Models and Factories.
 require_once( 'includes/model/chargify-product.php' );
@@ -57,6 +59,8 @@ require_once( 'includes/model/chargify-component.php' );
 require_once( 'includes/model/chargify-component-factory.php' );
 require_once( 'includes/model/chargify-component-price-point.php' );
 require_once( 'includes/model/chargify-component-price-point-factory.php' );
+require_once( 'includes/model/chargify-user.php' );
+require_once( 'includes/model/chargify-user-factory.php' );
 
 // Controllers.
 require_once( 'includes/ctrl/admin-page-wp-chargify-controller.php' );
