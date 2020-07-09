@@ -9,6 +9,7 @@
 namespace Chargify\Controllers;
 
 use Chargify\Libraries\Requests;
+use Chargify\Model\ChargifyProductFactory;
 use function Chargify\Helpers\products\get_product_family_id;
 use function wp_create_nonce;
 use function wp_verify_nonce;
@@ -69,17 +70,20 @@ class ValidateCouponController {
 
 			if ( ! $product_family_id ) {
 				$product_details = [
-					'product_id'                   => $this->request->post_variables( 'product_id', false ),
-					'product_handle'               => $this->request->post_variables( 'product_handle', false ),
-					'price_point_id'               => $this->request->post_variables( 'price_point_id', false ),
-					'price_point_handle'           => $this->request->post_variables( 'price_point_handle', false ),
-					'component_id'                 => $this->request->post_variables( 'component_id', false ),
-					'component_handle'             => $this->request->post_variables( 'component_handle', false ),
-					'component_price_point_id'     => $this->request->post_variables( 'component_price_point_id', false ),
-					'component_price_point_handle' => $this->request->post_variables( 'component_price_point_handle', false ),
+					'chargify_product_id'                   => $this->request->post_variables( 'chargify_product_id', false ),
+					'chargify_product_handle'               => $this->request->post_variables( 'chargify_product_handle', false ),
+					'chargify_price_point_id'               => $this->request->post_variables( 'chargify_price_point_id', false ),
+					'chargify_price_point_handle'           => $this->request->post_variables( 'chargify_price_point_handle', false ),
+					'chargify_component_id'                 => $this->request->post_variables( 'chargify_component_id', false ),
+					'chargify_component_handle'             => $this->request->post_variables( 'chargify_component_handle', false ),
+					'chargify_component_price_point_id'     => $this->request->post_variables( 'chargify_component_price_point_id', false ),
+					'chargify_component_price_point_handle' => $this->request->post_variables( 'chargify_component_price_point_handle', false ),
 				];
+				// TODO no validation by component.
+//				$chargify_product_factory = new ChargifyProductFactory();
+//				$chargify_product = $chargify_product_factory->get_by_product_id();
 
-				$product_family_id = get_product_family_id( $product_details );
+				$product_family_id = 1529881; // Hardcoded.
 			}
 
 			if ( is_numeric( $product_family_id ) && ! empty( $coupon_code ) ) {

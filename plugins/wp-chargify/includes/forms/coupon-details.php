@@ -50,9 +50,27 @@ function register_coupon_fields( $signup_form ) {
 		]
 	);
 
-
-
+	$signup_form->add_field(
+		[
+			'name'         => '',
+			'id'           => 'chargify_coupon_message',
+			'type'         => 'title',
+			'before_field' => 'Chargify\\Forms\\Coupon_Details\\render_coupon_message_html',
+			'attributes'   => [
+				'style' => 'display:none;',
+			],
+		]
+	);
 
 	// Filter the Coupon Details form.
 	return apply_filters( 'chargify_coupon_fields', $signup_form );
+}
+
+/**
+ * Basic coupon message html container.
+ *
+ * @return string
+ */
+function render_coupon_message_html() {
+	return '<div id="chargify_coupon_messages_cntr" class="hidden"></div>';
 }

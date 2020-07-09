@@ -3,7 +3,7 @@
  * The Chargify Product factory.
  *
  * @file    wp-chargify/includes/model/chargify-product-factory.php
- * @package Products
+ * @package WPChargify
  */
 
 namespace Chargify\Model;

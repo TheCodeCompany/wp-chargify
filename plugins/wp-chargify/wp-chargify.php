@@ -49,6 +49,10 @@ require_once( 'includes/libraries/generic-post-factory.php' );
 // Models and Factories.
 require_once( 'includes/model/chargify-product.php' );
 require_once( 'includes/model/chargify-product-factory.php' );
+require_once( 'includes/model/chargify-component.php' );
+require_once( 'includes/model/chargify-component-factory.php' );
+require_once( 'includes/model/chargify-price-point.php' );
+require_once( 'includes/model/chargify-price-point-factory.php' );
 
 // Controllers.
 require_once( 'includes/ctrl/enqueues-controller.php' );

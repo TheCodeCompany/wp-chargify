@@ -17,9 +17,18 @@ export class ValidateCoupon {
 	_validateButtonEl;
 	_validateButtonElHtml;
 
-	_productFamilyIdEl;
+	// Elements
 	_couponInputEl;
+	_couponMessageEl;
+
+	_productFamilyIdEl;
 	_couponApplied = false;
+
+
+	// Flags
+	_showMessage = false;
+	_showingMessage = false;
+	_messageTimeoutTriggered = false;
 
 	/**
 	 * Constructor for the validate coupon js.
@@ -37,10 +46,10 @@ export class ValidateCoupon {
 	constructor( validateButtonID, couponInputID ) {
 		this.validateButtonEl = $( validateButtonID );
 		this.couponInputEl = $( couponInputID );
-
+		this.couponMessageEl = $( '#chargify_coupon_messages_cntr' );
 
 		// Sanity check that the elements exists.
-		if ( this.validateButtonEl.length && this.couponInputEl.length ) {
+		if ( this.validateButtonEl.length && this.couponInputEl.length && this.couponMessageEl.length ) {
 
 			// The original button html.
 			this.validateButtonElHtml = this.validateButtonEl.html();
@@ -48,6 +57,8 @@ export class ValidateCoupon {
 			// functionality.
 			this.onInput();
 			this.onSubmit();
+			console.log('hey');
+			this.couponMessageEvents();
 
 		} else {
 			log( {
@@ -82,7 +93,17 @@ export class ValidateCoupon {
 				// Start process.
 				// STEP 1. Check via admin ajax that the coupon is valid, and retrieve its information.
 				this.validateCoupon().then( ( response ) => {
+
+					// Display the return message.
+					if ( check.isDefined( response.message ) ) {
+						const messageType = response.success ? 'success' : 'warning';
+						this.displayMessage( response.message, messageType );
+					}
+
 					if ( response.success ) {
+						const { data } = response;
+						const { coupon } = data;
+
 						log( {
 							type: 'info',
 							message: 'Successful retrieved the coupon.',
@@ -92,12 +113,11 @@ export class ValidateCoupon {
 						// TODO continue testing.
 						// TODO delete Current Test Codes; TCCTESTCOUPONFIXED, TCCTESTCOUPONPERCENT
 
-						const { data } = response;
-						const { coupon } = data;
 
-						this.processCouponResult( coupon );
+						// TODO.
+						// this.processCouponResult( coupon );
+						// this.showDiscountEls( true );
 
-						this.showDiscountEls( true );
 						this.submitting( false, 'success' );
 						this.couponInputEl.trigger( 'page_message' );
 						return true;
@@ -110,88 +130,149 @@ export class ValidateCoupon {
 					this.submitting( false, 'fail' );
 				} );
 			} else {
-				console.log( 'empty coupon' );
-				// TODO, there must be a valid coupon.
+				this.displayMessage( 'The coupon field cannot be empty.', 'warning' );
+				console.log( 'empty coupon' )
+			}
+		} );
+	}
+
+	couponMessageEvents() {
+		console.log( 'set events ');
+		// Any change to the coupon input clear message.
+		$( this.couponInputEl ).on( 'clear_coupon_message_timeout', () => {
+
+			console.log( 'clear coupon message' );
+
+			if ( this.showMessage && ! this.showingMessage ) {
+				this.showingMessage = true;
+
+				setTimeout( () => {
+					// Update html and classes.
+					this.couponInputEl.html( '' ).removeClass().addClass('hidden');
+
+					// Flags.
+					this.showMessage = false;
+					this.showingMessage = false;
+					this.messageTimeoutTriggered = false;
+				}, 5000 );
+			}
+		} );
+	}
+
+	displayMessage( message, type ) {
+		this.showMessage = true;
+
+		// Add the message and the class name.
+		this.couponMessageEl.html( message ).addClass( type );
+
+		// Any change to the coupon input, clear the message.
+		this.couponInputEl.on( 'keyup.coupon_message, change.coupon_message, paste.coupon_message, coupon_message', () => {
+			console.log( this.showMessage, ! this.messageTimeoutTriggered );
+
+			if ( this.showMessage && ! this.messageTimeoutTriggered ) {
+				// this.messageTimeoutTriggered = true; // temporarily prevents additional triggers.
+				this.triggerClearCouponMessageTimeout();
+				this.couponInputEl.off( 'keyup.coupon_message change.coupon_message paste.coupon_message' );
 			}
 		} );
 	}
 
 	/**
+	 * Trigger the timeout to remove the message from screen.
+	 */
+	triggerClearCouponMessageTimeout() {
+		console.log( 'triggered' );
+		$( this.couponMessageEl ).trigger( 'clear_coupon_message_timeout' );
+	}
+
+	clearMessage() {
+	}
+
+
+
+
+
+	/**
 	 * Gather the base product data that may be used by the endpoint to verify the coupon.
 	 * Typically the product family id is the only thing required, however if its not present the other fields may be used to back trace and find within the controller.
 	 *
-	 * @returns {{product_family_id: string, component_id: string, component_price_point_id: string, price_point_handle: string, price_point_id: string, product_id: string, component_price_point_handle: string, product_handle: string, component_handle: string}}
+	 * @returns {Object}
 	 */
 	productDetails() {
 
+		// Base object to gather details for.
 		let productDetails = {
-			product_family_id: '',
-			product_id: '',
-			product_handle: '',
-			price_point_id: '',
-			price_point_handle: '',
-			component_id: '',
-			component_handle: '',
-			component_price_point_id: '',
-			component_price_point_handle: '',
+			chargify_product_family_id: '',
+			chargify_product_id: '',
+			chargify_product_handle: '',
+			chargify_price_point_id: '',
+			chargify_price_point_handle: '',
+			chargify_component_id: '',
+			chargify_component_handle: '',
+			chargify_component_price_point_id: '',
+			chargify_component_price_point_handle: '',
 		}
 
 		// Gather the values from the inputs.
-		const productFamilyIdField = $( '#product_family_id');
+		const productFamilyIdField = $( '#chargify_product_family_id' );
 		if ( productFamilyIdField.length && productFamilyIdField.val() ) {
-			productDetails[ 'product_family_id' ] = productFamilyIdField.val();
+			productDetails[ 'chargify_product_family_id' ] = productFamilyIdField.val();
 		}
 
 		// Gather the values from the inputs.
-		const productIdField = $( '#product_id');
+		const productIdField = $( '#chargify_product_id' );
 		if ( productIdField.length && productIdField.val() ) {
-			productDetails[ 'product_id' ] = productIdField.val();
+			productDetails[ 'chargify_product_id' ] = productIdField.val();
 		}
 
 		// Gather the values from the inputs.
-		const productHandleField = $( '#product_handle');
+		const productHandleField = $( '#chargify_product_handle' );
 		if ( productHandleField.length && productHandleField.val() ) {
-			productDetails[ 'product_handle' ] = productHandleField.val();
+			productDetails[ 'chargify_product_handle' ] = productHandleField.val();
 		}
 
 		// Gather the values from the inputs.
-		const productPricePointIdField = $( '#price_point_id');
+		const productPricePointIdField = $( '#chargify_price_point_id' );
 		if ( productPricePointIdField.length && productPricePointIdField.val() ) {
-			productDetails[ 'price_point_id' ] = productPricePointIdField.val();
+			productDetails[ 'chargify_price_point_id' ] = productPricePointIdField.val();
 		}
 
 		// Gather the values from the inputs.
-		const productPricePointHandleField = $( '#price_point_handle');
+		const productPricePointHandleField = $( '#chargify_price_point_handle' );
 		if ( productPricePointHandleField.length && productPricePointHandleField.val() ) {
-			productDetails[ 'price_point_handle' ] = productPricePointHandleField.val();
+			productDetails[ 'chargify_price_point_handle' ] = productPricePointHandleField.val();
 		}
 
 		// Gather the values from the inputs.
-		const productComponentIdField = $( '#component_id');
+		const productComponentIdField = $( '#chargify_component_id' );
 		if ( productComponentIdField.length && productComponentIdField.val() ) {
-			productDetails[ 'component_id' ] = productComponentIdField.val();
+			productDetails[ 'chargify_component_id' ] = productComponentIdField.val();
 		}
 
 		// Gather the values from the inputs.
-		const productComponentHandleField = $( '#component_handle');
+		const productComponentHandleField = $( '#chargify_component_handle' );
 		if ( productComponentHandleField.length && productComponentHandleField.val() ) {
-			productDetails[ 'component_handle' ] = productComponentHandleField.val();
+			productDetails[ 'chargify_component_handle' ] = productComponentHandleField.val();
 		}
 
 		// Gather the values from the inputs.
-		const productComponentPricePointIdField = $( '#component_price_point_id');
+		const productComponentPricePointIdField = $( '#chargify_component_price_point_id' );
 		if ( productComponentPricePointIdField.length && productComponentPricePointIdField.val() ) {
-			productDetails[ 'component_price_point_id' ] = productComponentPricePointIdField.val();
+			productDetails[ 'chargify_component_price_point_id' ] = productComponentPricePointIdField.val();
 		}
 
 		// Gather the values from the inputs.
-		const productComponentPricePointHandleField = $( '#component_price_point_handle');
+		const productComponentPricePointHandleField = $( '#chargify_component_price_point_handle' );
 		if ( productComponentPricePointHandleField.length && productComponentPricePointHandleField.val() ) {
-			productDetails[ 'component_price_point_handle' ] = productComponentPricePointHandleField.val();
+			productDetails[ 'chargify_component_price_point_handle' ] = productComponentPricePointHandleField.val();
 		}
 
 		return productDetails;
 	}
+
+
+
+
 
 	/**
 	 * Connects with WP ajax to validate the coupon.
@@ -209,26 +290,15 @@ export class ValidateCoupon {
 		console.log( data );
 
 		return await $.post( ajaxURL, data, ( response ) => {
-			let message = '';
-
-			if ( check.isDefined( response ) ) {
-				// If message is present display it.
-				if ( check.isDefined( response.message ) ) {
-					const type = response.success ? 'success' : 'warning';
-					message = response.message;
-				}
-			} else {
-				message = 'An unexpected error validating coupon.';
-
+			if ( ! check.isDefined( response ) ) {
 				response = {};
 				response.success = false;
+				response.message = 'An unexpected error validating coupon.';
 				log( {
 					type: 'error',
 					message: 'Response undefined in validateCoupon().',
 				} );
 			}
-			
-			// TODO show message.
 
 			return response;
 		} ).fail( ( xhr, status, error ) => {
@@ -273,10 +343,10 @@ export class ValidateCoupon {
 		const totalCostIncCentsEl = $( '#total_cost_cents' );
 
 		// Element for visual display of the discount.
-		const totalCostsContainerEl = $('#total_cost_container');
+		const totalCostsContainerEl = $( '#total_cost_container' );
 		const couponDiscountEl = $( '.coupon-discount' );
-		const totalCostDiscountedEl = $('.total-cost-dollars-discounted');
-		const totalCostIncludingCentsDiscountedInputEls = $( 'input.total-cost-cents-discounted-input');
+		const totalCostDiscountedEl = $( '.total-cost-dollars-discounted' );
+		const totalCostIncludingCentsDiscountedInputEls = $( 'input.total-cost-cents-discounted-input' );
 
 		// Calculation variables.
 		let couponAppliedText = '',
@@ -305,9 +375,9 @@ export class ValidateCoupon {
 				totalDiscountedCostDollars = centsToDollars( totalCostCentsDiscounted );
 			}
 
-			totalCostsContainerEl.addClass('discounted');
+			totalCostsContainerEl.addClass( 'discounted' );
 			couponDiscountEl.html( couponAppliedText );
-			totalCostDiscountedEl.html( `$${totalDiscountedCostDollars}` );
+			totalCostDiscountedEl.html( `$${ totalDiscountedCostDollars }` );
 			totalCostIncludingCentsDiscountedInputEls.val( totalCostCentsDiscounted );
 			this.couponApplied = true;
 
@@ -325,13 +395,13 @@ export class ValidateCoupon {
 	clearDiscountEls() {
 		// TODO.
 		// Element for visual display of the discount.
-		const totalCostsContainerEl = $('#total_cost_container');
+		const totalCostsContainerEl = $( '#total_cost_container' );
 		const couponDiscountEl = $( '.coupon-discount' );
-		const totalCostDiscountedEl = $('.total-cost-dollars-discounted');
+		const totalCostDiscountedEl = $( '.total-cost-dollars-discounted' );
 
-		couponDiscountEl.html('');
-		totalCostDiscountedEl.html('');
-		totalCostsContainerEl.removeClass('discounted');
+		couponDiscountEl.html( '' );
+		totalCostDiscountedEl.html( '' );
+		totalCostsContainerEl.removeClass( 'discounted' );
 		this.couponApplied = false;
 	}
 
@@ -342,8 +412,8 @@ export class ValidateCoupon {
 	 */
 	showDiscountEls( value ) {
 		// TODO.
-		const totalCostsDiscountContainerEl = $('#total_cost_discount_container');
-		const couponDiscountContainer = $('#coupon_discount_container');
+		const totalCostsDiscountContainerEl = $( '#total_cost_discount_container' );
+		const couponDiscountContainer = $( '#coupon_discount_container' );
 		if ( value ) {
 			totalCostsDiscountContainerEl.removeClass( 'hidden' );
 			couponDiscountContainer.removeClass( 'hidden' );
@@ -387,12 +457,28 @@ export class ValidateCoupon {
 		this._couponInputEl = value;
 	}
 
+	set couponMessageEl( value ) {
+		this._couponMessageEl = value;
+	}
+
 	set validateButtonElHtml( value ) {
 		this._validateButtonElHtml = value;
 	}
 
 	set couponApplied( value ) {
 		this._couponApplied = value;
+	}
+
+	set showMessage( value ) {
+		this._showMessage = value;
+	}
+
+	set showingMessage( value ) {
+		this._showingMessage = value;
+	}
+
+	set messageTimeoutTriggered( value ) {
+		this._messageTimeoutTriggered = value;
 	}
 
 	/** ------------------------------------------------------------------------------------------
@@ -406,13 +492,29 @@ export class ValidateCoupon {
 	get validateButtonElHtml() {
 		return this._validateButtonElHtml;
 	}
-	
+
 	get couponInputEl() {
 		return this._couponInputEl;
 	}
 
+	get couponMessageEl() {
+		return this._couponMessageEl;
+	}
+
 	get couponApplied() {
 		return this._couponApplied;
+	}
+
+	get showMessage() {
+		return this._showMessage;
+	}
+
+	get showingMessage() {
+		return this._showingMessage;
+	}
+
+	get messageTimeoutTriggered() {
+		return this._messageTimeoutTriggered;
 	}
 
 }
