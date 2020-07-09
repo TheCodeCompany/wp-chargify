@@ -18,7 +18,7 @@ function chargify_component_price_point_init() {
 	$show_component_price_points = apply_filters( 'chargify_show_component_price_points', true );
 
 	register_post_type(
-		ChargifyPricePoint::POST_TYPE,
+		ChargifyComponentPricePoint::POST_TYPE,
 		[
 			'labels'                => [
 				'name'                  => __( 'Component Price Points', 'chargify' ),

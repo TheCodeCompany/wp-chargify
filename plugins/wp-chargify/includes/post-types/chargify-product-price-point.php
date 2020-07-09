@@ -18,7 +18,7 @@ function chargify_product_price_point_init() {
 	$show_product_price_points = apply_filters( 'chargify_show_product_price_points', true );
 
 	register_post_type(
-		ChargifyPricePoint::POST_TYPE,
+		ChargifyProductPricePoint::POST_TYPE,
 		[
 			'labels'                => [
 				'name'                  => __( 'Product Price Points', 'chargify' ),

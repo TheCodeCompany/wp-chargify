@@ -19,7 +19,9 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-account.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-api-log.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-component.php';
+	require_once dirname(__FILE__) . '/includes/commands/class-chargify-component-price-point.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-product-families.php';
+	require_once dirname(__FILE__) . '/includes/commands/class-chargify-product-price-point.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-product.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-settings.php';
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-webhooks.php';
@@ -49,10 +51,12 @@ require_once( 'includes/libraries/generic-post-factory.php' );
 // Models and Factories.
 require_once( 'includes/model/chargify-product.php' );
 require_once( 'includes/model/chargify-product-factory.php' );
+require_once( 'includes/model/chargify-product-price-point.php' );
+require_once( 'includes/model/chargify-product-price-point-factory.php' );
 require_once( 'includes/model/chargify-component.php' );
 require_once( 'includes/model/chargify-component-factory.php' );
-require_once( 'includes/model/chargify-price-point.php' );
-require_once( 'includes/model/chargify-price-point-factory.php' );
+require_once( 'includes/model/chargify-component-price-point.php' );
+require_once( 'includes/model/chargify-component-price-point-factory.php' );
 
 // Controllers.
 require_once( 'includes/ctrl/enqueues-controller.php' );
@@ -61,7 +65,9 @@ require_once( 'includes/ctrl/validate-coupon-controller.php' );
 // Chargify Endpoints.
 require_once( 'includes/chargify/endpoints/coupons.php' );
 require_once( 'includes/chargify/endpoints/components.php' );
+require_once( 'includes/chargify/endpoints/component-price-points.php' );
 require_once( 'includes/chargify/endpoints/product-families.php' );
+require_once( 'includes/chargify/endpoints/product-price-points.php' );
 require_once( 'includes/chargify/endpoints/subscriptions.php' );
 require_once( 'includes/chargify/endpoints/webhooks.php' );
 
@@ -87,11 +93,17 @@ require_once( 'includes/meta-boxes/chargify-api-log.php' );
 require_once( 'includes/meta-boxes/chargify-components.php' );
 require_once( 'includes/meta-boxes/chargify-product.php' );
 require_once( 'includes/meta-boxes/helpers.php' );
+
+// Post types.
 require_once( 'includes/post-types/chargify-account.php' );
-require_once(  'includes/post-types/chargify-component.php' );
+require_once( 'includes/post-types/chargify-component.php' );
+require_once( 'includes/post-types/chargify-component-price-point.php' );
 require_once( 'includes/post-types/chargify-api-log.php' );
 require_once( 'includes/post-types/chargify-product.php' );
+require_once( 'includes/post-types/chargify-product-price-point.php' );
 require_once( 'includes/post-types/helpers.php' );
+
+// Roles.
 require_once( 'includes/roles/namespace.php' );
 
 # Setup the activation and deactivation routines.
