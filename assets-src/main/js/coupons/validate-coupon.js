@@ -57,7 +57,6 @@ export class ValidateCoupon {
 			// functionality.
 			this.onInput();
 			this.onSubmit();
-			console.log('hey');
 			this.couponMessageEvents();
 
 		} else {
@@ -86,9 +85,8 @@ export class ValidateCoupon {
 			if ( coupon.length ) {
 				this.submitting( true );
 
-				// TODO.
 				this.showDiscountEls( false );
-				// this.clearDiscountEls();
+				this.clearDiscountEls();
 
 				// Start process.
 				// STEP 1. Check via admin ajax that the coupon is valid, and retrieve its information.
@@ -113,13 +111,12 @@ export class ValidateCoupon {
 						// TODO continue testing.
 						// TODO delete Current Test Codes; TCCTESTCOUPONFIXED, TCCTESTCOUPONPERCENT
 
-
 						// TODO.
-						// this.processCouponResult( coupon );
-						// this.showDiscountEls( true );
+						this.processCouponResult( coupon );
+						this.showDiscountEls( true );
+						this.submitting( false );
+						this.couponInputEl.trigger( 'coupon_message' );
 
-						this.submitting( false, 'success' );
-						this.couponInputEl.trigger( 'page_message' );
 						return true;
 					}
 					throw new Error();
@@ -127,70 +124,13 @@ export class ValidateCoupon {
 					// Don't log errors, leave that to log(). Reset for and scroll to message.
 					this.clearDiscountEls();
 					this.showDiscountEls( false );
-					this.submitting( false, 'fail' );
+					this.submitting( false );
 				} );
 			} else {
-				this.displayMessage( 'The coupon field cannot be empty.', 'warning' );
-				console.log( 'empty coupon' )
+				this.displayMessage( 'Please enter a coupon.', 'warning' );
 			}
 		} );
 	}
-
-	couponMessageEvents() {
-		console.log( 'set events ');
-		// Any change to the coupon input clear message.
-		$( this.couponInputEl ).on( 'clear_coupon_message_timeout', () => {
-
-			console.log( 'clear coupon message' );
-
-			if ( this.showMessage && ! this.showingMessage ) {
-				this.showingMessage = true;
-
-				setTimeout( () => {
-					// Update html and classes.
-					this.couponInputEl.html( '' ).removeClass().addClass('hidden');
-
-					// Flags.
-					this.showMessage = false;
-					this.showingMessage = false;
-					this.messageTimeoutTriggered = false;
-				}, 5000 );
-			}
-		} );
-	}
-
-	displayMessage( message, type ) {
-		this.showMessage = true;
-
-		// Add the message and the class name.
-		this.couponMessageEl.html( message ).addClass( type );
-
-		// Any change to the coupon input, clear the message.
-		this.couponInputEl.on( 'keyup.coupon_message, change.coupon_message, paste.coupon_message, coupon_message', () => {
-			console.log( this.showMessage, ! this.messageTimeoutTriggered );
-
-			if ( this.showMessage && ! this.messageTimeoutTriggered ) {
-				// this.messageTimeoutTriggered = true; // temporarily prevents additional triggers.
-				this.triggerClearCouponMessageTimeout();
-				this.couponInputEl.off( 'keyup.coupon_message change.coupon_message paste.coupon_message' );
-			}
-		} );
-	}
-
-	/**
-	 * Trigger the timeout to remove the message from screen.
-	 */
-	triggerClearCouponMessageTimeout() {
-		console.log( 'triggered' );
-		$( this.couponMessageEl ).trigger( 'clear_coupon_message_timeout' );
-	}
-
-	clearMessage() {
-	}
-
-
-
-
 
 	/**
 	 * Gather the base product data that may be used by the endpoint to verify the coupon.
@@ -270,10 +210,6 @@ export class ValidateCoupon {
 		return productDetails;
 	}
 
-
-
-
-
 	/**
 	 * Connects with WP ajax to validate the coupon.
 	 *
@@ -286,8 +222,6 @@ export class ValidateCoupon {
 			coupon_code: this.couponInputEl.val(),
 			...this.productDetails(),
 		};
-
-		console.log( data );
 
 		return await $.post( ajaxURL, data, ( response ) => {
 			if ( ! check.isDefined( response ) ) {
@@ -340,7 +274,8 @@ export class ValidateCoupon {
 		} = coupon;
 
 		// Gather the total cost from the hidden input.
-		const totalCostIncCentsEl = $( '#total_cost_cents' );
+		const totalCostIncCentsEl = $( '#chargify_total_in_cents' );
+		const totalCostIncCentsDiscountedEl = $( '#chargify_total_in_cents_discounted' );
 
 		// Element for visual display of the discount.
 		const totalCostsContainerEl = $( '#total_cost_container' );
@@ -423,13 +358,64 @@ export class ValidateCoupon {
 		}
 	}
 
+	/** ------------------------------------------------------------------------------------------
+	 * Message.
+	 * ------------------------------------------------------------------------------------------ */
+
+	couponMessageEvents() {
+		// Any change to the coupon input clear message.
+		$( this.couponInputEl ).on( 'clear_coupon_message_timeout', () => {
+
+			if ( this.showMessage && ! this.showingMessage ) {
+				this.showingMessage = true;
+
+				setTimeout( () => {
+					// Update html and classes.
+					this.couponMessageEl.html( '' ).removeClass().addClass('hidden');
+
+					// Flags.
+					this.showMessage = false;
+					this.showingMessage = false;
+					this.messageTimeoutTriggered = false;
+				}, 5000 );
+			}
+		} );
+	}
+
+	displayMessage( message, type ) {
+		this.showMessage = true;
+
+		// Add the message and the class name.
+		this.couponMessageEl.html( message ).addClass( type );
+
+		// Any change to the coupon input, clear the message.
+		this.couponInputEl.on( 'keyup.coupon_message, change.coupon_message, paste.coupon_message, coupon_message', () => {
+
+			if ( this.showMessage && ! this.messageTimeoutTriggered ) {
+				// this.messageTimeoutTriggered = true; // temporarily prevents additional triggers.
+				this.triggerClearCouponMessageTimeout();
+				this.couponInputEl.off( 'keyup.coupon_message change.coupon_message paste.coupon_message' );
+			}
+		} );
+	}
+
+	/**
+	 * Trigger the timeout to remove the message from screen.
+	 */
+	triggerClearCouponMessageTimeout() {
+		$( this.couponInputEl ).trigger( 'clear_coupon_message_timeout' );
+	}
+
+	/** ------------------------------------------------------------------------------------------
+	 * Misc.
+	 * ------------------------------------------------------------------------------------------ */
+
 	/**
 	 * Submitting animation and restrictions for coupon button.
 	 *
 	 * @param {boolean} value Is the form submitting or not.
-	 * @param type
 	 */
-	submitting( value, type = 'loading' ) {
+	submitting( value) {
 		if ( this.validateButtonEl ) {
 			this.validateButtonEl.prop( 'disabled', value );
 			if ( value ) {

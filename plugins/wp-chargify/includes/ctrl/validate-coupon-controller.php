@@ -67,27 +67,17 @@ class ValidateCouponController {
 
 			$product_family_id = $this->request->post_variables( 'product_family_id', false );
 			$coupon_code       = $this->request->post_variables( 'coupon_code' );
+			$product_handle    = $this->request->post_variables( 'chargify_product_handle', false );
 
-			if ( ! $product_family_id ) {
-				$product_details = [
-					'chargify_product_id'                   => $this->request->post_variables( 'chargify_product_id', false ),
-					'chargify_product_handle'               => $this->request->post_variables( 'chargify_product_handle', false ),
-					'chargify_price_point_id'               => $this->request->post_variables( 'chargify_price_point_id', false ),
-					'chargify_price_point_handle'           => $this->request->post_variables( 'chargify_price_point_handle', false ),
-					'chargify_component_id'                 => $this->request->post_variables( 'chargify_component_id', false ),
-					'chargify_component_handle'             => $this->request->post_variables( 'chargify_component_handle', false ),
-					'chargify_component_price_point_id'     => $this->request->post_variables( 'chargify_component_price_point_id', false ),
-					'chargify_component_price_point_handle' => $this->request->post_variables( 'chargify_component_price_point_handle', false ),
-				];
-				// TODO no validation by component.
-//				$chargify_product_factory = new ChargifyProductFactory();
-//				$chargify_product = $chargify_product_factory->get_by_product_id();
-
-				$product_family_id = 1529881; // Hardcoded.
+			// Get the product family id.
+			if ( ! $product_family_id && ! empty( $product_handle ) ) {
+				$chargify_product_factory = new ChargifyProductFactory();
+				$chargify_product         = $chargify_product_factory->get_by_product_handle( $product_handle );
+				$product_family_id        = $chargify_product->get_chargify_product_family_id();
 			}
 
 			if ( is_numeric( $product_family_id ) && ! empty( $coupon_code ) ) {
-				$response = validate_coupon( $product_family_id, $coupon_code );
+				$response = $this->validate_and_process_coupon_response( $product_family_id, $coupon_code );
 			} else {
 				$response['success']     = false;
 				$response['message']     = 'Sorry, required data was missing. Please refresh and try again. Alternatively contact us for assistance.';
@@ -102,6 +92,17 @@ class ValidateCouponController {
 		// Return the response.
 		header( 'Content-Type: application/json' );
 		die( wp_json_encode( $response ) );
+	}
+
+	protected function validate_and_process_coupon_response( $product_family_id, $coupon_code ) {
+
+		$coupon_response = validate_coupon( $product_family_id, $coupon_code );
+
+		if ( $coupon_response['success'] ) {
+			// TODO process response.
+		}
+
+		return $coupon_response;
 	}
 
 	/**

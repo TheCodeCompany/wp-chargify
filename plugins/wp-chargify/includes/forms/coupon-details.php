@@ -62,15 +62,46 @@ function register_coupon_fields( $signup_form ) {
 		]
 	);
 
+	$signup_form->add_field(
+		[
+			'name'         => '',
+			'id'           => 'chargify_coupon_message',
+			'type'         => 'title',
+			'before_field' => 'Chargify\\Forms\\Coupon_Details\\render_coupon_and_cost_elements_html',
+			'attributes'   => [
+				'style' => 'display:none;',
+			],
+		]
+	);
+
 	// Filter the Coupon Details form.
 	return apply_filters( 'chargify_coupon_fields', $signup_form );
 }
 
 /**
- * Basic coupon message html container.
+ * Cost elements.
  *
- * @return string
+ * @return false|string
  */
-function render_coupon_message_html() {
-	return '<div id="chargify_coupon_messages_cntr" class="hidden"></div>';
+function render_coupon_and_cost_elements_html() {
+
+	ob_start();
+	?>
+	<div id="chargify_coupon_messages_cntr" class="hidden"></div>
+	<div id="coupon_discount_container" class="notify--accepted discount-container hidden">
+		<p><span class="coupon-discount"></span> discount applied</p>
+	</div>
+	<div class="costs">
+		<p id="total_cost_container_bottom">
+			<span class="total-cost-inc-cents"></span> /
+			<span class="pricing-period"></span>
+		</p>
+		<p id="total_cost_discount_container" class="hidden">
+			<span class="total-cost-dollars-discounted"></span> /
+			<span class="pricing-period"></span>
+		</p>
+	</div>
+	<?php
+
+	return ob_get_clean();
 }
