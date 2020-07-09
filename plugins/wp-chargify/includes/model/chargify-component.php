@@ -63,7 +63,9 @@ class ChargifyComponent extends GenericPost {
 	public function get_chargify_component_id( $new_fetch = false ) {
 
 		if ( null === $this->chargify_component_id || $new_fetch ) {
-			$this->chargify_component_id = $this->get_meta( self::META_CHARGIFY_PRODUCT_COMPONENT_ID );
+			$value = $this->get_meta( self::META_CHARGIFY_PRODUCT_COMPONENT_ID );
+
+			$this->chargify_component_id = $value && is_numeric( $value ) ? (int) $value : 0;
 		}
 
 		return $this->chargify_component_id;
@@ -97,7 +99,9 @@ class ChargifyComponent extends GenericPost {
 	public function get_chargify_product_id( $new_fetch = false ) {
 
 		if ( null === $this->chargify_product_id || $new_fetch ) {
-			$this->chargify_product_id = $this->get_meta( self::META_CHARGIFY_PRODUCT_ID );
+			$value = $this->get_meta( self::META_CHARGIFY_PRODUCT_ID );
+
+			$this->chargify_product_id = $value && is_numeric( $value ) ? (int) $value : 0;
 		}
 
 		return $this->chargify_product_id;

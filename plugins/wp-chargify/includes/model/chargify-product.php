@@ -111,7 +111,9 @@ class ChargifyProduct extends GenericPost {
 	public function get_chargify_product_id( $new_fetch = false ) {
 
 		if ( null === $this->chargify_product_id || $new_fetch ) {
-			$this->chargify_product_id = $this->get_meta( self::META_CHARGIFY_PRODUCT_ID );
+			$value = $this->get_meta( self::META_CHARGIFY_PRODUCT_ID );
+
+			$this->chargify_product_id = $value && is_numeric( $value ) ? (int) $value : 0;
 		}
 
 		return $this->chargify_product_id;
@@ -213,7 +215,9 @@ class ChargifyProduct extends GenericPost {
 	public function get_chargify_product_family_id( $new_fetch = false ) {
 
 		if ( null === $this->chargify_product_family_id || $new_fetch ) {
-			$this->chargify_product_family_id = (int) $this->get_meta( self::META_CHARGIFY_PRODUCT_FAMILY_ID );
+			$value = $this->get_meta( self::META_CHARGIFY_PRODUCT_FAMILY_ID );
+
+			$this->chargify_product_family_id = $value && is_numeric( $value ) ? (int) $value : 0;
 		}
 
 		return $this->chargify_product_family_id;
@@ -247,7 +251,9 @@ class ChargifyProduct extends GenericPost {
 	public function get_chargify_price_point_id( $new_fetch = false ) {
 
 		if ( null === $this->chargify_price_point_id || $new_fetch ) {
-			$this->chargify_price_point_id = $this->get_meta( self::META_CHARGIFY_PRODUCT_PRICE_POINT_ID );
+			$value = $this->get_meta( self::META_CHARGIFY_PRODUCT_PRICE_POINT_ID );
+
+			$this->chargify_price_point_id = $value && is_numeric( $value ) ? (int) $value : 0;
 		}
 
 		return $this->chargify_price_point_id;
