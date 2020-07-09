@@ -24,7 +24,10 @@ function bootstrap() {
 
 	add_action( 'cmb2_admin_init',           'Chargify\\Meta_Boxes\\Account\\account_meta_boxes');
 	add_action( 'cmb2_admin_init',           'Chargify\\Meta_Boxes\\Component\\component_meta_boxes');
+	add_action( 'cmb2_admin_init',           'Chargify\\Meta_Boxes\\Component_Price_point\\component_price_point_meta_boxes');
 	add_action( 'cmb2_admin_init',           'Chargify\\Meta_Boxes\\Product\\product_meta_boxes');
+	add_action( 'cmb2_admin_init',           'Chargify\\Meta_Boxes\\Product_Price_point\\product_price_point_meta_boxes');
+
 	add_filter( 'page_row_actions',          'Chargify\\Post_Types\\API_Log\\page_row_actions', 10, 2 );
 	add_action( 'do_meta_boxes',             'Chargify\\Meta_Boxes\\API_Log\\remove_publish_meta_box' );
 	add_action( 'do_meta_boxes',             'Chargify\\Meta_Boxes\\Component\\remove_publish_meta_box' );

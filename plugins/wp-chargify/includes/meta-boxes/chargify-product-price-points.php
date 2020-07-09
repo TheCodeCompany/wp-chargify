@@ -1,6 +1,6 @@
 <?php
 
-namespace Chargify\Meta_Boxes\Product;
+namespace Chargify\Meta_Boxes\Product_Price_Point;
 
 /**
  * Register all the meta fields so we can map Chargify product information to it.
