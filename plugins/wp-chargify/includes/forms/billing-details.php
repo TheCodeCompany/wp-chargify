@@ -78,7 +78,6 @@ function register_customer_billing_fields( $signup_form ) {
 			'desc'       => __( 'Apartment, suite , unit, building, floor, etc.', 'chargify' ),
 			'attributes' => [
 				'placeholder' => __( 'Address Line 2', 'chargify' ),
-				'required'    => null,
 			],
 			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]

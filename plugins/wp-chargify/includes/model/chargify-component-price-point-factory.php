@@ -18,6 +18,17 @@ use WP_Post;
 class ChargifyComponentPricePointFactory extends GenericPostFactory {
 
 	/**
+	 * Return a wrapped instance of the given post or post ID.
+	 *
+	 * @param string|int|WP_Post $post The post object or ID to wrap.
+	 *
+	 * @return ChargifyComponentPricePoint|GenericPost
+	 */
+	public function wrap( $post ) {
+		return new ChargifyComponentPricePoint( $post );
+	}
+
+	/**
 	 * Get the post type for the custom post type associated with this model
 	 * factory.
 	 *
@@ -46,18 +57,62 @@ class ChargifyComponentPricePointFactory extends GenericPostFactory {
 	}
 
 	/**
-	 * Return a wrapped instance of the given post or post ID.
+	 * Get the Chargify Component Price Point by component id.
 	 *
-	 * @param string|int|WP_Post $post The post object or ID to wrap.
+	 * @param int $component_price_point_id ComponentPricePoint id.
 	 *
-	 * @return ChargifyComponentPricePoint|GenericPost
+	 * @return GenericPost|ChargifyComponentPricePoint|null
 	 */
-	public function wrap( $post ) {
-		return new ChargifyComponentPricePoint( $post );
+	public function get_by_component_price_point_id( $component_price_point_id ) {
+
+		return $this->get_by_unique_meta( ChargifyComponentPricePoint::META_CHARGIFY_COMPONENT_PRICE_POINT_ID, $component_price_point_id );
 	}
 
 	/**
-	 * Static helper method to check that the post is of ChargifyComponentPricePoint post type.
+	 * Get the Chargify ComponentPricePoint by component id.
+	 *
+	 * @param string $component_price_point_handle ComponentPricePoint handle.
+	 *
+	 * @return GenericPost|ChargifyComponentPricePoint|null
+	 */
+	public function get_by_component_price_point_handle( $component_price_point_handle ) {
+
+		return $this->get_by_unique_meta( ChargifyComponentPricePoint::META_CHARGIFY_COMPONENT_PRICE_POINT_HANDLE, $component_price_point_handle );
+	}
+
+	/**
+	 * Get the Chargify ComponentPricePoint by unique meta id, fails if more than one found.
+	 *
+	 * @param string $meta_key   The meta key.
+	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like component id, handle etc.
+	 *
+	 * @return GenericPost|ChargifyComponentPricePoint|null
+	 */
+	public function get_by_unique_meta( $meta_key, $meta_value ) {
+
+		$args = [
+			'post_type'  => $this->get_post_type(),
+			'meta_query' => [ // phpcs:ignore
+				[
+					'key'     => $meta_key,
+					'value'   => $meta_value,
+					'compare' => '=',
+				],
+			],
+		];
+
+		// Should only be one.
+		$posts = get_posts( $args );
+
+		if ( is_array( $posts ) && count( $posts ) === 1 ) {
+			return $this->wrap( $posts[0] );
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Static helper method to check that the post is of Chargify Component Price Point post type.
 	 * Removes multiple lines in if statements as sometimes global $post is null or
 	 * stdClass and results in Undefined property notices.
 	 *

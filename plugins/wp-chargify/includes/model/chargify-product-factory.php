@@ -18,6 +18,17 @@ use WP_Post;
 class ChargifyProductFactory extends GenericPostFactory {
 
 	/**
+	 * Return a wrapped instance of the given post or post ID.
+	 *
+	 * @param string|int|WP_Post $post The post object or ID to wrap.
+	 *
+	 * @return ChargifyProduct|GenericPost
+	 */
+	public function wrap( $post ) {
+		return new ChargifyProduct( $post );
+	}
+
+	/**
 	 * Get the post type for the custom post type associated with this model
 	 * factory.
 	 *
@@ -52,7 +63,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 *
 	 * @return GenericPost|ChargifyProduct|null
 	 */
-	public function get_by_product_id( $product_id_handle, $product_price_point_id_handle ) {
+	public function get_by_product_id( $product_id ) {
 
 		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_PRODUCT_ID, $product_id );
 	}
@@ -73,7 +84,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 * Get the Chargify Product by unique meta id, fails if more than one found.
 	 *
 	 * @param string $meta_key   The meta key.
-	 * @param mixed  $meta_value The meta value, usualy int or string, must be unique, like product id, handle etc.
+	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like product id, handle etc.
 	 *
 	 * @return GenericPost|ChargifyProduct|null
 	 */
@@ -101,17 +112,6 @@ class ChargifyProductFactory extends GenericPostFactory {
 	}
 
 	/**
-	 * Return a wrapped instance of the given post or post ID.
-	 *
-	 * @param string|int|WP_Post $post The post object or ID to wrap.
-	 *
-	 * @return ChargifyProduct|GenericPost
-	 */
-	public function wrap( $post ) {
-		return new ChargifyProduct( $post );
-	}
-
-	/**
 	 * Static helper method to check that the post is of ChargifyProduct post type.
 	 * Removes multiple lines in if statements as sometimes global $post is null or
 	 * stdClass and results in Undefined property notices.
@@ -130,4 +130,5 @@ class ChargifyProductFactory extends GenericPostFactory {
 			isset( $post->post_type ) &&
 			ChargifyProduct::POST_TYPE === $post->post_type;
 	}
+
 }

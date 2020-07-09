@@ -23,7 +23,7 @@ function register_hidden_details_fields( $signup_form ) {
 		[
 			'id'         => 'chargify_product_family_id',
 			'type'       => 'hidden',
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_info',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_value',
 		]
 	);
 
@@ -31,7 +31,7 @@ function register_hidden_details_fields( $signup_form ) {
 		[
 			'id'         => 'chargify_product_id',
 			'type'       => 'hidden',
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_info',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_value',
 		]
 	);
 
@@ -39,7 +39,7 @@ function register_hidden_details_fields( $signup_form ) {
 		[
 			'id'         => 'chargify_product_handle',
 			'type'       => 'hidden',
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_info',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_value',
 		]
 	);
 
@@ -47,7 +47,7 @@ function register_hidden_details_fields( $signup_form ) {
 		[
 			'id'         => 'chargify_price_point_id',
 			'type'       => 'hidden',
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_info',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_value',
 		]
 	);
 
@@ -55,7 +55,7 @@ function register_hidden_details_fields( $signup_form ) {
 		[
 			'id'         => 'chargify_price_point_handle',
 			'type'       => 'hidden',
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_info',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_value',
 		]
 	);
 
@@ -63,7 +63,7 @@ function register_hidden_details_fields( $signup_form ) {
 		[
 			'id'         => 'chargify_component_id',
 			'type'       => 'hidden',
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_info',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_value',
 		]
 	);
 
@@ -71,7 +71,7 @@ function register_hidden_details_fields( $signup_form ) {
 		[
 			'id'         => 'chargify_component_handle',
 			'type'       => 'hidden',
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_info',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_value',
 		]
 	);
 
@@ -79,7 +79,7 @@ function register_hidden_details_fields( $signup_form ) {
 		[
 			'id'         => 'chargify_component_price_point_id',
 			'type'       => 'hidden',
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_info',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_value',
 		]
 	);
 
@@ -87,7 +87,7 @@ function register_hidden_details_fields( $signup_form ) {
 		[
 			'id'         => 'chargify_component_price_point_handle',
 			'type'       => 'hidden',
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_info',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_value',
 		]
 	);
 
@@ -102,9 +102,9 @@ function register_hidden_details_fields( $signup_form ) {
 	// Used for visuals and coupon.
 	$signup_form->add_field(
 		[
-			'id'         => 'chargify_total_in_cents',
+			'id'         => 'chargify_total_in_cents', // TODO investigate further maybe_set_default_product_value, may not be right.
 			'type'       => 'hidden',
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_product_value',
 		]
 	);
 

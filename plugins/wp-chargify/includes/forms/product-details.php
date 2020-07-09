@@ -38,6 +38,9 @@ function register_product_details_fields( $signup_form ) {
 }
 
 function total_costs_top_html() {
+
+	// TODO look at functionality such as .
+//	$product_id = maybe_set_default_product_value();
 	ob_start()
 	?>
 	<div class="costs">

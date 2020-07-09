@@ -9,8 +9,11 @@
 namespace Chargify\Forms\Submission;
 
 use Chargify\Endpoints\Subscription;
+use Chargify\Model\ChargifyComponentFactory;
+use Chargify\Model\ChargifyComponentPricePointFactory;
 use Chargify\Model\ChargifyProduct;
 use Chargify\Model\ChargifyProductFactory;
+use Chargify\Model\ChargifyProductPricePointFactory;
 use CMB2;
 use WP_Error;
 use function Chargify\Helpers\products\get_product_family_id;
@@ -121,11 +124,35 @@ function query_vars( $query_vars ) {
 
 	return $query_vars;
 }
+
 /**
- * Sets the frontend post form field values if form has already been submitted.
+ * Sets the frontend post form field values if form has already been submitted, or value present in GET.
  *
  * @param object $field_args Current field args.
  * @param object $field      Current field object.
+ *
+ * @return string
+ */
+function maybe_set_default_value( $field_args, $field ) {
+	return maybe_get_field_default_value( $field->id() );
+}
+
+/**
+ * Sets the frontend post form field values if form has already been submitted, or value present in GET.
+ *
+ * @param object $field_args Current field args.
+ * @param object $field      Current field object.
+ *
+ * @return string
+ */
+function maybe_set_default_product_value( $field_args, $field ) {
+	return maybe_get_default_product_value( $field->id() );
+}
+
+/**
+ * Sets the frontend post form field values if form has already been submitted.
+ *
+ * @param string $meta_key Current field ID / CPT meta key.
  *
  * @return string
  */
@@ -144,59 +171,128 @@ function maybe_get_field_default_value( $meta_key ) {
 
 /**
  * Sets the frontend post form field values if form has already been submitted.
- *
- * @param object $field_args Current field args.
- * @param object $field      Current field object.
- *
- * @return string
- */
-function maybe_set_default_value( $field_args, $field ) {
-
-	return maybe_get_field_default_value( $field->id() );
-}
-
-/**
- * Sets the frontend post form field values if form has already been submitted.
  * Try to gather info from GET or POST first, if not look up by product id or handle.
  *
- * @param object $field_args Current field args.
- * @param object $field      Current field object.
+ * TODO need a reverse lookup method.
+ *
+ * @param string $meta_key Current field ID / CPT meta key.
  *
  * @return string
  */
-function maybe_set_default_product_info( $field_args, $field ) {
+function maybe_get_default_product_value( $meta_key ) {
 
-	$value = maybe_set_default_value( $field_args, $field );
+	$value = maybe_get_field_default_value( $meta_key );
 
 	// Bail early if found.
 	if ( ! empty( $value ) ) {
 		return $value;
 	}
 
-//	$product_id                 = maybe_get_field_default_value( 'chargify_product_id' );
-//	$product_handle             = maybe_get_field_default_value( 'chargify_product_handle' );
-//	$product_price_point_id     = maybe_get_field_default_value( 'chargify_product_price_point_id' );
-//	$product_price_point_handle = maybe_get_field_default_value( 'chargify_product_price_point_handle' );
-//
-//	$chargify_product = false;
-//
-//	if ( ! empty( $product_id ) || ! empty( $product_handle ) ) {
-//		$chargify_product_factory = new ChargifyProductFactory();
-//		if ( ! empty( $product_id ) ) {
-//			$chargify_product = $chargify_product_factory->get_by_product_id( $product_id_handle, $product_price_point_id_handle );
-//		} elseif ( ! empty( $product_handle ) ) {
-//			$chargify_product = $chargify_product_factory->get_by_product_handle( $product_handle );
-//		}
-//	}
-//
-//	if ( $chargify_product instanceof ChargifyProduct ) {
-//		// Get by string method name.
-//		$method = 'get_' . $field->id();
-//
-//		if ( method_exists( $chargify_product, $method ) ) {
-//			$value = $chargify_product->$method();
-//		}
-//	}
+	// Get by string method name.
+	$method = 'get_' . $meta_key;
+
+	/*
+	 * Certain product information can be found from ids or handles, attempt to gather them.
+	 */
+	$product_id     = maybe_get_field_default_value( 'chargify_product_id' );
+	$product_handle = maybe_get_field_default_value( 'chargify_product_handle' );
+
+
+	// Try with product id or price point handle.
+	if ( ! empty( $product_id ) || ! empty( $product_handle ) ) {
+		$chargify_product         = false;
+		$chargify_product_factory = new ChargifyProductFactory();
+
+		if ( ! empty( $product_id ) ) {
+			$chargify_product = $chargify_product_factory->get_by_product_id( $product_id );
+		} elseif ( ! empty( $product_handle ) ) {
+			$chargify_product = $chargify_product_factory->get_by_product_handle( $product_handle );
+		}
+
+		if ( $chargify_product instanceof ChargifyProduct ) {
+			if ( method_exists( $chargify_product, $method ) ) {
+				$value = $chargify_product->$method();
+			}
+		}
+	}
+
+	// Bail early if found.
+	if ( ! empty( $value ) ) {
+		return $value;
+	}
+
+	$product_price_point_id     = maybe_get_field_default_value( 'chargify_product_price_point_id' );
+	$product_price_point_handle = maybe_get_field_default_value( 'chargify_product_price_point_handle' );
+
+	// Try with price point id or price point handle.
+	if ( ! empty( $product_price_point_id ) || ! empty( $product_price_point_handle ) ) {
+		$product_price_point         = false;
+		$product_price_point_factory = new ChargifyProductPricePointFactory();
+
+		if ( ! empty( $product_price_point_point_id ) ) {
+			$product_price_point = $product_price_point_factory->get_by_product_price_point_id( $product_price_point_point_id );
+		} elseif ( ! empty( $product_price_point_point_handle ) ) {
+			$product_price_point = $product_price_point_factory->get_by_product_price_point_handle( $product_price_point_point_handle );
+		}
+
+		if ( $product_price_point instanceof ChargifyProduct ) {
+			if ( method_exists( $product_price_point, $method ) ) {
+				$value = $product_price_point->$method();
+			}
+		}
+	}
+
+	// Bail early if found.
+	if ( ! empty( $value ) ) {
+		return $value;
+	}
+
+	$component_id     = maybe_get_field_default_value( 'chargify_component_id' );
+	$component_handle = maybe_get_field_default_value( 'chargify_component_handle' );
+
+	// Try with component id or component handle.
+	if ( ! empty( $component_id ) || ! empty( $component_handle ) ) {
+		$component         = false;
+		$component_factory = new ChargifyComponentFactory();
+
+		if ( ! empty( $component_point_id ) ) {
+			$component = $component_factory->get_by_component_id( $component_point_id );
+		} elseif ( ! empty( $component_point_handle ) ) {
+			$component = $component_factory->get_by_component_handle( $component_point_handle );
+		}
+
+		if ( $component instanceof ChargifyProduct ) {
+			if ( method_exists( $component, $method ) ) {
+				$value = $component->$method();
+			}
+		}
+	}
+
+	// Bail early if found.
+	if ( ! empty( $value ) ) {
+		return $value;
+	}
+
+	$component_price_point_id     = maybe_get_field_default_value( 'chargify_component_price_point_id' );
+	$component_price_point_handle = maybe_get_field_default_value( 'chargify_component_price_point_handle' );
+
+	// Try with price point id or price point handle.
+	if ( ! empty( $component_price_point_id ) || ! empty( $component_price_point_handle ) ) {
+		$component_price_point         = false;
+		$component_price_point_factory = new ChargifyComponentPricePointFactory();
+
+		if ( ! empty( $component_price_point_point_id ) ) {
+			$component_price_point = $component_price_point_factory->get_by_component_price_point_id( $component_price_point_point_id );
+		} elseif ( ! empty( $component_price_point_point_handle ) ) {
+			$component_price_point = $component_price_point_factory->get_by_component_price_point_handle( $component_price_point_point_handle );
+		}
+
+		if ( $component_price_point instanceof ChargifyProduct ) {
+			if ( method_exists( $component_price_point, $method ) ) {
+				$value = $component_price_point->$method();
+			}
+		}
+	}
 
 	return $value;
 }
