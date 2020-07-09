@@ -55,6 +55,8 @@ We provide a number of optional filters you can use:
 
 == Chargify signup form filters. ==
 
+`chargify_product_details_fields` TODO.
+
 `chargify_message_details_fields` - Filter the Message Details form field. Use `$signup_form->add_field` and `$signup_form->remove_field` to add and/or remove fields.
 `chargify_form_message_html` - Filter the message html. $html and array of $form_messages that can manipulate the html, with html required as the return value.
 

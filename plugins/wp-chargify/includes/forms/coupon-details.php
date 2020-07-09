@@ -67,7 +67,19 @@ function register_coupon_fields( $signup_form ) {
 			'name'         => '',
 			'id'           => 'chargify_coupon_message',
 			'type'         => 'title',
-			'before_field' => 'Chargify\\Forms\\Coupon_Details\\render_coupon_and_cost_elements_html',
+			'before_field' => 'Chargify\\Forms\\Coupon_Details\\render_coupon_message_html',
+			'attributes'   => [
+				'style' => 'display:none;',
+			],
+		]
+	);
+
+	$signup_form->add_field(
+		[
+			'name'         => '',
+			'id'           => 'chargify_costs_bottom',
+			'type'         => 'title',
+			'before_field' => 'Chargify\\Forms\\Coupon_Details\\render_cost_bottom_html',
 			'attributes'   => [
 				'style' => 'display:none;',
 			],
@@ -83,14 +95,15 @@ function register_coupon_fields( $signup_form ) {
  *
  * @return false|string
  */
-function render_coupon_and_cost_elements_html() {
+function render_coupon_message_html() {
+
+	return '<div id="chargify_coupon_messages_cntr" class="hidden"></div>';
+}
+
+function render_cost_bottom_html() {
 
 	ob_start();
 	?>
-	<div id="chargify_coupon_messages_cntr" class="hidden"></div>
-	<div id="coupon_discount_container" class="notify--accepted discount-container hidden">
-		<p><span class="coupon-discount"></span> discount applied</p>
-	</div>
 	<div class="costs">
 		<p id="total_cost_container_bottom">
 			<span class="total-cost-inc-cents"></span> /
