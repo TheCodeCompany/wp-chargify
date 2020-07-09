@@ -40,6 +40,16 @@ require_once( 'includes/libraries/enqueues.php' );
 require_once( 'includes/libraries/enqueues-functions.php' );
 require_once( 'includes/libraries/requests.php' );
 
+// Libraries base Models and Factories.
+require_once( 'includes/libraries/model.php' );
+require_once( 'includes/libraries/model-factory.php' );
+require_once( 'includes/libraries/generic-post.php' );
+require_once( 'includes/libraries/generic-post-factory.php' );
+
+// Models and Factories.
+require_once( 'includes/model/chargify-product.php' );
+require_once( 'includes/model/chargify-product-factory.php' );
+
 // Controllers.
 require_once( 'includes/ctrl/enqueues-controller.php' );
 require_once( 'includes/ctrl/validate-coupon-controller.php' );
