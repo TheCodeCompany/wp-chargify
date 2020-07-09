@@ -50,18 +50,7 @@ function create_subscription( $cmb2 ) {
 
 		$chargify_data = [
 			'subscription' => [
-				'product'                => [
-					'product_family_id'            => isset( $sanitized_values['product_family_id'] ) ? $sanitized_values['product_family_id'] : null,
-					'product_id'                   => isset( $sanitized_values['product_id'] ) ? $sanitized_values['product_id'] : null,
-					'product_handle'               => isset( $sanitized_values['product_handle'] ) ? $sanitized_values['product_handle'] : null,
-					'price_point_id'               => isset( $sanitized_values['price_point_id'] ) ? $sanitized_values['price_point_id'] : null,
-					'price_point_handle'           => isset( $sanitized_values['price_point_handle'] ) ? $sanitized_values['price_point_handle'] : null,
-					'component_id'                 => isset( $sanitized_values['component_id'] ) ? $sanitized_values['component_id'] : null,
-					'component_handle'             => isset( $sanitized_values['component_handle'] ) ? $sanitized_values['component_handle'] : null,
-					'component_price_point_id'     => isset( $sanitized_values['component_price_point_id'] ) ? $sanitized_values['component_price_point_id'] : null,
-					'component_price_point_handle' => isset( $sanitized_values['component_price_point_handle'] ) ? $sanitized_values['component_price_point_handle'] : null,
-					'component_quantity'           => isset( $sanitized_values['component_quantity'] ) ? $sanitized_values['component_quantity'] : null,
-				],
+				'product_handle'         => isset( $sanitized_values['chargify_product_handle'] ) ? $sanitized_values['chargify_product_handle'] : '',
 				'customer_attributes'    => [
 					'first_name'   => $sanitized_values['chargify_first_name'],
 					'last_name'    => $sanitized_values['chargify_last_name'],
@@ -95,6 +84,41 @@ function create_subscription( $cmb2 ) {
 				],
 			],
 		];
+
+		// Add other info to the subscription.
+		$product_id = isset( $sanitized_values['chargify_product_id'] ) ? $sanitized_values['chargify_product_id'] : false;
+		if ( $product_id ) {
+			$chargify_data['subscription']['product_id'] = $product_id;
+		}
+
+		// Add other info to the subscription.
+		$product_price_point_handle = isset( $sanitized_values['chargify_product_price_point_handle'] ) ? $sanitized_values['chargify_product_price_point_handle'] : false;
+		if ( $product_price_point_handle ) {
+			$chargify_data['subscription']['product_price_point_handle'] = $product_price_point_handle;
+		}
+
+		// Add other info to the subscription.
+		$chargify_product_price_point_id = isset( $sanitized_values['chargify_product_price_point_id'] ) ? $sanitized_values['chargify_product_price_point_id'] : false;
+		if ( $chargify_product_price_point_id ) {
+			$chargify_data['subscription']['product_price_point_id'] = $chargify_product_price_point_id;
+		}
+
+		// Add other info to the subscription.
+		$coupon_code = isset( $sanitized_values['chargify_coupon_code'] ) ? $sanitized_values['chargify_coupon_code'] : false;
+		if ( $coupon_code ) {
+			$chargify_data['subscription']['coupon_code'] = $coupon_code;
+		}
+
+		// Add components to the subscription.
+		$component_id = isset( $sanitized_values['chargify_component_id'] ) ? $sanitized_values['chargify_component_id'] : false;
+		if ( $component_id ) {
+			$chargify_data['subscription']['components'] = [
+				'component_id'                 => $component_id,
+				'price_point_id'               => isset( $sanitized_values['chargify_component_price_point_id'] ) ? $sanitized_values['chargify_component_price_point_id'] : null,
+				'component_price_point_handle' => isset( $sanitized_values['chargify_chargify_component_price_point_handle'] ) ? $sanitized_values['chargify_component_price_point_handle'] : null,
+				'allocated_quantity'           => isset( $sanitized_values['chargify_component_allocated_quantity'] ) ? $sanitized_values['chargify_component_allocated_quantity'] : null,
+			];
+		}
 
 		if ( $metafields ) {
 			$chargify_data['subscription']['metafields'] = $metafields;

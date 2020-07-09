@@ -93,7 +93,7 @@ function register_hidden_details_fields( $signup_form ) {
 
 	$signup_form->add_field(
 		[
-			'id'         => 'chargify_component_quantity',
+			'id'         => 'chargify_component_allocated_quantity',
 			'type'       => 'hidden',
 			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
