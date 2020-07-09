@@ -38,6 +38,7 @@ function chargify_account_init() {
 		'public'                => true,
 		'hierarchical'          => false,
 		'show_ui'               => $show_accounts,
+		'show_in_menu'          => 'wp-chargify.php',
 		'show_in_nav_menus'     => false,
 		'supports'              => [ 'title', 'revisions' ],
 		'has_archive'           => true,

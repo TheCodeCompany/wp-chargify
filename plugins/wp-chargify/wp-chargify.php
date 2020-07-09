@@ -59,6 +59,7 @@ require_once( 'includes/model/chargify-component-price-point.php' );
 require_once( 'includes/model/chargify-component-price-point-factory.php' );
 
 // Controllers.
+require_once( 'includes/ctrl/admin-page-wp-chargify-controller.php' );
 require_once( 'includes/ctrl/enqueues-controller.php' );
 require_once( 'includes/ctrl/validate-coupon-controller.php' );
 

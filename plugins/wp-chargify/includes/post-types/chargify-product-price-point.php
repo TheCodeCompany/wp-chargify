@@ -50,15 +50,16 @@ function chargify_product_price_point_init() {
 			'public'                => true,
 			'hierarchical'          => false,
 			'show_ui'               => $show_product_price_points,
-			'show_in_nav_menus'     => true,
-			'supports'              => [ 'title', 'editor' ],
+			'show_in_menu'          => 'wp-chargify.php',
+			'show_in_nav_menus'     => false,
+			'supports'              => [ 'title', 'editor', 'revisions' ],
 			'has_archive'           => true,
 			'rewrite'               => true,
 			'query_var'             => true,
 			'menu_position'         => 22,
 			'menu_icon'             => 'dashicons-cart',
 			'show_in_rest'          => true,
-			'rest_base'             => 'chargify_product_price_point',
+			'rest_base'             => ChargifyProductPricePoint::POST_TYPE,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 		]
 	);
@@ -68,7 +69,8 @@ function chargify_product_price_point_init() {
 /**
  * Sets the post updated messages for the `chargify_product_price_point` post type.
  *
- * @param  array $messages Post updated messages.
+ * @param array $messages Post updated messages.
+ *
  * @return array Messages for the `chargify_product_price_point` post type.
  */
 function chargify_product_price_point_updated_messages( $messages ) {
@@ -92,7 +94,7 @@ function chargify_product_price_point_updated_messages( $messages ) {
 		8  => sprintf( __( 'Product Price Point submitted. <a target="_blank" href="%s">Preview Product Price Point</a>', 'chargify' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 		/* translators: 1: Publish box date format, see https://secure.php.net/date 2: Post permalink */
 		9  => sprintf( __( 'Product Price Point scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Product Price Point</a>', 'chargify' ),
-		date_i18n( __( 'M j, Y @ G:i', 'chargify' ), strtotime( $post->post_date ) ), esc_url( $permalink ) ),
+			date_i18n( __( 'M j, Y @ G:i', 'chargify' ), strtotime( $post->post_date ) ), esc_url( $permalink ) ),
 		/* translators: %s: post permalink */
 		10 => sprintf( __( 'Product Price Point draft updated. <a target="_blank" href="%s">Preview Product Price Point</a>', 'chargify' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 	);
