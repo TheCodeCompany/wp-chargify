@@ -83,6 +83,7 @@ require_once( 'includes/forms/customer-details.php' );
 require_once( 'includes/forms/hidden-details.php' );
 require_once( 'includes/forms/message-details.php' );
 require_once( 'includes/forms/payment-details.php' );
+require_once( 'includes/forms/product-details.php' );
 require_once( 'includes/forms/signup.php' );
 require_once( 'includes/forms/submission.php' );
 require_once( 'includes/helpers/customers.php' );

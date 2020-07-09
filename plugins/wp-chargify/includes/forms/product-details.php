@@ -2,7 +2,7 @@
 /**
  * Register the product fields for the Chargify signup form.
  *
- * @file    wp-chargify/includes/forms/mproduct-details.php
+ * @file    wp-chargify/includes/forms/product-details.php
  * @package WPChargify
  */
 
