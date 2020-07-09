@@ -96,8 +96,10 @@ require_once( 'includes/helpers/options.php' );
 require_once( 'includes/logging/logger.php' );
 require_once( 'includes/meta-boxes/chargify-account.php' );
 require_once( 'includes/meta-boxes/chargify-api-log.php' );
+require_once( 'includes/meta-boxes/chargify-component-price-points.php' );
 require_once( 'includes/meta-boxes/chargify-components.php' );
 require_once( 'includes/meta-boxes/chargify-product.php' );
+require_once( 'includes/meta-boxes/chargify-product-price-points.php' );
 require_once( 'includes/meta-boxes/helpers.php' );
 
 // Post types.

@@ -16,7 +16,7 @@ use WP_Post;
  */
 class ChargifyComponentPricePoint extends GenericPost {
 
-	const POST_TYPE = 'chargify_component_price_point';
+	const POST_TYPE = 'chargify_comp_pp';
 	const CPT       = self::POST_TYPE;
 
 	const META_CHARGIFY_COMPONENT_PRICE_POINT_ID     = 'chargify_component_price_point_id';
