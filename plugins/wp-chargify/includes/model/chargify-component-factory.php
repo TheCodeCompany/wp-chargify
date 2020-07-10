@@ -69,7 +69,7 @@ class ChargifyComponentFactory extends GenericPostFactory {
 	}
 
 	/**
-	 * Get the Chargify Component by component id.
+	 * Get the Chargify Component by component handle.
 	 *
 	 * @param string $component_handle Component handle.
 	 *

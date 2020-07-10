@@ -57,7 +57,7 @@ class ChargifyComponentPricePointFactory extends GenericPostFactory {
 	}
 
 	/**
-	 * Get the Chargify Component Price Point by component id.
+	 * Get the Chargify Component Price Point by component price point id.
 	 *
 	 * @param int $component_price_point_id ComponentPricePoint id.
 	 *
@@ -69,7 +69,7 @@ class ChargifyComponentPricePointFactory extends GenericPostFactory {
 	}
 
 	/**
-	 * Get the Chargify ComponentPricePoint by component id.
+	 * Get the Chargify ComponentPricePoint by component price point handle.
 	 *
 	 * @param string $component_price_point_handle ComponentPricePoint handle.
 	 *

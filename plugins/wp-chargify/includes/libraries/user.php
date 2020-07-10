@@ -146,15 +146,16 @@ class User {
 	/**
 	 * Sets the given meta field - update_user_meta().
 	 *
-	 * @param string $key   The meta key to get for the user.
-	 * @param mixed  $value The value to set the meta field to.
+	 * @param string $key        The meta key to get for the user.
+	 * @param mixed  $value      The value to set the meta field to.
+	 * @param mixed  $prev_value Optional. Previous value to check before removing.
 	 *
 	 * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
 	 */
-	public function set_meta( $key, $value ) {
+	public function set_meta( $key, $value, $prev_value = '' ) {
 		assert( ! empty( $key ) );
 
-		return update_user_meta( $this->user->ID, $key, $value );
+		return update_user_meta( $this->user->ID, $key, $value, $prev_value );
 	}
 
 	/**

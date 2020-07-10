@@ -2,7 +2,7 @@
 /**
  * PHPUnit bootstrap file
  *
- * @package Wp_Chargify
+ * @package WPChargify
  */
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );

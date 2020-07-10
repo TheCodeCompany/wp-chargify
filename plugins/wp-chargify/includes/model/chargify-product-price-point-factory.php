@@ -57,7 +57,7 @@ class ChargifyProductPricePointFactory extends GenericPostFactory {
 	}
 
 	/**
-	 * Get the Chargify Product Price Point by product id.
+	 * Get the Chargify Product Price Point by product price point id.
 	 *
 	 * @param int $product_price_point_id ProductPricePoint id.
 	 *
@@ -69,7 +69,7 @@ class ChargifyProductPricePointFactory extends GenericPostFactory {
 	}
 
 	/**
-	 * Get the Chargify ProductPricePoint by product id.
+	 * Get the Chargify ProductPricePoint by product price point handle.
 	 *
 	 * @param string $product_price_point_handle ProductPricePoint handle.
 	 *

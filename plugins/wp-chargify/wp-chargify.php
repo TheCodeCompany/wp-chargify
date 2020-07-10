@@ -10,7 +10,7 @@
  * Version:         0.1.0
  * Requires PHP:    7.0
  *
- * @package         Wp_Chargify
+ * @package         WPChargify
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -27,8 +27,9 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once dirname(__FILE__) . '/includes/commands/class-chargify-webhooks.php';
 }
 
+define( 'WP_CHARGIFY_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'WP_CHARGIFY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'WP_CHARGIFY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WP_CHARGIFY_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
 
 require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 require_once( 'includes/bootstrap.php' );

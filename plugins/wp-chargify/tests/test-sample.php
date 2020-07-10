@@ -2,7 +2,7 @@
 /**
  * Class SampleTest
  *
- * @package Wp_Chargify
+ * @package WPChargify
  */
 
 /**

@@ -1,8 +1,8 @@
 <?php
 /**
- * The Chargify Product factory.
+ * The Chargify Account factory.
  *
- * @file    wp-chargify/includes/model/chargify-product-factory.php
+ * @file    wp-chargify/includes/model/chargify-account-factory.php
  * @package WPChargify
  */
 
@@ -13,19 +13,19 @@ use Chargify\Libraries\GenericPostFactory;
 use WP_Post;
 
 /**
- * The Product factory.
+ * The Account factory.
  */
-class ChargifyProductFactory extends GenericPostFactory {
+class ChargifyAccountFactory extends GenericPostFactory {
 
 	/**
 	 * Return a wrapped instance of the given post or post ID.
 	 *
 	 * @param string|int|WP_Post $post The post object or ID to wrap.
 	 *
-	 * @return ChargifyProduct|GenericPost
+	 * @return ChargifyAccount|GenericPost
 	 */
 	public function wrap( $post ) {
-		return new ChargifyProduct( $post );
+		return new ChargifyAccount( $post );
 	}
 
 	/**
@@ -35,7 +35,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 * @return string
 	 */
 	public function get_post_type() {
-		return ChargifyProduct::POST_TYPE;
+		return ChargifyAccount::POST_TYPE;
 	}
 
 	/**
@@ -43,7 +43,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 *
 	 * @param int|string $id The post ID.
 	 *
-	 * @return null|ChargifyProduct
+	 * @return null|ChargifyAccount
 	 */
 	public function get_by_id( $id ) {
 
@@ -57,36 +57,36 @@ class ChargifyProductFactory extends GenericPostFactory {
 	}
 
 	/**
-	 * Get the Chargify Product by product id.
+	 * Get the Chargify Account by WordPress user id.
 	 *
-	 * @param int $product_id Product id.
+	 * @param int $user_id WordPress user id.
 	 *
-	 * @return GenericPost|ChargifyProduct|null
+	 * @return GenericPost|ChargifyAccount|null
 	 */
-	public function get_by_product_id( $product_id ) {
+	public function get_by_wordpress_user_id( $user_id ) {
 
-		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_PRODUCT_ID, $product_id );
+		return $this->get_by_unique_meta( ChargifyAccount::META_CHARGIFY_WORDPRESS_USER_ID, $user_id );
 	}
 
 	/**
-	 * Get the Chargify Product by product handle.
+	 * Get the Chargify Account by subscription id.
 	 *
-	 * @param string $product_handle Product handle.
+	 * @param string $subscription_id Subscription id.
 	 *
-	 * @return GenericPost|ChargifyProduct|null
+	 * @return GenericPost|ChargifyAccount|null
 	 */
-	public function get_by_product_handle( $product_handle ) {
+	public function get_by_subscription_id( $subscription_id ) {
 
-		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_PRODUCT_HANDLE, $product_handle );
+		return $this->get_by_unique_meta( ChargifyAccount::META_CHARGIFY_SUBSCRIPTION_ID, $subscription_id );
 	}
 
 	/**
-	 * Get the Chargify Product by unique meta id, fails if more than one found.
+	 * Get the Chargify Account by unique meta id, fails if more than one found.
 	 *
 	 * @param string $meta_key   The meta key.
-	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like product id, handle etc.
+	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like account id, handle etc.
 	 *
-	 * @return GenericPost|ChargifyProduct|null
+	 * @return GenericPost|ChargifyAccount|null
 	 */
 	public function get_by_unique_meta( $meta_key, $meta_value ) {
 
@@ -112,7 +112,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 	}
 
 	/**
-	 * Static helper method to check that the post is of ChargifyProduct post type.
+	 * Static helper method to check that the post is of ChargifyAccount post type.
 	 * Removes multiple lines in if statements as sometimes global $post is null or
 	 * stdClass and results in Undefined property notices.
 	 *
@@ -128,7 +128,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 
 		return null !== $post &&
 			isset( $post->post_type ) &&
-			ChargifyProduct::POST_TYPE === $post->post_type;
+			ChargifyAccount::POST_TYPE === $post->post_type;
 	}
 
 }

@@ -65,13 +65,14 @@ function create_customer( $data, $wordpress_data ) {
 
 	$user_id = wp_insert_user(
 		[
-			'user_email'      => sanitize_email( $data['customer']['email'] ),
-			'user_login'      => isset( $wordpress_data['username'] ) ? sanitize_user( $wordpress_data['username'] ) : sanitize_email( $data['customer']['email'] ),
-			'first_name'      => sanitize_text_field( $data['customer']['first_name'] ),
-			'last_name'       => sanitize_text_field( $data['customer']['last_name'] ),
-			'user_registered' => sanitize_text_field( $data['customer']['created_at'] ),
-			'user_pass'       => $password,
-			'role'            => 'chargify_user'
+			'user_email'          => sanitize_email( $data['customer']['email'] ),
+			'user_login'          => isset( $wordpress_data['username'] ) ? sanitize_user( $wordpress_data['username'] ) : sanitize_email( $data['customer']['email'] ),
+			'first_name'          => sanitize_text_field( $data['customer']['first_name'] ),
+			'last_name'           => sanitize_text_field( $data['customer']['last_name'] ),
+			'user_registered'     => sanitize_text_field( $data['customer']['created_at'] ),
+			'user_pass'           => $password,
+			'role'                => 'chargify_user',
+			'chargify_account_id' => '',
 		]
 	);
 
