@@ -69,11 +69,11 @@ class ChargifyAccount extends GenericPost {
 	protected $chargify_products_multicheck = null;
 
 	/**
-	 * The products value that is associated to the account.
+	 * The products handle that is associated to the account.
 	 *
 	 * @var null|string
 	 */
-	protected $get_chargify_product_price_point_handle = null;
+	protected $get_chargify_product_handle = null;
 
 	/**
 	 * Get the WordPress user id.
@@ -194,22 +194,20 @@ class ChargifyAccount extends GenericPost {
 	 *
 	 * @return null|string
 	 */
-	public function get_chargify_product_price_point_handle( $new_fetch = false ) {
+	public function get_chargify_product_handle( $new_fetch = false ) {
 
-		if ( null === $this->get_chargify_product_price_point_handle || $new_fetch ) {
+		if ( null === $this->get_chargify_product_handle || $new_fetch ) {
 
 			// The product id.
 			$product_id = $this->get_chargify_products_multicheck();
 
-			// TODO. Price Point need the price point id to get its handle.
+			$chargify_product_factory = new ChargifyProductFactory();
+			$chargify_product         = $chargify_product_factory->get_by_id( $product_id );
 
-			$chargify_product_pp_factory = new ChargifyProductPricePointFactory();
-			$chargify_product_pp         = $chargify_product_pp_factory->get_by_id( 0 );
-
-			$this->get_chargify_product_price_point_handle = $chargify_product_pp->get_chargify_product_price_point_handle();
+			$this->get_chargify_product_handle = $chargify_product->get_chargify_product_handle();
 		}
 
-		return $this->get_chargify_product_price_point_handle;
+		return $this->get_chargify_product_handle;
 	}
 
 }
