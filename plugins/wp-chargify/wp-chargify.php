@@ -53,6 +53,8 @@ require_once( 'includes/libraries/user.php' );
 require_once( 'includes/libraries/user-factory.php' );
 
 // Models and Factories.
+require_once( 'includes/model/chargify-account.php' );
+require_once( 'includes/model/chargify-account-factory.php' );
 require_once( 'includes/model/chargify-product.php' );
 require_once( 'includes/model/chargify-product-factory.php' );
 require_once( 'includes/model/chargify-product-price-point.php' );
