@@ -30,5 +30,5 @@ function apply_chargify_form_messages( $messages, $type = 'error' ) {
  * Return the form messages.
  */
 function get_chargify_form_messages() {
-	return $_POST['chargify_form_messages']; // phpcs:ignore
+	return isset( $_POST['chargify_form_messages'] ); // phpcs:ignore
 }
