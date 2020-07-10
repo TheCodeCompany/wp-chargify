@@ -35,7 +35,7 @@ class EnqueuesController {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueues' ] );
 
 		// Admin enqueues.
-		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueues' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_styles_and_scripts' ] );
 	}
 
 	/**

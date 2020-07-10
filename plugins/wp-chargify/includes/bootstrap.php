@@ -5,6 +5,7 @@ namespace Chargify;
  * Add a function to load our code in where we need it.
  */
 function bootstrap() {
+
 	add_action( 'cmb2_admin_init',           'Chargify\\Admin\\register_chargify_options_metabox' );
 	add_action( 'cmb2_admin_init',           'Chargify\\Meta_Boxes\\API_Log\\add_api_log_metaboxes' );
 
@@ -33,7 +34,6 @@ function bootstrap() {
 	add_action( 'do_meta_boxes',             'Chargify\\Meta_Boxes\\Component\\remove_publish_meta_box' );
 	add_action( 'do_meta_boxes',             'Chargify\\Meta_Boxes\\Account\\remove_publish_meta_box' );
 	add_action( 'admin_enqueue_scripts',     'Chargify\\Meta_Boxes\\API_Log\\remove_autosave' );
-	add_action( 'admin_enqueue_scripts',     'Chargify\\Meta_Boxes\\API_Log\\admin_styles_and_scripts' );
 	add_action( 'wp_enqueue_scripts',        'Chargify\\Meta_Boxes\\API_Log\\main_styles_and_scripts' );
 	add_action( 'cmb2_render_chargify_code', 'Chargify\\Meta_Boxes\\API_Log\\render_chargify_code', 10, 5 );
 	add_action( 'chargify\log_request',      'Chargify\\Logging\\Logger\\logger', 10, 9 );
