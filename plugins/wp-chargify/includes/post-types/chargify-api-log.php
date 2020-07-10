@@ -33,6 +33,7 @@ function chargify_api_log_init() {
 		'public'                => false,
 		'hierarchical'          => false,
 		'show_ui'               => $show_logs,
+		'show_in_menu'          => 'wp-chargify.php',
 		'show_in_nav_menus'     => false,
 		'supports'      => [ 'author' ],
 		'capabilities' => [
@@ -54,7 +55,7 @@ function chargify_api_log_init() {
 		'has_archive'           => true,
 		'rewrite'               => true,
 		'query_var'             => true,
-		'menu_position'         => 23,
+		'menu_position'         => 22,
 		'menu_icon'             => 'dashicons-hammer',
 		'show_in_rest'          => false,
 	] );
