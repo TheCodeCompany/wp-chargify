@@ -5,7 +5,6 @@ namespace Chargify;
  * Add a function to load our code in where we need it.
  */
 function bootstrap() {
-
 	add_action( 'cmb2_admin_init',           'Chargify\\Admin\\register_chargify_options_metabox' );
 	add_action( 'cmb2_admin_init',           'Chargify\\Meta_Boxes\\API_Log\\add_api_log_metaboxes' );
 
