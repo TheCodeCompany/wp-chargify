@@ -27,14 +27,43 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
 require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 require_once( 'includes/bootstrap.php' );
+
+// Primary functions or helper methods.
 require_once( 'includes/admin/settings.php' );
 require_once( 'includes/admin/helpers.php' );
+
+// Libraries.
 require_once( 'includes/libraries/enqueues.php' );
 require_once( 'includes/libraries/enqueues-functions.php' );
+
+// Libraries base Models and Factories.
+require_once( 'includes/libraries/model.php' );
+require_once( 'includes/libraries/model-factory.php' );
+require_once( 'includes/libraries/generic-post.php' );
+require_once( 'includes/libraries/generic-post-factory.php' );
+require_once( 'includes/libraries/user.php' );
+require_once( 'includes/libraries/user-factory.php' );
+
+// Models and Factories.
+require_once( 'includes/model/chargify-product.php' );
+require_once( 'includes/model/chargify-product-factory.php' );
+require_once( 'includes/model/chargify-product-price-point.php' );
+require_once( 'includes/model/chargify-product-price-point-factory.php' );
+require_once( 'includes/model/chargify-component.php' );
+require_once( 'includes/model/chargify-component-factory.php' );
+require_once( 'includes/model/chargify-component-price-point.php' );
+require_once( 'includes/model/chargify-component-price-point-factory.php' );
+require_once( 'includes/model/chargify-user.php' );
+require_once( 'includes/model/chargify-user-factory.php' );
+
+// Chargify Endpoints.
 require_once( 'includes/chargify/endpoints/components.php' );
+require_once( 'includes/chargify/endpoints/component-price-points.php' );
 require_once( 'includes/chargify/endpoints/product-families.php' );
+require_once( 'includes/chargify/endpoints/product-price-points.php' );
 require_once( 'includes/chargify/endpoints/subscriptions.php' );
 require_once( 'includes/chargify/endpoints/webhooks.php' );
+
 require_once( 'includes/chargify/customers/namespace.php' );
 require_once( 'includes/chargify/renewal/namespace.php' );
 require_once( 'includes/chargify/subscription/namespace.php' );
