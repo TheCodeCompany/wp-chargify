@@ -69,6 +69,13 @@ class ChargifyAccount extends GenericPost {
 	protected $chargify_products_multicheck = null;
 
 	/**
+	 * The products value that is associated to the account.
+	 *
+	 * @var null|string
+	 */
+	protected $get_chargify_product_price_point_handle = null;
+
+	/**
 	 * Get the WordPress user id.
 	 *
 	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized on the
@@ -144,11 +151,14 @@ class ChargifyAccount extends GenericPost {
 
 	/**
 	 * Get the subscription expiration date.
+	 * Meta created from subscription 'current_period_ends_at' data.
+	 * Stored as Timestamp relating to the end of the current (recurring)
+	 * period (i.e.,when the next regularly scheduled attempted charge will occur)
 	 *
 	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized on the
 	 *                        model as a parameter.
 	 *
-	 * @return null|string
+	 * @return null|string String is in format of "ISO 8601 date format"
 	 */
 	public function get_chargify_expiration_date( $new_fetch = false ) {
 
@@ -160,7 +170,7 @@ class ChargifyAccount extends GenericPost {
 	}
 
 	/**
-	 * Get the subscription products multicheck.
+	 * Get the subscription products value multicheck.
 	 *
 	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized on the
 	 *                        model as a parameter.
@@ -174,6 +184,32 @@ class ChargifyAccount extends GenericPost {
 		}
 
 		return $this->chargify_products_multicheck;
+	}
+
+	/**
+	 * Get the subscription product price point handle.
+	 *
+	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized on the
+	 *                        model as a parameter.
+	 *
+	 * @return null|string
+	 */
+	public function get_chargify_product_price_point_handle( $new_fetch = false ) {
+
+		if ( null === $this->get_chargify_product_price_point_handle || $new_fetch ) {
+
+			// The product id.
+			$product_id = $this->get_chargify_products_multicheck();
+
+			// TODO. Price Point need the price point id to get its handle.
+
+			$chargify_product_pp_factory = new ChargifyProductPricePointFactory();
+			$chargify_product_pp         = $chargify_product_pp_factory->get_by_id( 0 );
+
+			$this->get_chargify_product_price_point_handle = $chargify_product_pp->get_chargify_product_price_point_handle();
+		}
+
+		return $this->get_chargify_product_price_point_handle;
 	}
 
 }

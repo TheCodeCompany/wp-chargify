@@ -39,9 +39,9 @@ require_once( 'includes/admin/settings.php' );
 require_once( 'includes/admin/helpers.php' );
 
 // Libraries.
+require_once( 'includes/libraries/date-helper.php' );
 require_once( 'includes/libraries/enqueues.php' );
 require_once( 'includes/libraries/enqueues-functions.php' );
-
 require_once( 'includes/libraries/requests.php' );
 
 // Libraries base Models and Factories.

@@ -8,6 +8,7 @@
 
 namespace Chargify\Model;
 
+use Chargify\Libraries\DateHelper;
 use Chargify\Libraries\User;
 
 /**
@@ -99,7 +100,7 @@ class ChargifyUser extends User {
 	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized in a
 	 *                        parameter.
 	 *
-	 * @return bool|null
+	 * @return bool|null|ChargifyAccount
 	 */
 	public function get_chargify_account( $new_fetch = false ) {
 
@@ -133,6 +134,39 @@ class ChargifyUser extends User {
 	}
 
 	/**
+	 * For the account to be active and in date, the account must be in active or trialing state.
+	 * Also the account expiry date must be after today.
+	 *
+	 * @return bool
+	 */
+	public function is_account_active_and_in_date() {
+		return ( $this->is_account_active() || $this->is_account_trialing() ) && $this->is_account_date_valid();
+	}
+
+	/**
+	 * Checks the accounts date to see if it has not expired.
+	 *
+	 * @return bool|null
+	 */
+	public function is_account_date_valid() {
+		$chargify_account = $this->get_chargify_account();
+		$is               = false;
+
+		if ( $chargify_account instanceof ChargifyAccount ) {
+			$expiration_date_iso_8601 = $chargify_account->get_chargify_expiration_date();
+
+			if ( $expiration_date_iso_8601 ) {
+				$expiration_date = gmdate( DateHelper::DATE_FORMAT_DEFAULT, strtotime( $expiration_date_iso_8601 ) );
+
+				// Check that the expiration date is after today, today cannot be the expiration date.
+				$is = DateHelper::date_is_after_today( $expiration_date );
+			}
+		}
+
+		return $is;
+	}
+
+	/**
 	 * Base method to check account state.
 	 *
 	 * @param string $account_state To check if account state matches.
@@ -141,11 +175,11 @@ class ChargifyUser extends User {
 	 */
 	protected function is_account_state( $account_state ) {
 		$chargify_account = $this->get_chargify_account();
-		$is        = false;
+		$is               = false;
 
 		if ( $chargify_account instanceof ChargifyAccount ) {
 			$subscription_status = $chargify_account->get_chargify_subscription_status();
-			$is           = $subscription_status === $account_state;
+			$is                  = $subscription_status === $account_state;
 		}
 
 		return $is;
