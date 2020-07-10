@@ -10,7 +10,7 @@
  * Version:         0.1.0
  * Requires PHP:    7.0
  *
- * @package         Wp_Chargify
+ * @package         WPChargify
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
@@ -53,14 +53,22 @@ require_once( 'includes/helpers/options.php' );
 require_once( 'includes/logging/logger.php' );
 require_once( 'includes/meta-boxes/chargify-account.php' );
 require_once( 'includes/meta-boxes/chargify-api-log.php' );
+require_once( 'includes/meta-boxes/chargify-component-price-points.php' );
 require_once( 'includes/meta-boxes/chargify-components.php' );
 require_once( 'includes/meta-boxes/chargify-product.php' );
+require_once( 'includes/meta-boxes/chargify-product-price-points.php' );
 require_once( 'includes/meta-boxes/helpers.php' );
+
+// Post types.
 require_once( 'includes/post-types/chargify-account.php' );
-require_once(  'includes/post-types/chargify-component.php' );
+require_once( 'includes/post-types/chargify-component.php' );
+require_once( 'includes/post-types/chargify-component-price-point.php' );
 require_once( 'includes/post-types/chargify-api-log.php' );
 require_once( 'includes/post-types/chargify-product.php' );
+require_once( 'includes/post-types/chargify-product-price-point.php' );
 require_once( 'includes/post-types/helpers.php' );
+
+// Roles.
 require_once( 'includes/roles/namespace.php' );
 
 # Setup the activation and deactivation routines.
