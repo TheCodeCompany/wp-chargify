@@ -58,9 +58,9 @@ require_once( 'includes/model/chargify-user-factory.php' );
 
 // Chargify Endpoints.
 require_once( 'includes/chargify/endpoints/components.php' );
-require_once( 'includes/chargify/endpoints/component-price-points.php' );
+//require_once( 'includes/chargify/endpoints/component-price-points.php' );
 require_once( 'includes/chargify/endpoints/product-families.php' );
-require_once( 'includes/chargify/endpoints/product-price-points.php' );
+//require_once( 'includes/chargify/endpoints/product-price-points.php' );
 require_once( 'includes/chargify/endpoints/subscriptions.php' );
 require_once( 'includes/chargify/endpoints/webhooks.php' );
 
