@@ -72,9 +72,9 @@ require_once( 'includes/ctrl/validate-coupon-controller.php' );
 // Chargify Endpoints.
 require_once( 'includes/chargify/endpoints/coupons.php' );
 require_once( 'includes/chargify/endpoints/components.php' );
-require_once( 'includes/chargify/endpoints/component-price-points.php' );
+//require_once( 'includes/chargify/endpoints/component-price-points.php' );
 require_once( 'includes/chargify/endpoints/product-families.php' );
-require_once( 'includes/chargify/endpoints/product-price-points.php' );
+//require_once( 'includes/chargify/endpoints/product-price-points.php' );
 require_once( 'includes/chargify/endpoints/subscriptions.php' );
 require_once( 'includes/chargify/endpoints/webhooks.php' );
 
