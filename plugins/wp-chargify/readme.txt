@@ -45,6 +45,8 @@ We provide a number of optional PHP constants developers can use to override any
 We provide a number of optional filters you can use:
 
 `chargify_hide_options` - Use this to hide the Chargify options page.
+`chargify_hide_components_options` - Use this to hide the Chargify Components options tab, useful if the installing site does not use components.
+
 `chargify_show_accounts` - Set this to `false` to hide the Accounts custom post type.
 `chargify_show_components` - Set this to `false` to hide the Components custom post type.
 `chargify_show_component_price_points` - Set this to `false` to hide the Components Price Points custom post type.
