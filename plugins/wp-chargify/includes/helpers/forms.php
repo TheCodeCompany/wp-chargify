@@ -1,4 +1,5 @@
 <?php
+namespace Chargify\Helpers\Forms;
 
 /**
  * Simple function to update the form messages.

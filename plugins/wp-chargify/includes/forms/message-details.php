@@ -9,6 +9,7 @@
 namespace Chargify\Forms\Message_Details;
 
 use CMB2;
+use function Chargify\Helpers\Forms\get_chargify_form_messages;
 
 /**
  * Register the server response message field.
