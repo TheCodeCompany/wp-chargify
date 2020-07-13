@@ -38,7 +38,7 @@ function product_meta_boxes() {
 						ChargifyProduct::META_CHARGIFY_PRICE_POINT_ID,
 						ChargifyProduct::META_WORDPRESS_PRICE_POINT_ID,
 						ChargifyProduct::META_CHARGIFY_DEFAULT_PRICE_POINT_ID,
-						'chargify_price_point_handle', // Extra.
+						'chargify_price_point_handle', // TODO, use Product Price Point Model.
 						ChargifyProduct::META_CHARGIFY_COMPONENT_ID,
 						ChargifyProduct::META_WORDPRESS_COMPONENT_ID,
 					],
@@ -69,7 +69,7 @@ function product_meta_boxes() {
 				],
 				[
 					'id'     => 'tab-misc',
-					'title'  => 'Misc',
+					'title'  => 'Miscellaneous',
 					'fields' => [
 						ChargifyProduct::META_CHARGIFY_CREATED_AT,
 						ChargifyProduct::META_CHARGIFY_UPDATED_AT,

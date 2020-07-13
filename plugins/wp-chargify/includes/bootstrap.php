@@ -47,10 +47,11 @@ function bootstrap() {
 	add_action( 'cmb2_save_field',           'Chargify\\Webhooks\\maybe_toggle_webhooks', 10, 4 );
 
 	// Controllers.
-	new Controllers\Admin_Page_WPChargify_Controller();
-	new Controllers\CMB2_Tabs_Controller();
-	new Controllers\Enqueues_Controller();
-	new Controllers\Validate_Coupon_Controller();
+	new Controllers\AdminPageWPChargifyController();
+	new Controllers\CMB2TabsController();
+	new Controllers\EnqueuesController();
+	new Controllers\MetaBoxController();
+	new Controllers\ValidateCouponController();
 }
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\bootstrap' );
