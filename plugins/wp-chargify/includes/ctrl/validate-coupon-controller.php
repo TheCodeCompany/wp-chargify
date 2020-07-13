@@ -18,7 +18,7 @@ use function Chargify\Chargify\Endpoints\Coupons\validate_coupon;
 /**
  * A controller class to validate coupons.
  */
-class Validate_Coupon_Controller {
+class ValidateCouponController {
 
 	const ACTION    = 'validate-coupon';
 	const NONCE_KEY = 'validate-coupon';

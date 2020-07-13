@@ -20,7 +20,7 @@ use function Chargify\Libraries\wp_register_script_auto_ver;
 /**
  * A controller class for site enqueues.
  */
-class Enqueues_Controller {
+class EnqueuesController {
 
 	const IDENTIFIER = 'wp-chargify';
 
