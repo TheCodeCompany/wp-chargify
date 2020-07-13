@@ -20,6 +20,7 @@ class ChargifyComponentPricePoint extends GenericPost {
 	const CPT       = self::POST_TYPE;
 
 	const META_CHARGIFY_COMPONENT_PRICE_POINT_ID     = 'chargify_component_price_point_id';
+	const META_CHARGIFY_COMPONENT_PRICE_POINT_NAME   = 'chargify_component_price_point_name';
 	const META_CHARGIFY_COMPONENT_PRICE_POINT_HANDLE = 'chargify_component_price_point_handle';
 	const META_CHARGIFY_COMPONENT_ID                 = 'chargify_component_id'; // The component that its linked to.
 	const META_CHARGIFY_PRODUCT_ID                   = 'chargify_product_family_id'; // The product that its linked to.
