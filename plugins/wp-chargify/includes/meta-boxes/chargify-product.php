@@ -47,22 +47,23 @@ function product_meta_boxes() {
 					'id'     => 'tab-costs',
 					'title'  => 'Costs',
 					'fields' => [
-						ChargifyProduct::META_CHARGIFY_EXPIRATION_INTERVAL,
-						ChargifyProduct::META_CHARGIFY_EXPIRATION_INTERVAL_UNIT,
 						ChargifyProduct::META_CHARGIFY_PRICE_IN_CENTS,
+						ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
 						ChargifyProduct::META_CHARGIFY_INTERVAL,
 						ChargifyProduct::META_CHARGIFY_INTERVAL_UNIT,
-						ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
+						ChargifyProduct::META_CHARGIFY_EXPIRATION_INTERVAL,
+						ChargifyProduct::META_CHARGIFY_EXPIRATION_INTERVAL_UNIT,
 						ChargifyProduct::META_CHARGIFY_TAXABLE,
 						ChargifyProduct::META_CHARGIFY_TAX_CODE,
+						ChargifyProduct::META_CHARGIFY_ACCOUNTING_CODE,
 					],
 				],
 				[
 					'id'     => 'tab-trial',
 					'title'  => 'Trial',
 					'fields' => [
-						ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL,
 						ChargifyProduct::META_CHARGIFY_TRIAL_PRICE_IN_CENTS,
+						ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL,
 						ChargifyProduct::META_CHARGIFY_TRIAL_INTERVAL,
 						ChargifyProduct::META_CHARGIFY_TRIAL_INTERVAL_UNIT,
 					],
@@ -74,7 +75,6 @@ function product_meta_boxes() {
 						ChargifyProduct::META_CHARGIFY_CREATED_AT,
 						ChargifyProduct::META_CHARGIFY_UPDATED_AT,
 						ChargifyProduct::META_CHARGIFY_ARCHIVED_AT,
-						ChargifyProduct::META_CHARGIFY_ACCOUNTING_CODE,
 						ChargifyProduct::META_CHARGIFY_REQUIRE_CREDIT_CARD,
 						ChargifyProduct::META_CHARGIFY_REQUEST_CREDIT_CARD,
 						ChargifyProduct::META_CHARGIFY_REQUEST_BILLING_ADDRESS,
@@ -279,36 +279,22 @@ function product_meta_boxes() {
 	// Costs.
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Expiration Interval', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_EXPIRATION_INTERVAL,
-			'type'       => 'text',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
-
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Product Expiration Interval Unit', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_EXPIRATION_INTERVAL_UNIT,
-			'type'       => 'text',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
-	$cmb2->add_field(
-		[
 			'name'       => __( 'Product Price in Cents', 'chargify' ),
 			'desc'       => '',
 			'id'         => ChargifyProduct::META_CHARGIFY_PRICE_IN_CENTS,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Product Billing Initial Charge in Cents', 'chargify' ),
+			'desc'       => '',
+			'id'         => ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -345,9 +331,9 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Billing Initial Charge in Cents', 'chargify' ),
+			'name'       => __( 'Product Expiration Interval', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
+			'id'         => ChargifyProduct::META_CHARGIFY_EXPIRATION_INTERVAL,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -356,6 +342,18 @@ function product_meta_boxes() {
 		]
 	);
 
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Product Expiration Interval Unit', 'chargify' ),
+			'desc'       => '',
+			'id'         => ChargifyProduct::META_CHARGIFY_EXPIRATION_INTERVAL_UNIT,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
 
 	$cmb2->add_field(
 		[
@@ -383,13 +381,26 @@ function product_meta_boxes() {
 		]
 	);
 
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Product Account Code', 'chargify' ),
+			'desc'       => '',
+			'id'         => ChargifyProduct::META_CHARGIFY_ACCOUNTING_CODE,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
 
 	// TRIAL.
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Billing Initial Charge After Trial', 'chargify' ),
+			'name'       => __( 'Product Billing Trial Price in Cents', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL,
+			'id'         => ChargifyProduct::META_CHARGIFY_TRIAL_PRICE_IN_CENTS,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -400,9 +411,9 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Billing Trial Price in Cents', 'chargify' ),
+			'name'       => __( 'Product Billing Initial Charge After Trial', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_TRIAL_PRICE_IN_CENTS,
+			'id'         => ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -478,20 +489,6 @@ function product_meta_boxes() {
 		]
 	);
 
-
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Product Account Code', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_ACCOUNTING_CODE,
-			'type'       => 'text',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Require Credit Card', 'chargify' ),
@@ -559,117 +556,114 @@ function product_meta_boxes() {
 	);
 
 
-
-
-
-//	$cmb2->add_field(
-//		[
-//			'name'       => __( 'Price Point Handle', 'chargify' ),
-//			'desc'       => __( 'The price point handle of the product in Chargify.', 'chargify' ),
-//			'id'         => 'chargify_product_price_point_handle',
-//			'type'       => 'text',
-//			'attributes' => [
-//				'readonly' => 'readonly',
-//				'disabled' => 'disabled',
-//			],
-//		]
-//	);
-//
-//	$cmb2->add_field(
-//		[
-//			'name'       => __( 'Is default Price Point', 'chargify' ),
-//			'desc'       => __( 'Is this the default price point of the product in Chargify.', 'chargify' ),
-//			'id'         => 'chargify_product_price_point_is_default',
-//			'type'       => 'checkbox',
-//			'attributes' => [
-//				'readonly' => 'readonly',
-//				'disabled' => 'disabled',
-//			],
-//		]
-//	);
-//
-//	$cmb2->add_field(
-//		[
-//			'name'        => __( 'Price', 'chargify' ),
-//			'description' => __( 'The price of the product in Chargify.', 'chargify' ),
-//			'id'          => __( 'chargify_price' ),
-//			'type'        => 'text_money',
-//			'attributes'  => [
-//				'readonly' => 'readonly',
-//				'disabled' => 'disabled',
-//			],
-//		]
-//	);
-//
-//	$cmb2->add_field(
-//		[
-//			'name'        => __( 'Initial Cost', 'chargify' ),
-//			'description' => __( 'The initial cost of the product in Chargify.', 'chargify' ),
-//			'id'          => __( 'chargify_initial_cost' ),
-//			'type'        => 'text_money',
-//			'attributes'  => [
-//				'readonly' => 'readonly',
-//				'disabled' => 'disabled',
-//			],
-//		]
-//	);
-//
-//	$cmb2->add_field(
-//		[
-//			'name'        => __( 'Interval Unit', 'chargify' ),
-//			'description' => __( 'The interval unit that a subscription is renewed in Chargify.', 'chargify' ),
-//			'id'          => 'chargify_interval_unit',
-//			'type'        => 'radio_inline',
-//			'options'     => [
-//				'day'   => __( 'Day', 'chargify' ),
-//				'month' => __( 'Month', 'chargify' ),
-//			],
-//			'default'     => 'day',
-//			'attributes'  => [
-//				'readonly' => 'readonly',
-//				'disabled' => 'disabled',
-//			],
-//		]
-//	);
-//
-//	$cmb2->add_field(
-//		[
-//			'name'        => __( 'Interval', 'chargify' ),
-//			'description' => __( 'The interval that a subscription is renewed in Chargify.', 'chargify' ),
-//			'id'          => 'chargify_interval',
-//			'type'        => 'text_small',
-//			'attributes'  => [
-//				'readonly' => 'readonly',
-//				'disabled' => 'disabled',
-//			],
-//		]
-//	);
-//
-//	$cmb2->add_field(
-//		[
-//			'name'       => __( 'Product Family', 'chargify' ),
-//			'desc'       => __( 'The family that the product belongs to in Chargify.', 'chargify' ),
-//			'id'         => 'chargify_product_family',
-//			'type'       => 'text',
-//			'attributes' => [
-//				'readonly' => 'readonly',
-//				'disabled' => 'disabled',
-//			],
-//		]
-//	);
-//
-//	$cmb2->add_field(
-//		[
-//			'name'       => __( 'Product Family ID', 'chargify' ),
-//			'desc'       => __( 'The Product Family ID that the product belongs to in Chargify.', 'chargify' ),
-//			'id'         => 'chargify_product_family_id',
-//			'type'       => 'text_small',
-//			'attributes' => [
-//				'readonly' => 'readonly',
-//				'disabled' => 'disabled',
-//				'type'     => 'number',
-//			],
-//		]
-//	);
+	//	$cmb2->add_field(
+	//		[
+	//			'name'       => __( 'Price Point Handle', 'chargify' ),
+	//			'desc'       => __( 'The price point handle of the product in Chargify.', 'chargify' ),
+	//			'id'         => 'chargify_product_price_point_handle',
+	//			'type'       => 'text',
+	//			'attributes' => [
+	//				'readonly' => 'readonly',
+	//				'disabled' => 'disabled',
+	//			],
+	//		]
+	//	);
+	//
+	//	$cmb2->add_field(
+	//		[
+	//			'name'       => __( 'Is default Price Point', 'chargify' ),
+	//			'desc'       => __( 'Is this the default price point of the product in Chargify.', 'chargify' ),
+	//			'id'         => 'chargify_product_price_point_is_default',
+	//			'type'       => 'checkbox',
+	//			'attributes' => [
+	//				'readonly' => 'readonly',
+	//				'disabled' => 'disabled',
+	//			],
+	//		]
+	//	);
+	//
+	//	$cmb2->add_field(
+	//		[
+	//			'name'        => __( 'Price', 'chargify' ),
+	//			'description' => __( 'The price of the product in Chargify.', 'chargify' ),
+	//			'id'          => __( 'chargify_price' ),
+	//			'type'        => 'text_money',
+	//			'attributes'  => [
+	//				'readonly' => 'readonly',
+	//				'disabled' => 'disabled',
+	//			],
+	//		]
+	//	);
+	//
+	//	$cmb2->add_field(
+	//		[
+	//			'name'        => __( 'Initial Cost', 'chargify' ),
+	//			'description' => __( 'The initial cost of the product in Chargify.', 'chargify' ),
+	//			'id'          => __( 'chargify_initial_cost' ),
+	//			'type'        => 'text_money',
+	//			'attributes'  => [
+	//				'readonly' => 'readonly',
+	//				'disabled' => 'disabled',
+	//			],
+	//		]
+	//	);
+	//
+	//	$cmb2->add_field(
+	//		[
+	//			'name'        => __( 'Interval Unit', 'chargify' ),
+	//			'description' => __( 'The interval unit that a subscription is renewed in Chargify.', 'chargify' ),
+	//			'id'          => 'chargify_interval_unit',
+	//			'type'        => 'radio_inline',
+	//			'options'     => [
+	//				'day'   => __( 'Day', 'chargify' ),
+	//				'month' => __( 'Month', 'chargify' ),
+	//			],
+	//			'default'     => 'day',
+	//			'attributes'  => [
+	//				'readonly' => 'readonly',
+	//				'disabled' => 'disabled',
+	//			],
+	//		]
+	//	);
+	//
+	//	$cmb2->add_field(
+	//		[
+	//			'name'        => __( 'Interval', 'chargify' ),
+	//			'description' => __( 'The interval that a subscription is renewed in Chargify.', 'chargify' ),
+	//			'id'          => 'chargify_interval',
+	//			'type'        => 'text_small',
+	//			'attributes'  => [
+	//				'readonly' => 'readonly',
+	//				'disabled' => 'disabled',
+	//			],
+	//		]
+	//	);
+	//
+	//	$cmb2->add_field(
+	//		[
+	//			'name'       => __( 'Product Family', 'chargify' ),
+	//			'desc'       => __( 'The family that the product belongs to in Chargify.', 'chargify' ),
+	//			'id'         => 'chargify_product_family',
+	//			'type'       => 'text',
+	//			'attributes' => [
+	//				'readonly' => 'readonly',
+	//				'disabled' => 'disabled',
+	//			],
+	//		]
+	//	);
+	//
+	//	$cmb2->add_field(
+	//		[
+	//			'name'       => __( 'Product Family ID', 'chargify' ),
+	//			'desc'       => __( 'The Product Family ID that the product belongs to in Chargify.', 'chargify' ),
+	//			'id'         => 'chargify_product_family_id',
+	//			'type'       => 'text_small',
+	//			'attributes' => [
+	//				'readonly' => 'readonly',
+	//				'disabled' => 'disabled',
+	//				'type'     => 'number',
+	//			],
+	//		]
+	//	);
 
 }

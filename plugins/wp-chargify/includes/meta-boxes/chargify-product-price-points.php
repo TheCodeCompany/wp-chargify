@@ -74,6 +74,7 @@ function product_price_point_meta_boxes() {
 		]
 	);
 
+
 	// General.
 	$cmb2->add_field(
 		[
@@ -115,6 +116,7 @@ function product_price_point_meta_boxes() {
 		]
 	);
 
+
 	// Linked Info.
 	$cmb2->add_field(
 		[
@@ -154,6 +156,7 @@ function product_price_point_meta_boxes() {
 			],
 		]
 	);
+
 
 	// Costs.
 	$cmb2->add_field(
@@ -247,6 +250,7 @@ function product_price_point_meta_boxes() {
 		]
 	);
 
+
 	// Trial.
 	$cmb2->add_field(
 		[
@@ -312,6 +316,7 @@ function product_price_point_meta_boxes() {
 			],
 		]
 	);
+
 
 	// Misc.
 	$cmb2->add_field(
