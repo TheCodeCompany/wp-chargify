@@ -13,7 +13,7 @@ function product_meta_boxes() {
 		[
 			'id'           => 'chargify_product_details',
 			'title'        => __( 'Product Details', 'chargify' ),
-			'object_types' => [ 'chargify_product' ],
+			'object_types' => [ ChargifyProduct::POST_TYPE ],
 			'context'      => 'normal',
 			'priority'     => 'high',
 			'show_names'   => true,

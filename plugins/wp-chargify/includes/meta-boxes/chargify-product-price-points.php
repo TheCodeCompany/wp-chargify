@@ -13,7 +13,7 @@ function product_price_point_meta_boxes() {
 		[
 			'id'           => 'chargify_product_price_point_details',
 			'title'        => __( 'Product Price Point Details', 'chargify' ),
-			'object_types' => [ 'chargify_product_price_point' ],
+			'object_types' => [ ChargifyProductPricePoint::POST_TYPE ],
 			'context'      => 'normal',
 			'priority'     => 'high',
 			'show_names'   => true,
