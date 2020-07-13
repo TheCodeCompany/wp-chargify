@@ -31,33 +31,33 @@ class ChargifyProduct extends GenericPost {
 	const META_CHARGIFY_FAMILY_HANDLE = 'chargify_family_handle';
 
 	// General Chargify Meta.
-	const META_CHARGIFY_ID                             = 'chargify_id';
-	const META_CHARGIFY_NAME                           = 'chargify_name';
-	const META_CHARGIFY_HANDLE                         = 'chargify_handle';
-	const META_CHARGIFY_DESCRIPTION                    = 'chargify_description';
-	const META_CHARGIFY_ACCOUNTING_CODE                = 'chargify_accounting_code';
-	const META_CHARGIFY_REQUEST_CREDIT_CARD            = 'chargify_request_credit_card';
-	const META_CHARGIFY_EXPIRATION_INTERVAL            = 'chargify_expiration_interval';
-	const META_CHARGIFY_EXPIRATION_INTERVAL_UNIT       = 'chargify_expiration_interval_unit';
-	const META_CHARGIFY_CREATED_AT                     = 'chargify_created_at';
-	const META_CHARGIFY_UPDATED_AT                     = 'chargify_updated_at';
-	const META_CHARGIFY_PRICE_IN_CENTS                 = 'chargify_price_in_cents';
-	const META_CHARGIFY_INTERVAL                       = 'chargify_interval';
-	const META_CHARGIFY_INTERVAL_UNIT                  = 'chargify_interval_unit';
-	const META_CHARGIFY_INITIAL_CHARGE_IN_CENTS        = 'chargify_initial_charge_in_cents';
-	const META_CHARGIFY_TRIAL_PRICE_IN_CENTS           = 'chargify_trial_price_in_cents';
-	const META_CHARGIFY_TRIAL_INTERVAL                 = 'chargify_trial_interval';
-	const META_CHARGIFY_TRIAL_INTERVAL_UNIT            = 'chargify_trial_interval_unit';
-	const META_CHARGIFY_ARCHIVED_AT                    = 'chargify_archived_at';
-	const META_CHARGIFY_REQUIRE_CREDIT_CARD            = 'chargify_require_credit_card';
-	const META_CHARGIFY_TAXABLE                        = 'taxable';
-	const META_CHARGIFY_TAX_CODE                       = 'chargify_tax_code';
-	const META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL     = 'chargify_initial_charge_after_trial';
-	const META_CHARGIFY_VERSION_NUMBER                 = 'chargify_version_number';
-	const META_CHARGIFY_DEFAULT_PRODUCT_PRICE_POINT_ID = 'chargify_default_product_price_point_id';
-	const META_CHARGIFY_REQUEST_BILLING_ADDRESS        = 'chargify_request_billing_address';
-	const META_CHARGIFY_REQUIRE_BILLING_ADDRESS        = 'chargify_require_billing_address';
-	const META_CHARGIFY_REQUIRE_SHIPPING_ADDRESS       = 'chargify_require_shipping_address';
+	const META_CHARGIFY_ID                         = 'chargify_id';
+	const META_CHARGIFY_NAME                       = 'chargify_name';
+	const META_CHARGIFY_HANDLE                     = 'chargify_handle';
+	const META_CHARGIFY_DESCRIPTION                = 'chargify_description';
+	const META_CHARGIFY_ACCOUNTING_CODE            = 'chargify_accounting_code';
+	const META_CHARGIFY_REQUEST_CREDIT_CARD        = 'chargify_request_credit_card';
+	const META_CHARGIFY_EXPIRATION_INTERVAL        = 'chargify_expiration_interval';
+	const META_CHARGIFY_EXPIRATION_INTERVAL_UNIT   = 'chargify_expiration_interval_unit';
+	const META_CHARGIFY_CREATED_AT                 = 'chargify_created_at';
+	const META_CHARGIFY_UPDATED_AT                 = 'chargify_updated_at';
+	const META_CHARGIFY_PRICE_IN_CENTS             = 'chargify_price_in_cents';
+	const META_CHARGIFY_INTERVAL                   = 'chargify_interval';
+	const META_CHARGIFY_INTERVAL_UNIT              = 'chargify_interval_unit';
+	const META_CHARGIFY_INITIAL_CHARGE_IN_CENTS    = 'chargify_initial_charge_in_cents';
+	const META_CHARGIFY_TRIAL_PRICE_IN_CENTS       = 'chargify_trial_price_in_cents';
+	const META_CHARGIFY_TRIAL_INTERVAL             = 'chargify_trial_interval';
+	const META_CHARGIFY_TRIAL_INTERVAL_UNIT        = 'chargify_trial_interval_unit';
+	const META_CHARGIFY_ARCHIVED_AT                = 'chargify_archived_at';
+	const META_CHARGIFY_REQUIRE_CREDIT_CARD        = 'chargify_require_credit_card';
+	const META_CHARGIFY_TAXABLE                    = 'chargify_taxable';
+	const META_CHARGIFY_TAX_CODE                   = 'chargify_tax_code';
+	const META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL = 'chargify_initial_charge_after_trial';
+	const META_CHARGIFY_VERSION_NUMBER             = 'chargify_version_number';
+	const META_CHARGIFY_DEFAULT_PRICE_POINT_ID     = 'chargify_default_price_point_id';
+	const META_CHARGIFY_REQUEST_BILLING_ADDRESS    = 'chargify_request_billing_address';
+	const META_CHARGIFY_REQUIRE_BILLING_ADDRESS    = 'chargify_require_billing_address';
+	const META_CHARGIFY_REQUIRE_SHIPPING_ADDRESS   = 'chargify_require_shipping_address';
 
 	/**
 	 * The product price point Chargify ID.
@@ -282,7 +282,7 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @var null|string
 	 */
-	protected $chargify_default_product_price_point_id = null;
+	protected $chargify_default_price_point_id = null;
 
 	/**
 	 * The product request billing address.
@@ -453,12 +453,12 @@ class ChargifyProduct extends GenericPost {
 	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized on the
 	 *                        model as a parameter.
 	 *
-	 * @return int|null
+	 * @return null|int
 	 */
 	public function get_chargify_name( $new_fetch = false ) {
 
 		if ( null === $this->chargify_name || $new_fetch ) {
-			$this->chargify_name = (int) $this->get_meta( self::META_CHARGIFY_NAME );
+			$this->chargify_name = $this->get_meta( self::META_CHARGIFY_NAME );
 		}
 
 		return $this->chargify_name;
@@ -829,13 +829,13 @@ class ChargifyProduct extends GenericPost {
 	 *
 	 * @return null|int
 	 */
-	public function get_chargify_default_product_price_point_id( $new_fetch = false ) {
+	public function get_chargify_default_price_point_id( $new_fetch = false ) {
 
-		if ( null === $this->chargify_default_product_price_point_id || $new_fetch ) {
-			$this->chargify_default_product_price_point_id = (int) $this->get_meta( self::META_CHARGIFY_DEFAULT_PRODUCT_PRICE_POINT_ID );
+		if ( null === $this->chargify_default_price_point_id || $new_fetch ) {
+			$this->chargify_default_price_point_id = (int) $this->get_meta( self::META_CHARGIFY_DEFAULT_PRICE_POINT_ID );
 		}
 
-		return $this->chargify_default_product_price_point_id;
+		return $this->chargify_default_price_point_id;
 	}
 
 	/**

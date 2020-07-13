@@ -26,6 +26,12 @@ class ChargifyAccount extends GenericPost {
 	const META_CHARGIFY_EXPIRATION_DATE     = 'chargify_expiration_date';
 	const META_CHARGIFY_PRODUCTS_MULTICHECK = 'chargify_products_multicheck';
 
+	// TODO, store additional data.
+	const META_CHARGIFY_PRODUCT_ID               = 'chargify_product_id';
+	const META_CHARGIFY_ID   = 'chargify_product_price_point_id';
+	const META_CHARGIFY_COMPONENT_ID             = 'chargify_component_id';
+	const META_CHARGIFY_COMPONENT_PRICE_POINT_ID = 'chargify_component_price_point_id';
+
 	/**
 	 * WordPress user id.
 	 *

@@ -32,8 +32,8 @@ class Test_Post_Type_Helpers extends WP_UnitTestCase {
 		}
 	}
 
-	function test_populate_product_post_types() {
-		Helpers\populate_product_post_types( $this->mock_product_families_products_request() );
+	function test_populate_product_posts() {
+		Helpers\populate_product_posts( $this->mock_product_families_products_request() );
 
 		$products = new WP_Query([
 			'post_type' => 'chargify_product',
@@ -50,7 +50,7 @@ class Test_Post_Type_Helpers extends WP_UnitTestCase {
 	}
 
 	function test_chargify_products_all_option() {
-		Helpers\populate_product_post_types( $this->mock_product_families_products_request() );
+		Helpers\populate_product_posts( $this->mock_product_families_products_request() );
 
 		$this->assertNotEmpty( get_option( 'chargify_products_all' ) );
 	}

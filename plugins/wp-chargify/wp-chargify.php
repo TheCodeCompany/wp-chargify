@@ -68,6 +68,7 @@ require_once( 'includes/model/chargify-user-factory.php' );
 
 // Controllers.
 require_once( 'includes/ctrl/admin-page-wp-chargify-controller.php' );
+require_once( 'includes/ctrl/cmb2-tabs-controller.php' );
 require_once( 'includes/ctrl/enqueues-controller.php' );
 require_once( 'includes/ctrl/validate-coupon-controller.php' );
 
@@ -113,6 +114,7 @@ require_once( 'includes/post-types/chargify-component-price-point.php' );
 require_once( 'includes/post-types/chargify-api-log.php' );
 require_once( 'includes/post-types/chargify-product.php' );
 require_once( 'includes/post-types/chargify-product-price-point.php' );
+require_once( 'includes/post-types/save-helpers.php' );
 require_once( 'includes/post-types/helpers.php' );
 
 // Roles.

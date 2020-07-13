@@ -10,6 +10,7 @@ namespace Chargify\Chargify\Endpoints\Product_Price_Points;
 
 use Chargify\Helpers\Options;
 use Chargify\Post_Types\Helpers;
+use function Chargify\Post_Types\Helpers\populate_product_price_point_posts;
 
 /**
  * A function to request all of the price points that are in Chargify.
@@ -19,8 +20,9 @@ use Chargify\Post_Types\Helpers;
  * @return string|array
  */
 function get_product_price_points( $product_id ) {
+
 	$subdomain        = Options\get_subdomain();
-	$request_endpoint = Options\get_subdomain() . '/products/' . $product_id . '/price_points.json';
+	$request_endpoint = $subdomain . '/products/' . $product_id . '/price_points.json';
 
 	if ( is_wp_error( $subdomain ) ) {
 		/**
@@ -42,6 +44,7 @@ function get_product_price_points( $product_id ) {
 
 	$request_headers = Options\get_headers();
 	$request         = wp_safe_remote_get( $request_endpoint, $request_headers );
+
 	// Grab info from successful responses so we can log requests.
 	$response_status  = wp_remote_retrieve_response_code( $request );
 	$response_headers = wp_remote_retrieve_headers( $request );
@@ -61,19 +64,35 @@ function get_product_price_points( $product_id ) {
 	 */
 	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST - get_product_price_points', $response_body );
 
-	# Anything other than a 200 code is an error so let's bail.
+
+	// Anything other than a 200 code is an error so let's bail.
 	if ( 200 !== $response_status ) {
 		return wp_remote_retrieve_response_message( $request );
 	}
 
-	$json = json_decode( $response_body, true );
+	$json         = json_decode( $response_body, true );
+	$price_points = [];
 
-	// https://reference.chargify.com/v1/products-price-points/read-product-price-points
-	// TODO. Sort and save.
-	//	Helpers\populate_product_price_point_post_types( $product_price_points );
-	//	return $product_price_points;
+	if ( isset( $json['price_points'] ) ) {
+		$price_points = $json['price_points'];
+	}
 
-	return null;
+	return $price_points;
+}
+
+/**
+ * Saves the formatted retrieved product price points to the Database.
+ *
+ * @param int   $product_id   The product id that the price points belong to.
+ * @param array $price_points The price points array.
+ */
+function save_product_price_points( $product_id, $price_points = [] ) {
+
+	if ( empty( $price_points ) ) {
+		$price_points = get_product_price_points( $product_id );
+	}
+
+	Helpers\populate_product_price_point_posts( $price_points );
 }
 
 /**
@@ -94,7 +113,7 @@ function get_product_price_point( $product_id, $product_price_point_id ) {
 	$request = wp_safe_remote_get( $endpoint, $headers );
 	$body    = wp_remote_retrieve_body( $request );
 
-	# Anything other than a 200 code is an error so let's bail.
+	// Anything other than a 200 code is an error so let's bail.
 	if ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
 		return wp_remote_retrieve_response_message( $request );
 	}

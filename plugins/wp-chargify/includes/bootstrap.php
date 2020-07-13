@@ -48,6 +48,7 @@ function bootstrap() {
 
 	// Controllers.
 	new Controllers\Admin_Page_WPChargify_Controller();
+	new Controllers\CMB2_Tabs_Controller();
 	new Controllers\Enqueues_Controller();
 	new Controllers\Validate_Coupon_Controller();
 }

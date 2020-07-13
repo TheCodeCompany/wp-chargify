@@ -98,7 +98,7 @@ class Enqueue {
 	public static function enqueue_script( $identifier, $src = '', $deps = [], $version = null, $in_footer = true, $async = true ) {
 		$handle = self::get_enqueue_handle( $identifier, 'js' );
 
-		if ( is_string( $handle ) ) {
+		if ( is_string( $handle ) && ! empty( $handle ) ) {
 			wp_enqueue_script( $handle );
 		} elseif ( ! empty( $src ) ) {
 			// Attempt to register and enqueue.
@@ -121,7 +121,7 @@ class Enqueue {
 	public static function enqueue_style( $identifier, $src = '', $deps = [], $version = null ) {
 		$handle = self::get_enqueue_handle( $identifier, 'css' );
 
-		if ( is_string( $handle ) ) {
+		if ( is_string( $handle ) && ! empty( $handle ) ) {
 			wp_enqueue_style( $handle );
 		} elseif ( ! empty( $src ) ) {
 			// Attempt to register and enqueue.

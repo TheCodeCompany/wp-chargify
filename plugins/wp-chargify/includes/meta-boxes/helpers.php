@@ -13,3 +13,7 @@ function hide_permalink( $return, $post_id ) {
 	}
 	return $return;
 }
+
+function product_get_price_points() {
+
+}

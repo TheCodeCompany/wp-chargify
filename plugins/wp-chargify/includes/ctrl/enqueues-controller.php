@@ -8,6 +8,10 @@
 
 namespace Chargify\Controllers;
 
+use Chargify\Model\ChargifyComponent;
+use Chargify\Model\ChargifyComponentPricePoint;
+use Chargify\Model\ChargifyProduct;
+use Chargify\Model\ChargifyProductPricePoint;
 use function Chargify\Libraries\wp_enqueue_script_auto_ver;
 use function Chargify\Libraries\wp_enqueue_style_auto_ver;
 use function Chargify\Libraries\wp_localize_script_auto_ver;
@@ -32,16 +36,16 @@ class Enqueues_Controller {
 	 */
 	public function setup() {
 		// Main enqueues.
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueues' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'main_enqueues' ] );
 
 		// Admin enqueues.
-		add_action( 'admin_enqueue_scripts', [ $this, 'admin_styles_and_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueues' ] );
 	}
 
 	/**
 	 * Main enqueues for the front end of the site.
 	 */
-	public function enqueues() {
+	public function main_enqueues() {
 
 		// TODO look at ways to enqueue on specific pages.
 		// TODO Possibly build form specific JS into a separate file and inject inline below form.
@@ -76,11 +80,20 @@ class Enqueues_Controller {
 	 *
 	 * @param int $hook Hook suffix for the current admin page.
 	 */
-	public function admin_styles_and_scripts( $hook ) {
+	public function admin_enqueues( $hook ) {
+
+		$allowed_on_post_type_edit_pages = [
+			'chargify_api_log',
+			ChargifyProduct::POST_TYPE,
+			ChargifyProductPricePoint::POST_TYPE,
+			ChargifyComponent::POST_TYPE,
+			ChargifyComponentPricePoint::POST_TYPE,
+		];
 
 		// Checks to ensure these enqueues are on specific pages.
-		if ( is_admin() && 'post.php' !== $hook &&
-			'chargify_api_log' !== get_post_type() ) {
+		if ( is_admin() &&
+			'post.php' !== $hook &&
+			 false === in_array( get_post_type(), $allowed_on_post_type_edit_pages, true ) ) {
 			return;
 		}
 
