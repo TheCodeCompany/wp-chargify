@@ -1,6 +1,7 @@
 <?php
 /**
- * This class is used as a helper to enqueue assets.
+ * Auto versioning enqueues library, dynamically loads unminified version of assets
+ * in local environments if files are available. Adding features such as async.
  *
  * @file    wp-content/mu-plugins/core/libraries/enqueues.php
  * @package Core
@@ -14,11 +15,14 @@ use function wp_register_script;
 use function wp_localize_script;
 use function wp_enqueue_script;
 
-
 /**
  * This class is used as a helper to enqueue assets.
  * Identifies and enqueues unminified versions for local if the file exists.
  * For all other cases it will enqueue the minified asset.
+ *
+ * Requirements for auto loading unminified files durring dev.
+ * defined WP_ENV and set to 'local' OR
+ * defined WP_LOCAL_DEV and set to true;
  */
 class Enqueue {
 
@@ -39,15 +43,15 @@ class Enqueue {
 	/**
 	 * Register the script. Automatically detects local environment and attempts to load unminified version.
 	 *
-	 * @param string $identifier The identifier is used to prepend to the handle.
-	 * @param string $src        The src url for the asset, this can be .min version of the script, relative to the
-	 *                           plugin base URL.
-	 * @param array  $deps       Array of script dependencies.
-	 * @param string $version    Script version.
-	 * @param bool   $in_footer  To display in footer or not, default true.
-	 * @param bool   $async      To add the async attribute.
+	 * @param string $identifier              The identifier is used to prepend to the handle.
+	 * @param string $src                     The src url for the asset, this can be .min version of the script,
+	 *                                        relative to the plugin base URL.
+	 * @param array  $deps                    Array of script dependencies.
+	 * @param bool   $add_version_to_filename To add the version to the src.
+	 * @param bool   $in_footer               To display in footer or not, default true.
+	 * @param bool   $async                   To add the async attribute.
 	 */
-	public static function register_script( $identifier, $src, $deps = [], $version = null, $in_footer = true, $async = true ) {
+	public static function register_script( $identifier, $src, $deps = [], $add_version_to_filename = false, $in_footer = true, $async = true ) {
 
 		$type = 'js';
 
@@ -55,8 +59,13 @@ class Enqueue {
 		self::store_enqueue_data( $identifier, $src, $type, $async );
 
 		$handle  = self::get_enqueue_handle( $identifier, $type );
-		$src     = self::get_src( $identifier, $type, $version );
-		$version = self::get_version( $identifier, $type, $version );
+		$src     = self::get_src( $identifier, $type, $add_version_to_filename );
+		$version = self::get_version( $identifier, $type );
+
+		// If the version is added to the src filename then set the version to null. Does not effect local env it can also be null.
+		if ( ( ! self::is_local() && $add_version_to_filename ) || self::is_local() ) {
+			$version = null;
+		}
 
 		wp_register_script( $handle, $src, $deps, $version, $in_footer );
 	}
@@ -64,13 +73,17 @@ class Enqueue {
 	/**
 	 * Register the stylesheet.
 	 *
-	 * @param string $identifier The identifier is used to prepend to the handle.
-	 * @param string $src        The src url for the asset, this can be .min version of the script, relative to the
-	 *                           plugin base URL.
-	 * @param array  $deps       Array of stylesheet dependencies.
-	 * @param string $version    Stylesheet version.
+	 * @param string $identifier              The identifier is used to prepend to the handle.
+	 * @param string $src                     The src url for the asset, this can be .min version of the script,
+	 *                                        relative to the plugin base URL.
+	 * @param array  $deps                    Array of stylesheet dependencies.
+	 * @param bool   $add_version_to_filename To add the version to the src.
+	 * @param string $media                   Optional. The media for which this stylesheet has been defined.
+	 *                                        Default 'all'. Accepts media types like 'all', 'print' and 'screen', or
+	 *                                        media queries like
+	 *                                        '(orientation: portrait)' and '(max-width: 640px)'.
 	 */
-	public static function register_style( $identifier, $src, $deps = [], $version = null ) {
+	public static function register_style( $identifier, $src, $deps = [], $add_version_to_filename = null, $media = 'all' ) {
 
 		$type = 'css';
 
@@ -78,10 +91,15 @@ class Enqueue {
 		self::store_enqueue_data( $identifier, $src, $type );
 
 		$handle  = self::get_enqueue_handle( $identifier, $type );
-		$src     = self::get_src( $identifier, $type, $version );
-		$version = self::get_version( $identifier, $type, $version );
+		$src     = self::get_src( $identifier, $type, $add_version_to_filename );
+		$version = self::get_version( $identifier, $type );
 
-		wp_register_style( $handle, $src, $deps, $version );
+		// If the version is added to the src filename then set the version to null. Does not effect local env it can also be null.
+		if ( ( ! self::is_local() && $add_version_to_filename ) || self::is_local() ) {
+			$version = null;
+		}
+
+		wp_register_style( $handle, $src, $deps, $version, $media = 'all' );
 	}
 
 	/**
@@ -267,7 +285,7 @@ class Enqueue {
 
 	/**
 	 * =========================================================================
-	 * Retrival of localized data.
+	 * Retrieval of localized data.
 	 * -------------------------------------------------------------------------
 	 */
 
@@ -316,18 +334,22 @@ class Enqueue {
 	/**
 	 * Get the full src path including the asset file name and extension.
 	 *
-	 * @param string           $identifier The calling identifier.
-	 * @param string           $type       File type, css or js.
-	 * @param null|bool|string $version    The version to apply to the asset.
+	 * @param string $identifier              The calling identifier.
+	 * @param string $type                    File type, css or js.
+	 * @param bool   $add_version_to_filename To add the version to the src.
 	 *
 	 * @return string
 	 */
-	protected static function get_src( $identifier, $type, $version ) {
+	protected static function get_src( $identifier, $type, $add_version_to_filename = false ) {
 
-		$version = self::get_version( $identifier, $type, $version );
-		$src     = self::get_stored_value( $identifier, 'src', $type );
+		// Gather the stored version.
+		$version = self::get_version( $identifier, $type );
 
-		if ( $version ) {
+		// Gather the stored src.
+		$src = self::get_stored_value( $identifier, 'src', $type );
+
+		// If this is not local add the version to the src if specified.
+		if ( ! self::is_local() && $add_version_to_filename ) {
 			$src = preg_replace( '@\.([^./\?]+)(\?.*)?$@', '.' . $version . '.$1', $src );
 		}
 
@@ -337,22 +359,14 @@ class Enqueue {
 	/**
 	 * Get the version to apply to the enqueued asset.
 	 *
-	 * @param string           $identifier The calling identifier.
-	 * @param string           $type       File type, css or js.
-	 * @param null|bool|string $version    The version to apply to the asset.
+	 * @param string $identifier The calling identifier.
+	 * @param string $type       File type, css or js.
 	 *
 	 * @return string
 	 */
-	protected static function get_version( $identifier, $type, $version = null ) {
-		if ( true === $version ) {
-			if ( self::is_local() ) {
-				$version = false;
-			} else {
-				$version = self::get_stored_value( $identifier, 'version', $type );
-			}
-		}
+	protected static function get_version( $identifier, $type ) {
 
-		return $version;
+		return self::get_stored_value( $identifier, 'version', $type );
 	}
 
 	/**
@@ -391,3 +405,77 @@ class Enqueue {
 
 // Initialize the constructor, this is a standalone feature.
 new Enqueue();
+
+// Functions for site use.
+if ( ! function_exists( 'wp_register_style_auto_ver' ) ) {
+	/**
+	 * Register the stylesheet.
+	 *
+	 * @param string $identifier              The identifier is used to prepend to the handle.
+	 * @param string $src                     The src url for the asset, this can be .min version of the script, relative to the plugin base URL.
+	 * @param array  $deps                    Array of stylesheet dependencies.
+	 * @param bool   $add_version_to_filename To add the version to the src.
+	 */
+	function wp_register_style_auto_ver( $identifier, $src, $deps = [], $add_version_to_filename = false ) {
+		Enqueue::register_style( $identifier, $src, $deps, $add_version_to_filename );
+	}
+}
+
+if ( ! function_exists( 'wp_enqueue_style_auto_ver' ) ) {
+	/**
+	 * Enqueue the stylesheet using WordPress 'wp_enqueue_style' function.
+	 *
+	 * @param string $identifier              The identifier is used to prepend to the handle.
+	 * @param string $src                     The src url for the asset, this can be .min version of the script, relative to the plugin base URL.
+	 * @param array  $deps                    Array of stylesheet dependencies.
+	 * @param bool   $add_version_to_filename To add the version to the src.
+	 */
+	function wp_enqueue_style_auto_ver( $identifier, $src = '', $deps = [], $add_version_to_filename = false ) {
+		Enqueue::enqueue_style( $identifier, $src, $deps, $add_version_to_filename );
+	}
+}
+
+if ( ! function_exists( 'wp_register_script_auto_ver' ) ) {
+	/**
+	 * Register the script. Automatically detects local environment and attempts to load unminified version.
+	 *
+	 * @param string $identifier              The identifier is used to prepend to the handle.
+	 * @param string $src                     The src url for the asset, this can be .min version of the script, relative to the plugin base URL.
+	 * @param array  $deps                    Array of script dependencies.
+	 * @param bool   $add_version_to_filename To add the version to the src.
+	 * @param bool   $in_footer               To display in footer or not, default true.
+	 * @param bool   $async                   To add the async attribute.
+	 */
+	function wp_register_script_auto_ver( $identifier, $src, $deps = [], $add_version_to_filename = false, $in_footer = true, $async = true ) {
+		Enqueue::register_script( $identifier, $src, $deps, $add_version_to_filename, $in_footer, $async );
+	}
+}
+
+if ( ! function_exists( 'wp_localize_script_auto_ver' ) ) {
+	/**
+	 * Localize the script using WordPress 'wp_localize_script' function.
+	 *
+	 * @param string $identifier  The identifier is used to prepend to the handle.
+	 * @param string $object_name Name of the root object.
+	 * @param array  $data        Data array.
+	 */
+	function wp_localize_script_auto_ver( $identifier, $object_name, $data ) {
+		Enqueue::localize_script( $identifier, $object_name, $data );
+	}
+}
+
+if ( ! function_exists( 'wp_enqueue_script_auto_ver' ) ) {
+	/**
+	 * Enqueue the script using WordPress 'wp_enqueue_script' function.
+	 *
+	 * @param string $identifier              The identifier is used to prepend to the handle.
+	 * @param string $src                     The src url for the asset, this can be .min version of the script, relative to the plugin base URL.
+	 * @param array  $deps                    Array of script dependencies.
+	 * @param bool   $add_version_to_filename To add the version to the src.
+	 * @param bool   $in_footer               To display in footer or not, default true.
+	 * @param bool   $async                   To add the async attribute.
+	 */
+	function wp_enqueue_script_auto_ver( $identifier, $src = '', $deps = [], $add_version_to_filename = false, $in_footer = true, $async = true ) {
+		Enqueue::enqueue_script( $identifier, $src, $deps, $add_version_to_filename, $in_footer, $async );
+	}
+}
