@@ -54,24 +54,29 @@
 	} );
 
 	// Initialize on widgets area
-	$( document ).on( 'widget-updated widget-added', function( e, widget ) {
+	$( document ).on( 'ready', function( e ) {
+		const widgetEl = $( '.postbox' );
 
-		console.log( 'initialize' );
-		if ( widget.find( '.cmb-tabs' ).length ) {
+		if ( widgetEl.length ) {
+			const widgetTabsEl = widgetEl.find( '.cmb-tabs' );
 
-			widget.find( '.cmb-tabs' ).each( function() {
+			if ( widgetTabsEl.length ) {
 
-				// Activate first tab
-				if ( ! $( this ).find( '.cmb-tab.active' ).length ) {
-					$( this ).find( '.cmb-tab' ).first().addClass( 'active' );
+				widgetTabsEl.each( function() {
+					const tabEl = $( this );
 
-					$( $( this ).find( '.cmb-tab' ).first().data( 'fields' ) ).addClass( 'cmb-tab-active-item' );
+					// Activate first tab
+					if ( ! tabEl.find( '.cmb-tab.active' ).length ) {
+						tabEl.find( '.cmb-tab' ).first().addClass( 'active' );
 
-					// Support for groups and repeatable fields
-					$( $( this ).find( '.cmb-tab' ).first().data( 'fields' ) ).find( '.cmb-repeat .cmb-row, .cmb-repeatable-group .cmb-row' ).addClass( 'cmb-tab-active-item' );
-				}
-			} );
+						$( tabEl.find( '.cmb-tab' ).first().data( 'fields' ) ).addClass( 'cmb-tab-active-item' );
 
+						// Support for groups and repeatable fields
+						$( tabEl.find( '.cmb-tab' ).first().data( 'fields' ) ).find( '.cmb-repeat .cmb-row, .cmb-repeatable-group .cmb-row' ).addClass( 'cmb-tab-active-item' );
+					}
+				} );
+
+			}
 		}
 
 	} );

@@ -249,11 +249,11 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Billing Initial Charge', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Billing Initial Charge', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -316,11 +316,11 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Billing is Taxable', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_TAXABLE,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Billing is Taxable', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_TAXABLE,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -359,11 +359,11 @@ function product_meta_boxes() {
 	// TRIAL.
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Billing Trial Price', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_TRIAL_PRICE_IN_CENTS,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Billing Trial Price', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_TRIAL_PRICE_IN_CENTS,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -374,11 +374,11 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Billing Initial Charge After Trial', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Billing Initial Charge After Trial', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -415,52 +415,58 @@ function product_meta_boxes() {
 
 
 	// Misc.
-	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
+	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Created At', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_CREATED_AT,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Created At', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_CREATED_AT,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
-		]
-	);
-
-	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
-		[
-			'name'       => __( 'Product Updated At', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_UPDATED_AT,
-			'type'       => 'text',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
-	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
-		[
-			'name'       => __( 'Product Archived At', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_ARCHIVED_AT,
-			'type'       => 'text',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
 		]
 	);
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Require Credit Card', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_REQUIRE_CREDIT_CARD,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Updated At', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_UPDATED_AT,
+			'type'         => 'text',
+			'attributes'   => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
+			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'         => __( 'Product Archived At', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_ARCHIVED_AT,
+			'type'         => 'text',
+			'attributes'   => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
+			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'         => __( 'Product Require Credit Card', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_REQUIRE_CREDIT_CARD,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -471,11 +477,11 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Request Credit Card', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_REQUEST_CREDIT_CARD,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Request Credit Card', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_REQUEST_CREDIT_CARD,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -486,11 +492,11 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Request Billing Address', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_REQUEST_BILLING_ADDRESS,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Request Billing Address', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_REQUEST_BILLING_ADDRESS,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -501,11 +507,11 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Require Billing Address', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_REQUIRE_BILLING_ADDRESS,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Require Billing Address', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_REQUIRE_BILLING_ADDRESS,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -517,11 +523,11 @@ function product_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Require Shipping Address', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_REQUIRE_SHIPPING_ADDRESS,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Require Shipping Address', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_REQUIRE_SHIPPING_ADDRESS,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.

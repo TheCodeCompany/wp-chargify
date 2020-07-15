@@ -234,11 +234,11 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Unit Price', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyComponent::META_CHARGIFY_UNIT_PRICE,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Component Unit Price', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyComponent::META_CHARGIFY_UNIT_PRICE,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -249,11 +249,11 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Price Per Unit', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyComponent::META_CHARGIFY_PRICE_PER_UNIT_IN_CENTS,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Component Price Per Unit', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyComponent::META_CHARGIFY_PRICE_PER_UNIT_IN_CENTS,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -264,11 +264,11 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Taxable', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyComponent::META_CHARGIFY_TAXABLE,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Component Taxable', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyComponent::META_CHARGIFY_TAXABLE,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -359,11 +359,11 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Archived', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyComponent::META_CHARGIFY_ARCHIVED,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Component Archived', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyComponent::META_CHARGIFY_ARCHIVED,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -372,16 +372,18 @@ function component_meta_boxes() {
 		]
 	);
 
-	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
+	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Created At', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyComponent::META_CHARGIFY_CREATED_AT,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Component Created At', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyComponent::META_CHARGIFY_CREATED_AT,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
 		]
 	);
 

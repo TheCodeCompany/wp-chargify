@@ -161,11 +161,11 @@ function product_price_point_meta_boxes() {
 	// Costs.
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Price Point Cost', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProductPricePoint::META_CHARGIFY_PRICE_IN_CENTS,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Price Point Cost', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProductPricePoint::META_CHARGIFY_PRICE_IN_CENTS,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -176,11 +176,11 @@ function product_price_point_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Price Point Initial Charge', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProductPricePoint::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Price Point Initial Charge', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProductPricePoint::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -243,11 +243,11 @@ function product_price_point_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Price Point Introductory Offer', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProductPricePoint::META_CHARGIFY_INTRODUCTORY_OFFER,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Price Point Introductory Offer', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProductPricePoint::META_CHARGIFY_INTRODUCTORY_OFFER,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -260,11 +260,11 @@ function product_price_point_meta_boxes() {
 	// Trial.
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Price Point Trial Price', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProductPricePoint::META_CHARGIFY_TRIAL_PRICE_IN_CENTS,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Price Point Trial Price', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProductPricePoint::META_CHARGIFY_TRIAL_PRICE_IN_CENTS,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -275,11 +275,11 @@ function product_price_point_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Price Point Initial Charge After Trial', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProductPricePoint::META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Price Point Initial Charge After Trial', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProductPricePoint::META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -329,42 +329,48 @@ function product_price_point_meta_boxes() {
 
 
 	// Misc.
-	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
+	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Price Point Archive At', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProductPricePoint::META_CHARGIFY_ARCHIVED_AT,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Price Point Archive At', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProductPricePoint::META_CHARGIFY_ARCHIVED_AT,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
 		]
 	);
 
-	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
+	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Price Point Created At', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProductPricePoint::META_CHARGIFY_CREATED_AT,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Price Point Created At', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProductPricePoint::META_CHARGIFY_CREATED_AT,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
 		]
 	);
 
-	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
+	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Price Point Updated At', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProductPricePoint::META_CHARGIFY_UPDATED_AT,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Price Point Updated At', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProductPricePoint::META_CHARGIFY_UPDATED_AT,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
 		]
 	);
 

@@ -55,7 +55,7 @@
 }
 
 .cmb-tabs-wrap .cmb2-wrap .cmb-row:not(.cmb-tab-active-item) {
-	display: none;
+	display: none !important;
 }
 
 
@@ -136,19 +136,31 @@
 
 		.cmb-row {
 			margin: 15px;
-			display: flex;
+			display: flex !important;
 			flex-wrap: nowrap;
-
+			.cmb-th, .cmb-td  {
+				margin: 5px 0;
+			}
 			.cmb-th {
-				width: 30%;
+				width: 35%;
 			}
 			.cmb-td {
-				width: auto;
-				max-width: 70%;
+				width: 65%;
+				input {
+					width: 100%;
+				}
+			}
+
+			@media only screen and (max-width: 1200px) {;
+				flex-wrap: wrap;
+				.cmb-th, .cmb-td  {
+					width: 100%;
+
+				}
 			}
 
 			&:not(.cmb-tab-active-item) {
-				display: none;
+				display: none !important;
 			}
 		}
 	}

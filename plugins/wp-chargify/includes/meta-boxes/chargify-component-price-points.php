@@ -129,11 +129,11 @@ function component_price_point_meta_boxes() {
 	// Costs.
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Price Point is Default', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_CHARGIFY_DEFAULT,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Component Price Point is Default', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyComponentPricePoint::META_CHARGIFY_DEFAULT,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
 				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
@@ -170,42 +170,48 @@ function component_price_point_meta_boxes() {
 
 
 	// Miscellaneous.
-	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
+	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Price Point Archived At', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_CHARGIFY_ARCHIVED_AT,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Component Price Point Archived At', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyComponentPricePoint::META_CHARGIFY_ARCHIVED_AT,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
 		]
 	);
 
-	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
+	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Price Point Created At', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_CHARGIFY_CREATED_AT,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Component Price Point Created At', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyComponentPricePoint::META_CHARGIFY_CREATED_AT,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
 		]
 	);
 
-	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
+	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Price Point Updated At', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_CHARGIFY_UPDATED_AT,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Component Price Point Updated At', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyComponentPricePoint::META_CHARGIFY_UPDATED_AT,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
 		]
 	);
 
