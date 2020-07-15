@@ -67,17 +67,28 @@ function get_component_price_points( $component_id ) {
 
 	$json = json_decode( $response_body, true );
 
-	// https://reference.chargify.com/v1/components-price-points/bulk-create-price-points
-	// TODO: component price points. Sort and save.
-	//	Helpers\populate_component_price_point_post_types( $component_price_points );
-	//	return $component_price_points;
-
+	// TODO Component Price points. return formatted array.
 
 	return null;
 }
 
+/**
+ * Saves the formatted retrieved component price points to the Database.
+ *
+ * @param int   $component_id   The component id that the price points belong to.
+ * @param array $price_points The price points array.
+ */
+function save_component_price_points( $component_id, $price_points = [] ) {
+
+	if ( empty( $price_points ) ) {
+		$price_points = get_component_price_points( $component_id );
+	}
+
+	Helpers\populate_component_price_point_posts( $price_points );
+}
+
 function get_component_price_point( $handle ) {
-	// TODO: component price points.
+	// TODO Component Price points.
 	return null;
 }
 
