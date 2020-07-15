@@ -22,8 +22,6 @@ class ChargifyProduct extends GenericPost {
 	// Linking Meta.
 	const META_CHARGIFY_PRICE_POINT_ID  = 'chargify_price_point_id'; // The Chargify Product Price Point ID. Not Unique.
 	const META_WORDPRESS_PRICE_POINT_ID = 'wordpress_price_point_id'; // The WordPress Product Price Point ID. Not Unique.
-	const META_CHARGIFY_COMPONENT_ID    = 'chargify_component_id'; // The Chargify Product Component ID. Not Unique.
-	const META_WORDPRESS_COMPONENT_ID   = 'wordpress_component_id'; // The WordPress Product Component ID. Not Unique.
 
 	// Product Family Meta.
 	const META_CHARGIFY_FAMILY_ID     = 'chargify_family_id';
@@ -74,22 +72,6 @@ class ChargifyProduct extends GenericPost {
 	 * @var null|int
 	 */
 	protected $wordpress_price_point_id = null;
-
-	/**
-	 * The product component Chargify ID.
-	 * Not Unique.
-	 *
-	 * @var null|int
-	 */
-	protected $chargify_component_id = null;
-
-	/**
-	 * The product component WordPress ID.
-	 * Not Unique.
-	 *
-	 * @var null|int
-	 */
-	protected $wordpress_component_id = null;
 
 	// Product Family Meta.
 
@@ -343,40 +325,6 @@ class ChargifyProduct extends GenericPost {
 		}
 
 		return $this->wordpress_price_point_id;
-	}
-
-	/**
-	 * Get the product component Chargify ID.
-	 *
-	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized on the
-	 *                        model as a parameter.
-	 *
-	 * @return null|int
-	 */
-	public function get_chargify_component_id( $new_fetch = false ) {
-
-		if ( null === $this->chargify_component_id || $new_fetch ) {
-			$this->chargify_component_id = (int) $this->get_meta( self::META_CHARGIFY_COMPONENT_ID );
-		}
-
-		return $this->chargify_component_id;
-	}
-
-	/**
-	 * Get the product component WordPress ID.
-	 *
-	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized on the
-	 *                        model as a parameter.
-	 *
-	 * @return null|int
-	 */
-	public function get_wordpress_component_id( $new_fetch = false ) {
-
-		if ( null === $this->wordpress_component_id || $new_fetch ) {
-			$this->wordpress_component_id = (int) $this->get_meta( self::META_WORDPRESS_COMPONENT_ID );
-		}
-
-		return $this->wordpress_component_id;
 	}
 
 	/**
