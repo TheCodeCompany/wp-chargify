@@ -26,6 +26,12 @@ class ChargifyAccount extends GenericPost {
 	const META_CHARGIFY_EXPIRATION_DATE     = 'chargify_expiration_date';
 	const META_CHARGIFY_PRODUCTS_MULTICHECK = 'chargify_products_multicheck';
 
+	// TODO, store additional data.
+	const META_CHARGIFY_PRODUCT_ID               = 'chargify_product_id';
+	const META_CHARGIFY_ID   = 'chargify_product_price_point_id';
+	const META_CHARGIFY_COMPONENT_ID             = 'chargify_component_id';
+	const META_CHARGIFY_COMPONENT_PRICE_POINT_ID = 'chargify_component_price_point_id';
+
 	/**
 	 * WordPress user id.
 	 *
@@ -67,6 +73,13 @@ class ChargifyAccount extends GenericPost {
 	 * @var null|string
 	 */
 	protected $chargify_products_multicheck = null;
+
+	/**
+	 * The products handle that is associated to the account.
+	 *
+	 * @var null|string
+	 */
+	protected $get_chargify_product_handle = null;
 
 	/**
 	 * Get the WordPress user id.
@@ -144,11 +157,14 @@ class ChargifyAccount extends GenericPost {
 
 	/**
 	 * Get the subscription expiration date.
+	 * Meta created from subscription 'current_period_ends_at' data.
+	 * Stored as Timestamp relating to the end of the current (recurring)
+	 * period (i.e.,when the next regularly scheduled attempted charge will occur)
 	 *
 	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized on the
 	 *                        model as a parameter.
 	 *
-	 * @return null|string
+	 * @return null|string String is in format of "ISO 8601 date format"
 	 */
 	public function get_chargify_expiration_date( $new_fetch = false ) {
 
@@ -160,7 +176,7 @@ class ChargifyAccount extends GenericPost {
 	}
 
 	/**
-	 * Get the subscription products multicheck.
+	 * Get the subscription products value multicheck.
 	 *
 	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized on the
 	 *                        model as a parameter.
@@ -174,6 +190,30 @@ class ChargifyAccount extends GenericPost {
 		}
 
 		return $this->chargify_products_multicheck;
+	}
+
+	/**
+	 * Get the subscription product price point handle.
+	 *
+	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized on the
+	 *                        model as a parameter.
+	 *
+	 * @return null|string
+	 */
+	public function get_chargify_product_handle( $new_fetch = false ) {
+
+		if ( null === $this->get_chargify_product_handle || $new_fetch ) {
+
+			// The product id.
+			$product_id = $this->get_chargify_products_multicheck();
+
+			$chargify_product_factory = new ChargifyProductFactory();
+			$chargify_product         = $chargify_product_factory->get_by_id( $product_id );
+
+			$this->get_chargify_product_handle = $chargify_product->get_chargify_product_handle();
+		}
+
+		return $this->get_chargify_product_handle;
 	}
 
 }

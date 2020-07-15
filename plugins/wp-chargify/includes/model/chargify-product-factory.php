@@ -65,7 +65,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 */
 	public function get_by_product_id( $product_id ) {
 
-		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_PRODUCT_ID, $product_id );
+		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_ID, $product_id );
 	}
 
 	/**
@@ -77,7 +77,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 */
 	public function get_by_product_handle( $product_handle ) {
 
-		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_PRODUCT_HANDLE, $product_handle );
+		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_HANDLE, $product_handle );
 	}
 
 	/**

@@ -65,7 +65,7 @@ class ChargifyComponentFactory extends GenericPostFactory {
 	 */
 	public function get_by_component_id( $component_id ) {
 
-		return $this->get_by_unique_meta( ChargifyComponent::META_CHARGIFY_COMPONENT_ID, $component_id );
+		return $this->get_by_unique_meta( ChargifyComponent::META_CHARGIFY_ID, $component_id );
 	}
 
 	/**
@@ -77,7 +77,7 @@ class ChargifyComponentFactory extends GenericPostFactory {
 	 */
 	public function get_by_component_handle( $component_handle ) {
 
-		return $this->get_by_unique_meta( ChargifyComponent::META_CHARGIFY_COMPONENT_HANDLE, $component_handle );
+		return $this->get_by_unique_meta( ChargifyComponent::META_CHARGIFY_HANDLE, $component_handle );
 	}
 
 	/**

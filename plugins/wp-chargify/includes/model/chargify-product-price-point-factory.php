@@ -65,7 +65,7 @@ class ChargifyProductPricePointFactory extends GenericPostFactory {
 	 */
 	public function get_by_product_price_point_id( $product_price_point_id ) {
 
-		return $this->get_by_unique_meta( ChargifyProductPricePoint::META_CHARGIFY_PRODUCT_PRICE_POINT_ID, $product_price_point_id );
+		return $this->get_by_unique_meta( ChargifyProductPricePoint::META_CHARGIFY_ID, $product_price_point_id );
 	}
 
 	/**
