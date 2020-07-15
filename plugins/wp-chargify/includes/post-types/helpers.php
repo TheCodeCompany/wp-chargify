@@ -19,13 +19,25 @@ function populate_product_post_types( $products ) {
 
 		$chargify_product = wp_insert_post( $args );
 
+		// Product details.
 		update_post_meta( $chargify_product, 'chargify_product_id', absint( $product['id'] ) );
 		update_post_meta( $chargify_product, 'chargify_product_handle', sanitize_text_field( $product['handle'] ) );
+
+		// Product price points.
+		$price_point_id         = absint( $product['product_price_point_id'] );
+		$default_price_point_id = absint( $product['default_product_price_point_id'] );
+		update_post_meta( $chargify_product, 'chargify_product_price_point_id', $price_point_id );
+		update_post_meta( $chargify_product, 'chargify_product_price_point_handle', sanitize_text_field( $product['product_price_point_handle'] ) );
+		update_post_meta( $chargify_product, 'chargify_product_price_point_is_default', intval( $price_point_id === $default_price_point_id ) );
+
 		update_post_meta( $chargify_product, 'chargify_price', sanitize_text_field( $product['price_in_cents'] / 100 ) );
 		update_post_meta( $chargify_product, 'chargify_initial_cost', sanitize_text_field( $product['initial_charge_in_cents'] / 100 ) );
 		update_post_meta( $chargify_product, 'chargify_interval_unit', sanitize_text_field( $product['interval_unit'] ) );
 		update_post_meta( $chargify_product, 'chargify_interval', absint( $product['interval'] ) );
+
+		// Product family.
 		update_post_meta( $chargify_product, 'chargify_product_family_id', absint( $product['product_family']['id'] ) );
+		update_post_meta( $chargify_product, 'chargify_product_family_handle', sanitize_text_field( $product['product_family']['handle'] ) );
 		update_post_meta( $chargify_product, 'chargify_product_family', sanitize_text_field( $product['product_family']['name'] ) );
 	}
 }
