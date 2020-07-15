@@ -72,7 +72,6 @@ require_once( 'includes/ctrl/enqueues-controller.php' );
 require_once( 'includes/ctrl/metabox-controller.php' );
 
 // Chargify Endpoints.
-require_once( 'includes/chargify/endpoints/coupons.php' );
 require_once( 'includes/chargify/endpoints/components.php' );
 require_once( 'includes/chargify/endpoints/component-price-points.php' );
 require_once( 'includes/chargify/endpoints/product-families.php' );
