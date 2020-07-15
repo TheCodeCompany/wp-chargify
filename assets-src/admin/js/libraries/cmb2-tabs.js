@@ -53,9 +53,8 @@
 		$( this ).closest( '.cmb-repeat' ).find( '.cmb-row' ).addClass( 'cmb-tab-active-item' );
 	} );
 
-	console.log( 'here' );
 	// Initialize on widgets area
-	$( document ).on( 'widget-updated, widget-added', function( e, widget ) {
+	$( document ).on( 'widget-updated widget-added', function( e, widget ) {
 
 		console.log( 'initialize' );
 		if ( widget.find( '.cmb-tabs' ).length ) {
