@@ -70,10 +70,12 @@ require_once( 'includes/ctrl/admin-page-wp-chargify-controller.php' );
 require_once( 'includes/ctrl/cmb2-tabs-controller.php' );
 require_once( 'includes/ctrl/enqueues-controller.php' );
 require_once( 'includes/ctrl/metabox-controller.php' );
+
 require_once( 'includes/ctrl/validate-coupon-controller.php' );
 
 // Chargify Endpoints.
 require_once( 'includes/chargify/endpoints/coupons.php' );
+
 require_once( 'includes/chargify/endpoints/components.php' );
 require_once( 'includes/chargify/endpoints/component-price-points.php' );
 require_once( 'includes/chargify/endpoints/product-families.php' );

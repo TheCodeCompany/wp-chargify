@@ -47,6 +47,7 @@ function bootstrap() {
 	new Controllers\CMB2TabsController();
 	new Controllers\EnqueuesController();
 	new Controllers\MetaBoxController();
+
 	new Controllers\ValidateCouponController();
 }
 
