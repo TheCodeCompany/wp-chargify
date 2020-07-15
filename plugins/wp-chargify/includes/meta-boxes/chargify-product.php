@@ -35,12 +35,10 @@ function product_meta_boxes() {
 					'id'     => 'tab-linked-info',
 					'title'  => 'Linked Information',
 					'fields' => [
+						ChargifyProduct::META_CHARGIFY_DEFAULT_PRICE_POINT_ID,
 						ChargifyProduct::META_CHARGIFY_PRICE_POINT_ID,
 						ChargifyProduct::META_WORDPRESS_PRICE_POINT_ID,
-						ChargifyProduct::META_CHARGIFY_DEFAULT_PRICE_POINT_ID,
 						'chargify_price_point_handle', // TODO, use Product Price Point Model.
-						ChargifyProduct::META_CHARGIFY_COMPONENT_ID,
-						ChargifyProduct::META_WORDPRESS_COMPONENT_ID,
 					],
 				],
 				[
@@ -193,20 +191,6 @@ function product_meta_boxes() {
 		]
 	);
 
-	// TODO, get and display using Product model.
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Product Default Price Point Handle', 'chargify' ),
-			'desc'       => '',
-			'id'         => 'chargify_price_point_handle', // Extra.
-			'type'       => 'text',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
 	// TODO, display array value.
 	$cmb2->add_field(
 		[
@@ -235,12 +219,12 @@ function product_meta_boxes() {
 		]
 	);
 
-	// TODO, display array value.
+	// TODO, get and display using Product model.
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Connected Component Chargify ID\'s', 'chargify' ),
+			'name'       => __( 'Product Default Price Point Handle', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_COMPONENT_ID,
+			'id'         => 'chargify_price_point_handle', // Extra.
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -249,32 +233,6 @@ function product_meta_boxes() {
 		]
 	);
 
-	// TODO, display array value.
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Connected Component WordPress ID\'s', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_WORDPRESS_COMPONENT_ID,
-			'type'       => 'text',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
-	$cmb2->add_field( // TODO, display array value.
-		[
-			'name'       => __( 'Product Description', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_COMPONENT_ID,
-			'type'       => 'text',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
 
 	// Costs.
 	$cmb2->add_field(
