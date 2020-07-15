@@ -38,7 +38,7 @@ function register_customer_details_fields( $signup_form ) {
 				'placeholder' => __( 'First Name', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -52,7 +52,7 @@ function register_customer_details_fields( $signup_form ) {
 				'placeholder' => __( 'Last Name', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -66,7 +66,7 @@ function register_customer_details_fields( $signup_form ) {
 				'placeholder' => __( 'you@yourcompany.com', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -80,7 +80,7 @@ function register_customer_details_fields( $signup_form ) {
 				'placeholder' => __( 'accounting@yourcompany.com', 'chargify' ),
 				'required'    => null,
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -93,7 +93,7 @@ function register_customer_details_fields( $signup_form ) {
 			'attributes' => [
 				'placeholder' => __( 'Organisation', 'chargify' ),
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -106,7 +106,7 @@ function register_customer_details_fields( $signup_form ) {
 			'attributes' => [
 				'placeholder' => __( 'Reference', 'chargify' ),
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -119,7 +119,7 @@ function register_customer_details_fields( $signup_form ) {
 			'attributes' => [
 				'placeholder' => __( 'Address Line 1', 'chargify' ),
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -132,7 +132,7 @@ function register_customer_details_fields( $signup_form ) {
 			'attributes' => [
 				'placeholder' => __( 'Address Line 2', 'chargify' ),
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -145,7 +145,7 @@ function register_customer_details_fields( $signup_form ) {
 			'attributes' => [
 				'placeholder' => __( 'City / Town', 'chargify' ),
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -158,7 +158,7 @@ function register_customer_details_fields( $signup_form ) {
 			'attributes' => [
 				'placeholder' => __( 'Zip / Post Code', 'chargify' ),
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -171,7 +171,7 @@ function register_customer_details_fields( $signup_form ) {
 			'attributes' => [
 				'placeholder' => __( 'State / Province / Region', 'chargify' ),
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 
@@ -184,7 +184,7 @@ function register_customer_details_fields( $signup_form ) {
 			'attributes' => [
 				'placeholder' => __( 'Country', 'chargify' ),
 			],
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 

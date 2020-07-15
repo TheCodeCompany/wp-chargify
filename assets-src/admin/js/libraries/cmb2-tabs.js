@@ -1,6 +1,10 @@
 ( function( $ ) {
+	
+	const bodyEl = $( 'body' );
+
 	// Initial check
 	if ( $( '.cmb-tabs' ).length ) {
+
 		$( '.cmb-tabs' ).each( function() {
 			// Activate first tab
 			if ( ! $( this ).find( '.cmb-tab.active' ).length ) {
@@ -14,12 +18,12 @@
 		} );
 	}
 
-	$( 'body' ).on( 'click.cmbTabs', '.cmb-tabs .cmb-tab', function( e ) {
-		var tab = $( this );
+	bodyEl.on( 'click.cmbTabs', '.cmb-tabs .cmb-tab', function( e ) {
+		let tab = $( this );
 
 		if ( ! tab.hasClass( 'active' ) ) {
-			var tabs = tab.closest( '.cmb-tabs' );
-			var form = tabs.next( '.cmb2-wrap' );
+			let tabs = tab.closest( '.cmb-tabs' );
+			let form = tabs.next( '.cmb2-wrap' );
 
 			// Hide current active tab fields
 			form.find( tabs.find( '.cmb-tab.active' ).data( 'fields' ) ).fadeOut( 'fast', function() {
@@ -40,21 +44,24 @@
 	} );
 
 	// Adding a new group element needs to get the active class also
-	$( 'body' ).on( 'click', '.cmb-add-group-row', function() {
+	bodyEl.on( 'click', '.cmb-add-group-row', function() {
 		$( this ).closest( '.cmb-repeatable-group' ).find( '.cmb-row' ).addClass( 'cmb-tab-active-item' );
 	} );
 
 	// Adding a new repeatable element needs to get the active class also
-	$( 'body' ).on( 'click', '.cmb-add-row-button', function() {
+	bodyEl.on( 'click', '.cmb-add-row-button', function() {
 		$( this ).closest( '.cmb-repeat' ).find( '.cmb-row' ).addClass( 'cmb-tab-active-item' );
 	} );
 
+	console.log( 'here' );
 	// Initialize on widgets area
-	$( document ).on( 'widget-updated widget-added', function( e, widget ) {
+	$( document ).on( 'widget-updated, widget-added', function( e, widget ) {
 
+		console.log( 'initialize' );
 		if ( widget.find( '.cmb-tabs' ).length ) {
 
 			widget.find( '.cmb-tabs' ).each( function() {
+
 				// Activate first tab
 				if ( ! $( this ).find( '.cmb-tab.active' ).length ) {
 					$( this ).find( '.cmb-tab' ).first().addClass( 'active' );

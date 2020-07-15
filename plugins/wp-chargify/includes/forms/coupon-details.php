@@ -34,7 +34,7 @@ function register_coupon_fields( $signup_form ) {
 			'id'         => 'chargify_coupon_code',
 			'type'       => 'text',
 			'desc'       => __( 'Enter a coupon code.', 'chargify' ),
-			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb' => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 

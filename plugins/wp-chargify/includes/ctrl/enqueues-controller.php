@@ -12,8 +12,8 @@ use Chargify\Model\ChargifyComponent;
 use Chargify\Model\ChargifyComponentPricePoint;
 use Chargify\Model\ChargifyProduct;
 use Chargify\Model\ChargifyProductPricePoint;
-use function Chargify\Libraries\wp_enqueue_script_auto_ver;
 use function Chargify\Libraries\wp_enqueue_style_auto_ver;
+use function Chargify\Libraries\wp_enqueue_script_auto_ver;
 use function Chargify\Libraries\wp_localize_script_auto_ver;
 use function Chargify\Libraries\wp_register_script_auto_ver;
 
@@ -54,14 +54,16 @@ class EnqueuesController {
 
 		wp_enqueue_style_auto_ver(
 			$assets_handle,
-			WP_CHARGIFY_PLUGIN_URL . 'includes/assets/css/' . $assets_handle . '.css'
+			WP_CHARGIFY_PLUGIN_URL . 'includes/assets/css/' . $assets_handle . '.css',
+			[],
+			false
 		);
 
 		wp_register_script_auto_ver(
 			$assets_handle,
 			WP_CHARGIFY_PLUGIN_URL . 'includes/assets/js/' . $assets_handle . '.js',
 			[ 'jquery' ],
-			true,
+			false,
 			true,
 			true
 		);
@@ -111,8 +113,8 @@ class EnqueuesController {
 			$assets_handle,
 			WP_CHARGIFY_PLUGIN_URL . 'includes/assets/js/' . $assets_handle . '.js',
 			[ 'jquery' ],
-			true,
-			true,
+			false,
+			false,
 			true
 		);
 

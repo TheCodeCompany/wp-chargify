@@ -41,7 +41,7 @@ function register_message_details_fields( $signup_form ) {
 			'attributes'   => [
 				'class' => 'hidden',
 			],
-			'default_cb'   => 'Chargify\\Forms\\Submission\\maybe_set_default_from_posted_values',
+			'default_cb'   => 'Chargify\\Forms\\Submission\\maybe_set_default_value',
 		]
 	);
 

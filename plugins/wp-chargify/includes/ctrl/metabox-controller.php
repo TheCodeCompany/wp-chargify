@@ -25,9 +25,9 @@ class MetaBoxController {
 	 * @var string[]
 	 */
 	protected $partial_meta_box_matches = [
-		'submitdiv', // WP Core Meta Box.
-		'slugdiv', // WP Core Meta Box.
 		'acf-group', // ACF Meta Box.
+		'chargify_account',
+		'chargify_api_log',
 		'chargify_product_details',
 		'chargify_product_price_point_details',
 		'chargify_component_details',
@@ -57,6 +57,8 @@ class MetaBoxController {
 		global $wp_meta_boxes;
 
 		$effected_post_types = [
+			'chargify_account',
+			'chargify_api_log',
 			ChargifyProduct::POST_TYPE,
 			ChargifyProductPricePoint::POST_TYPE,
 			ChargifyComponent::POST_TYPE,

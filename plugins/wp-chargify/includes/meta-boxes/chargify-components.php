@@ -70,7 +70,7 @@ function component_meta_boxes() {
 	);
 
 
-	// General
+	// General.
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Component Chargify ID', 'chargify' ),
@@ -112,7 +112,7 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Handle', 'chargify' ),
+			'name'       => __( 'Component Description', 'chargify' ),
 			'desc'       => '',
 			'id'         => ChargifyComponent::META_CHARGIFY_DESCRIPTION,
 			'type'       => 'text',
@@ -150,8 +150,8 @@ function component_meta_boxes() {
 	);
 
 
-	// Linked Information
-	$cmb2->add_field( // TODO Component Price Point IDs
+	// Linked Information.
+	$cmb2->add_field( // TODO Components. Display array using the 'before_field' to get default value.
 		[
 			'name'       => __( 'Component Price Point Chargify IDs', 'chargify' ),
 			'desc'       => '',
@@ -164,7 +164,7 @@ function component_meta_boxes() {
 		]
 	);
 
-	$cmb2->add_field( // TODO Component Price Point IDs
+	$cmb2->add_field( // TODO Components. Display array using the 'before_field' to get default value.
 		[
 			'name'       => __( 'Component Price Point WordPress IDs', 'chargify' ),
 			'desc'       => '',
@@ -206,20 +206,7 @@ function component_meta_boxes() {
 
 
 	// Costs.
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Component Family Name', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyComponent::META_CHARGIFY_FAMILY_NAME,
-			'type'       => 'text',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
 		[
 			'name'       => __( 'Component Price Schema', 'chargify' ),
 			'desc'       => '',
@@ -234,7 +221,7 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Component UNit Name', 'chargify' ),
+			'name'       => __( 'Component Unit Name', 'chargify' ),
 			'desc'       => '',
 			'id'         => ChargifyComponent::META_CHARGIFY_UNIT_NAME,
 			'type'       => 'text',
@@ -254,20 +241,24 @@ function component_meta_boxes() {
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_cents_to_dollars',
 		]
 	);
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Component Price Per Unit in Cents', 'chargify' ),
+			'name'       => __( 'Component Price Per Unit', 'chargify' ),
 			'desc'       => '',
 			'id'         => ChargifyComponent::META_CHARGIFY_PRICE_PER_UNIT_IN_CENTS,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_cents_to_dollars',
 		]
 	);
 
@@ -280,7 +271,9 @@ function component_meta_boxes() {
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
 		]
 	);
 
@@ -297,7 +290,7 @@ function component_meta_boxes() {
 		]
 	);
 
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
 		[
 			'name'       => __( 'Component Upgrade Charge', 'chargify' ),
 			'desc'       => '',
@@ -310,7 +303,7 @@ function component_meta_boxes() {
 		]
 	);
 
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
 		[
 			'name'       => __( 'Component Downgrade Credit', 'chargify' ),
 			'desc'       => '',
@@ -323,7 +316,7 @@ function component_meta_boxes() {
 		]
 	);
 
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
 		[
 			'name'       => __( 'Component Recurring', 'chargify' ),
 			'desc'       => '',
@@ -336,7 +329,7 @@ function component_meta_boxes() {
 		]
 	);
 
-	$cmb2->add_field( // TODO Component Price Point.
+	$cmb2->add_field( // TODO Components. Display array using the 'before_field' to get default value.
 		[
 			'name'       => __( 'Component Prices', 'chargify' ),
 			'desc'       => '',
@@ -349,9 +342,9 @@ function component_meta_boxes() {
 		]
 	);
 
-	// Miscellaneous.
 
-	$cmb2->add_field(
+	// Miscellaneous.
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
 		[
 			'name'       => __( 'Component Kind', 'chargify' ),
 			'desc'       => '',
@@ -373,11 +366,13 @@ function component_meta_boxes() {
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
 		]
 	);
 
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
 		[
 			'name'       => __( 'Component Created At', 'chargify' ),
 			'desc'       => '',
@@ -390,12 +385,4 @@ function component_meta_boxes() {
 		]
 	);
 
-}
-
-/**
- * Remove the Publish meta box for our Components.
- */
-function remove_publish_meta_box() {
-	remove_meta_box( 'metabox_id', 'chargify_component', 'default_position' );
-	remove_meta_box( 'submitdiv', 'chargify_component', 'side' );
 }

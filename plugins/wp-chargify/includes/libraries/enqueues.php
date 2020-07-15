@@ -407,7 +407,7 @@ class Enqueue {
 new Enqueue();
 
 // Functions for site use.
-if ( ! function_exists( 'wp_register_style_auto_ver' ) ) {
+if ( ! function_exists( 'Chargify\\Libraries\\wp_register_style_auto_ver' ) ) {
 	/**
 	 * Register the stylesheet.
 	 *
@@ -421,7 +421,7 @@ if ( ! function_exists( 'wp_register_style_auto_ver' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wp_enqueue_style_auto_ver' ) ) {
+if ( ! function_exists( 'Chargify\\Libraries\\wp_enqueue_style_auto_ver' ) ) {
 	/**
 	 * Enqueue the stylesheet using WordPress 'wp_enqueue_style' function.
 	 *
@@ -435,7 +435,7 @@ if ( ! function_exists( 'wp_enqueue_style_auto_ver' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wp_register_script_auto_ver' ) ) {
+if ( ! function_exists( 'Chargify\\Libraries\\wp_register_script_auto_ver' ) ) {
 	/**
 	 * Register the script. Automatically detects local environment and attempts to load unminified version.
 	 *
@@ -451,7 +451,7 @@ if ( ! function_exists( 'wp_register_script_auto_ver' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wp_localize_script_auto_ver' ) ) {
+if ( ! function_exists( 'Chargify\\Libraries\\wp_localize_script_auto_ver' ) ) {
 	/**
 	 * Localize the script using WordPress 'wp_localize_script' function.
 	 *
@@ -464,7 +464,7 @@ if ( ! function_exists( 'wp_localize_script_auto_ver' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wp_enqueue_script_auto_ver' ) ) {
+if ( ! function_exists( 'Chargify\\Libraries\\wp_enqueue_script_auto_ver' ) ) {
 	/**
 	 * Enqueue the script using WordPress 'wp_enqueue_script' function.
 	 *

@@ -88,7 +88,7 @@ function product_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product ID', 'chargify' ),
-			'desc'       => __( 'The ID of the product in Chargify.', 'chargify' ),
+			'desc'       => '',
 			'id'         => ChargifyProduct::META_CHARGIFY_ID,
 			'type'       => 'text_small',
 			'attributes' => [
@@ -102,7 +102,7 @@ function product_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Name', 'chargify' ),
-			'desc'       => __( 'The name of the product in Chargify.', 'chargify' ),
+			'desc'       => '',
 			'id'         => ChargifyProduct::META_CHARGIFY_NAME,
 			'type'       => 'text',
 			'attributes' => [
@@ -115,7 +115,7 @@ function product_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Handle', 'chargify' ),
-			'desc'       => __( 'The product handle in Chargify.', 'chargify' ),
+			'desc'       => '',
 			'id'         => ChargifyProduct::META_CHARGIFY_HANDLE,
 			'type'       => 'text',
 			'attributes' => [
@@ -191,8 +191,7 @@ function product_meta_boxes() {
 		]
 	);
 
-	// TODO, display array value.
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Products. Display array using the 'before_field' to get default value.
 		[
 			'name'       => __( 'Connected Price Point Chargify ID\'s', 'chargify' ),
 			'desc'       => '',
@@ -205,8 +204,7 @@ function product_meta_boxes() {
 		]
 	);
 
-	// TODO, display array value.
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Products. Display array using the 'before_field' to get default value.
 		[
 			'name'       => __( 'Connected Price Point WordPress ID\'s', 'chargify' ),
 			'desc'       => '',
@@ -219,8 +217,7 @@ function product_meta_boxes() {
 		]
 	);
 
-	// TODO, get and display using Product model.
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Products. Display using the 'before_field' to get default value from product model.
 		[
 			'name'       => __( 'Product Default Price Point Handle', 'chargify' ),
 			'desc'       => '',
@@ -237,27 +234,31 @@ function product_meta_boxes() {
 	// Costs.
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Price in Cents', 'chargify' ),
-			'desc'       => '',
-			'id'         => ChargifyProduct::META_CHARGIFY_PRICE_IN_CENTS,
-			'type'       => 'text',
-			'attributes' => [
+			'name'         => __( 'Product Price', 'chargify' ),
+			'desc'         => '',
+			'id'           => ChargifyProduct::META_CHARGIFY_PRICE_IN_CENTS,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_cents_to_dollars',
 		]
 	);
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Billing Initial Charge in Cents', 'chargify' ),
+			'name'       => __( 'Product Billing Initial Charge', 'chargify' ),
 			'desc'       => '',
 			'id'         => ChargifyProduct::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_cents_to_dollars',
 		]
 	);
 
@@ -322,7 +323,9 @@ function product_meta_boxes() {
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
 		]
 	);
 
@@ -356,14 +359,16 @@ function product_meta_boxes() {
 	// TRIAL.
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Billing Trial Price in Cents', 'chargify' ),
+			'name'       => __( 'Product Billing Trial Price', 'chargify' ),
 			'desc'       => '',
 			'id'         => ChargifyProduct::META_CHARGIFY_TRIAL_PRICE_IN_CENTS,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_cents_to_dollars',
 		]
 	);
 
@@ -376,7 +381,9 @@ function product_meta_boxes() {
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
 		]
 	);
 
@@ -408,10 +415,10 @@ function product_meta_boxes() {
 
 
 	// Misc.
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
 		[
 			'name'       => __( 'Product Created At', 'chargify' ),
-			'desc'       => __( 'The date and time the product was created in Chargify. ISO 8601 date format.', 'chargify' ),
+			'desc'       => '',
 			'id'         => ChargifyProduct::META_CHARGIFY_CREATED_AT,
 			'type'       => 'text',
 			'attributes' => [
@@ -421,10 +428,10 @@ function product_meta_boxes() {
 		]
 	);
 
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
 		[
 			'name'       => __( 'Product Updated At', 'chargify' ),
-			'desc'       => __( 'The date and time the product was updated in Chargify. ISO 8601 date format.', 'chargify' ),
+			'desc'       => '',
 			'id'         => ChargifyProduct::META_CHARGIFY_UPDATED_AT,
 			'type'       => 'text',
 			'attributes' => [
@@ -434,7 +441,7 @@ function product_meta_boxes() {
 		]
 	);
 
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Date. Display readable format using the 'before_field' to get default value. From ISO 8601 format.
 		[
 			'name'       => __( 'Product Archived At', 'chargify' ),
 			'desc'       => '',
@@ -450,13 +457,15 @@ function product_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Require Credit Card', 'chargify' ),
-			'desc'       => __( 'The product requests a credit card.', 'chargify' ),
+			'desc'       => '',
 			'id'         => ChargifyProduct::META_CHARGIFY_REQUIRE_CREDIT_CARD,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
 		]
 	);
 
@@ -469,7 +478,9 @@ function product_meta_boxes() {
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
 		]
 	);
 
@@ -482,7 +493,9 @@ function product_meta_boxes() {
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
 		]
 	);
 
@@ -495,7 +508,9 @@ function product_meta_boxes() {
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
 		]
 	);
 
@@ -509,119 +524,10 @@ function product_meta_boxes() {
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
 		]
 	);
-
-
-	//	$cmb2->add_field(
-	//		[
-	//			'name'       => __( 'Price Point Handle', 'chargify' ),
-	//			'desc'       => __( 'The price point handle of the product in Chargify.', 'chargify' ),
-	//			'id'         => 'chargify_product_price_point_handle',
-	//			'type'       => 'text',
-	//			'attributes' => [
-	//				'readonly' => 'readonly',
-	//				'disabled' => 'disabled',
-	//			],
-	//		]
-	//	);
-	//
-	//	$cmb2->add_field(
-	//		[
-	//			'name'       => __( 'Is default Price Point', 'chargify' ),
-	//			'desc'       => __( 'Is this the default price point of the product in Chargify.', 'chargify' ),
-	//			'id'         => 'chargify_product_price_point_is_default',
-	//			'type'       => 'checkbox',
-	//			'attributes' => [
-	//				'readonly' => 'readonly',
-	//				'disabled' => 'disabled',
-	//			],
-	//		]
-	//	);
-	//
-	//	$cmb2->add_field(
-	//		[
-	//			'name'        => __( 'Price', 'chargify' ),
-	//			'description' => __( 'The price of the product in Chargify.', 'chargify' ),
-	//			'id'          => __( 'chargify_price' ),
-	//			'type'        => 'text_money',
-	//			'attributes'  => [
-	//				'readonly' => 'readonly',
-	//				'disabled' => 'disabled',
-	//			],
-	//		]
-	//	);
-	//
-	//	$cmb2->add_field(
-	//		[
-	//			'name'        => __( 'Initial Cost', 'chargify' ),
-	//			'description' => __( 'The initial cost of the product in Chargify.', 'chargify' ),
-	//			'id'          => __( 'chargify_initial_cost' ),
-	//			'type'        => 'text_money',
-	//			'attributes'  => [
-	//				'readonly' => 'readonly',
-	//				'disabled' => 'disabled',
-	//			],
-	//		]
-	//	);
-	//
-	//	$cmb2->add_field(
-	//		[
-	//			'name'        => __( 'Interval Unit', 'chargify' ),
-	//			'description' => __( 'The interval unit that a subscription is renewed in Chargify.', 'chargify' ),
-	//			'id'          => 'chargify_interval_unit',
-	//			'type'        => 'radio_inline',
-	//			'options'     => [
-	//				'day'   => __( 'Day', 'chargify' ),
-	//				'month' => __( 'Month', 'chargify' ),
-	//			],
-	//			'default'     => 'day',
-	//			'attributes'  => [
-	//				'readonly' => 'readonly',
-	//				'disabled' => 'disabled',
-	//			],
-	//		]
-	//	);
-	//
-	//	$cmb2->add_field(
-	//		[
-	//			'name'        => __( 'Interval', 'chargify' ),
-	//			'description' => __( 'The interval that a subscription is renewed in Chargify.', 'chargify' ),
-	//			'id'          => 'chargify_interval',
-	//			'type'        => 'text_small',
-	//			'attributes'  => [
-	//				'readonly' => 'readonly',
-	//				'disabled' => 'disabled',
-	//			],
-	//		]
-	//	);
-	//
-	//	$cmb2->add_field(
-	//		[
-	//			'name'       => __( 'Product Family', 'chargify' ),
-	//			'desc'       => __( 'The family that the product belongs to in Chargify.', 'chargify' ),
-	//			'id'         => 'chargify_product_family',
-	//			'type'       => 'text',
-	//			'attributes' => [
-	//				'readonly' => 'readonly',
-	//				'disabled' => 'disabled',
-	//			],
-	//		]
-	//	);
-	//
-	//	$cmb2->add_field(
-	//		[
-	//			'name'       => __( 'Product Family ID', 'chargify' ),
-	//			'desc'       => __( 'The Product Family ID that the product belongs to in Chargify.', 'chargify' ),
-	//			'id'         => 'chargify_product_family_id',
-	//			'type'       => 'text_small',
-	//			'attributes' => [
-	//				'readonly' => 'readonly',
-	//				'disabled' => 'disabled',
-	//				'type'     => 'number',
-	//			],
-	//		]
-	//	);
 
 }
