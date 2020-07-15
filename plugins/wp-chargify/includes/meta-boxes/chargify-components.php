@@ -37,6 +37,7 @@ function component_meta_boxes() {
 						ChargifyComponent::META_CHARGIFY_PRICE_POINT_ID,
 						ChargifyComponent::META_WORDPRESS_PRICE_POINT_ID,
 						ChargifyComponent::META_CHARGIFY_DEFAULT_PRICE_POINT_ID,
+						ChargifyComponent::META_CHARGIFY_DEFAULT_PRICE_POINT_NAME,
 						ChargifyComponent::META_CHARGIFY_PRICE_POINT_COUNT,
 					],
 				],
@@ -183,6 +184,20 @@ function component_meta_boxes() {
 			'desc'       => '',
 			'id'         =>
 				ChargifyComponent::META_CHARGIFY_DEFAULT_PRICE_POINT_ID,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Component Default Price Point Name', 'chargify' ),
+			'desc'       => '',
+			'id'         =>
+				ChargifyComponent::META_CHARGIFY_DEFAULT_PRICE_POINT_NAME,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',

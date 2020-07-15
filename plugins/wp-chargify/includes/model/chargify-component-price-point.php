@@ -30,8 +30,8 @@ class ChargifyComponentPricePoint extends GenericPost {
 	const META_CHARGIFY_DEFAULT      = 'chargify_default';
 	const META_CHARGIFY_PRICE_SCHEMA = 'chargify_pricing_scheme';
 	const META_CHARGIFY_ARCHIVED_AT  = 'chargify_archived_at';
-	const META_CHARGIFY_CREATED_AT   = 'chargify_archived_at';
-	const META_CHARGIFY_UPDATED_AT   = 'chargify_archived_at';
+	const META_CHARGIFY_CREATED_AT   = 'chargify_created_at';
+	const META_CHARGIFY_UPDATED_AT   = 'chargify_updated_at';
 	const META_CHARGIFY_PRICES       = 'chargify_prices';
 	/**
 	 * Prices array such as

@@ -4,6 +4,7 @@ namespace Chargify\Chargify\Endpoints\Components;
 use Chargify\Helpers\Options;
 use Chargify\Post_Types\Helpers;
 use function Chargify\Chargify\Endpoints\Component_Price_Points\get_component_price_points;
+use function Chargify\Chargify\Endpoints\Component_Price_Points\save_component_price_points;
 
 /**
  * A function to request all of the components that are in Chargify.
@@ -82,14 +83,14 @@ function save_components( $components = [] ) {
 	// Populate the product CPT's.
 	Helpers\populate_component_posts( $components );
 
+	// TODO Component, fetch the component price points, look at product price points for reference.
 	// Fetch then populate the Price Point CPT's.
 	$component_ids = wp_list_pluck( $components, 'id' );
-	foreach ( $component_ids as $product_id ) {
+	foreach ( $component_ids as $component_id ) {
 
 		// TODO Component price points.
-		$product_price_points = get_component_price_points( $product_id );
-
-//		save_component_price_points( $product_id, $product_price_points );
+		$product_price_points = get_component_price_points( $component_id );
+		save_component_price_points( $component_id, $product_price_points );
 	}
 }
 
