@@ -17,6 +17,7 @@ use Chargify\Forms\Billing_Details;
 use Chargify\Forms\Payment_Details;
 use Chargify\Forms\Coupon_Details;
 use Chargify\Forms\Submission;
+use function Chargify\Helpers\Forms_Products\setup_product_post_data;
 
 /**
  * The signup form including the main registration of the form fields.
@@ -27,6 +28,9 @@ function chargify_signup_form() {
 
 	$signup_form_id = 'chargify_signup_form';
 
+	// Before rendering the form prefill product and price POST data.
+	setup_product_post_data();
+
 	$signup_form_fields = new_cmb2_box(
 		[
 			'id'           => $signup_form_id,
@@ -36,15 +40,31 @@ function chargify_signup_form() {
 		]
 	);
 
-	// Add all of the form fields.
+	/*
+	 * Add all of the form fields and html.
+	 */
+
+	// Hidden fields.
+	$signup_form_fields = Product_Details\register_product_details_costs_fields( $signup_form_fields );
 	$signup_form_fields = Hidden_details\register_hidden_details_fields( $signup_form_fields );
-	$signup_form_fields = Product_Details\register_product_details_fields( $signup_form_fields );
+
+	// Global Messages for errors etc.
 	$signup_form_fields = Message_Details\register_message_details_fields( $signup_form_fields );
+
+	// General product html.
+	$signup_form_fields = Product_Details\register_product_costs_details_top_fields( $signup_form_fields );
+
+	// Form fields.
 	$signup_form_fields = Customer_Details\register_customer_details_fields( $signup_form_fields );
 	$signup_form_fields = Account_Details\register_account_details_fields( $signup_form_fields );
 	$signup_form_fields = Billing_Details\register_customer_billing_fields( $signup_form_fields );
 	$signup_form_fields = Payment_Details\register_payment_fields( $signup_form_fields );
+
+	// Coupon fields.
 	$signup_form_fields = Coupon_Details\register_coupon_fields( $signup_form_fields );
+
+	// General product html.
+	$signup_form_fields = Product_Details\register_product_costs_details_bottom_fields( $signup_form_fields );
 
 	// Just a placeholder object id.
 	$customer_details_object_id = 'temp-signup-object-id';

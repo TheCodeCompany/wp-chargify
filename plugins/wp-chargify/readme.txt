@@ -112,9 +112,11 @@ We provide a number of optional filters you can use:
     - 'chargify_payment_cvv'
 
 `chargify_signup_metafields` - A place to filter in any metafields you need to send to Chargify.
-`chargify_default_product` - A filter to specify a default product in Chargify. You can pass `product_handle` to the signup form to set this. e.g. `www.yoursite.com/signup?product_handle=database-standard`.
+`chargify_default_product` - A filter to specify a default product handle or Chargify id. This pre fills the signup form when no `product_handle` has been set. e.g. `www.yoursite.com/signup?product_handle=database-standard`.
 `chargify_signup_form_args` - A filter to alter additional form fields such as the text on on the signup button and turn off CSS styles.
 `chargify_signup_form_attributes` - A filter to alter attributes on the signup 'from' element.
+`chargify_signup_form_costs_html_top` - Alter the initial rendered html for the costs at the top of the form.
+`chargify_signup_form_costs_html_bottom` - Alter the initial rendered html for the costs at the bottom of the form.
 
 = What actions can I use? +
 

@@ -3,6 +3,7 @@
 namespace Chargify\Meta_Boxes\Helpers;
 
 use Chargify\Libraries\DateHelper;
+use function Chargify\Helpers\Costs\convert_cents_to_dollars;
 
 /**
  * Base input element for visuals within teh admin area, used to display instead of the CMB version.
@@ -64,18 +65,6 @@ function maybe_convert_cents_to_dollars( $field_args, $field ) {
 	$value = convert_cents_to_dollars( $value, ',' );
 
 	return base_input_replacement_html( $field->id(), $value );
-}
-
-/**
- * Convert cents to dollars for visuals.
- *
- * @param int    $cents               The cents to be converted.
- * @param string $thousands_seperator The thousands separator to use.
- *
- * @return string
- */
-function convert_cents_to_dollars( $cents, $thousands_seperator = '' ) {
-	return number_format( ( $cents / 100 ), 2, '.', $thousands_seperator );
 }
 
 /**

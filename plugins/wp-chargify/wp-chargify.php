@@ -70,7 +70,6 @@ require_once( 'includes/ctrl/admin-page-wp-chargify-controller.php' );
 require_once( 'includes/ctrl/cmb2-tabs-controller.php' );
 require_once( 'includes/ctrl/enqueues-controller.php' );
 require_once( 'includes/ctrl/metabox-controller.php' );
-
 require_once( 'includes/ctrl/validate-coupon-controller.php' );
 
 // Chargify Endpoints.
@@ -96,8 +95,10 @@ require_once( 'includes/forms/payment-details.php' );
 require_once( 'includes/forms/product-details.php' );
 require_once( 'includes/forms/signup.php' );
 require_once( 'includes/forms/submission.php' );
+require_once( 'includes/helpers/costs.php' );
 require_once( 'includes/helpers/customers.php' );
 require_once( 'includes/helpers/forms.php' );
+require_once( 'includes/helpers/forms-product.php' );
 require_once( 'includes/helpers/misc.php' );
 require_once( 'includes/helpers/options.php' );
 require_once( 'includes/logging/logger.php' );

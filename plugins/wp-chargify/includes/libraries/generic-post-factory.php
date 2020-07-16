@@ -36,10 +36,10 @@ class GenericPostFactory extends ModelFactory {
 	}
 
 	/**
-	 * Get the post object by the given identifyer.
+	 * Get the post object by the given identifier.
 	 *
-	 * @param string|int $identifier      The identifyer value
-	 * @param string     $identifier_type The type of identifyer, id or slug.
+	 * @param string|int $identifier      The identifier value
+	 * @param string     $identifier_type The type of identifier, id or slug.
 	 *
 	 * @return GenericPost|null
 	 */

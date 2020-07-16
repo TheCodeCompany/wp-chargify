@@ -25,7 +25,7 @@ function register_message_details_fields( $signup_form ) {
 			'name'         => '',
 			'id'           => 'total_cost',
 			'type'         => 'title',
-			'before_field' => 'Chargify\\Forms\\Message_Details\\total_costs_top_html',
+			'before_field' => 'Chargify\\Forms\\Message_Details\\total_costs_top',
 			'attributes'   => [
 				'style' => 'display:none;',
 			],
@@ -49,6 +49,10 @@ function register_message_details_fields( $signup_form ) {
 	$fields = apply_filters( 'chargify_message_details_fields', $signup_form );
 
 	return $fields;
+}
+
+function total_costs_top() {
+
 }
 
 /**
@@ -110,15 +114,3 @@ function render_messages_html() {
 	return $html;
 }
 
-function total_costs_top_html() {
-	ob_start()
-	?>
-	<div class="costs">
-		<p id="total_cost_container_top">
-			<span class="total-cost-inc-cents"></span> /
-			<span class="pricing-period"></span>
-		</p>
-	</div>
-	<?php
-	return ob_get_clean();
-}
