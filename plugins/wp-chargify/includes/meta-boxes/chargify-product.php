@@ -20,7 +20,7 @@ function product_meta_boxes() {
 			'tabs'         => [
 				[
 					'id'     => 'tab-general',
-					'title'  => 'General',
+					'title'  => __( 'General', 'chargify' ),
 					'fields' => [
 						Chargify_Product::META_CHARGIFY_ID,
 						Chargify_Product::META_CHARGIFY_NAME,
@@ -33,7 +33,7 @@ function product_meta_boxes() {
 				],
 				[
 					'id'     => 'tab-linked-info',
-					'title'  => 'Linked Information',
+					'title'  => __( 'Linked Information', 'chargify' ),
 					'fields' => [
 						Chargify_Product::META_CHARGIFY_DEFAULT_PRICE_POINT_ID,
 						Chargify_Product::META_CHARGIFY_PRICE_POINT_ID,
@@ -43,7 +43,7 @@ function product_meta_boxes() {
 				],
 				[
 					'id'     => 'tab-costs',
-					'title'  => 'Costs',
+					'title'  => __( 'Costs', 'chargify' ),
 					'fields' => [
 						Chargify_Product::META_CHARGIFY_PRICE_IN_CENTS,
 						Chargify_Product::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
@@ -58,7 +58,7 @@ function product_meta_boxes() {
 				],
 				[
 					'id'     => 'tab-trial',
-					'title'  => 'Trial',
+					'title'  => __( 'Trial', 'chargify' ),
 					'fields' => [
 						Chargify_Product::META_CHARGIFY_TRIAL_PRICE_IN_CENTS,
 						Chargify_Product::META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL,
@@ -68,7 +68,7 @@ function product_meta_boxes() {
 				],
 				[
 					'id'     => 'tab-misc',
-					'title'  => 'Miscellaneous',
+					'title'  => __( 'Miscellaneous', 'chargify' ),
 					'fields' => [
 						Chargify_Product::META_CHARGIFY_CREATED_AT,
 						Chargify_Product::META_CHARGIFY_UPDATED_AT,

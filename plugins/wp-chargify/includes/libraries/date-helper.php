@@ -14,7 +14,7 @@ use DateInterval;
 /**
  * Generic library for date related methods and constants.
  */
-class DateHelper {
+class Date_Helper {
 
 	/**
 	 * Format used to store the date in the database.

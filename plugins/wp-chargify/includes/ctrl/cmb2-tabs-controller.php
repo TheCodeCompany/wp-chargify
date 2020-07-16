@@ -23,7 +23,7 @@ namespace Chargify\Controllers;
  *             [
  *                 'id'     => 'tab-1',
  *                 'icon'   => 'dashicons-admin-site',
- *                 'title'  => 'Tab 1',
+ *                 'title'  => __( 'Tab 1', 'chargify' ),
  *                 'fields' => [
  *                     $prefix . '_field_1',
  *                     $prefix . '_field_2',
@@ -32,7 +32,7 @@ namespace Chargify\Controllers;
  *             [
  *                 'id'     => 'tab-2',
  *                 'icon'   => 'dashicons-align-left',
- *                 'title'  => 'Tab 2',
+ *                 'title'  => __( 'Tab 2', 'chargify' ),
  *                 'fields' => [
  *                     $prefix . '_field_3',
  *                     $prefix . '_field_4',

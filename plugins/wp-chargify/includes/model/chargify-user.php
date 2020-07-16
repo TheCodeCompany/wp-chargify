@@ -8,7 +8,7 @@
 
 namespace Chargify\Model;
 
-use Chargify\Libraries\DateHelper;
+use Chargify\Libraries\Date_Helper;
 use Chargify\Libraries\User;
 
 /**
@@ -164,10 +164,10 @@ class Chargify_User extends User {
 			$expiration_date_iso_8601 = $chargify_account->get_chargify_expiration_date();
 
 			if ( $expiration_date_iso_8601 ) {
-				$expiration_date = gmdate( DateHelper::DATE_FORMAT_DEFAULT, strtotime( $expiration_date_iso_8601 ) );
+				$expiration_date = gmdate( Date_Helper::DATE_FORMAT_DEFAULT, strtotime( $expiration_date_iso_8601 ) );
 
 				// Check that the expiration date is after today, today cannot be the expiration date.
-				$is = DateHelper::date_is_after_today( $expiration_date );
+				$is = Date_Helper::date_is_after_today( $expiration_date );
 			}
 		}
 

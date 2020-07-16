@@ -20,7 +20,7 @@ function component_meta_boxes() {
 			'tabs'         => [
 				[
 					'id'     => 'tab-general',
-					'title'  => 'General',
+					'title'  => __( 'General', 'chargify' ),
 					'fields' => [
 						Chargify_Component::META_CHARGIFY_ID,
 						Chargify_Component::META_CHARGIFY_NAME,
@@ -32,7 +32,7 @@ function component_meta_boxes() {
 				],
 				[
 					'id'     => 'tab-linked-info',
-					'title'  => 'Linked Information',
+					'title'  => __( 'Linked Information', 'chargify' ),
 					'fields' => [
 						Chargify_Component::META_CHARGIFY_PRICE_POINT_ID,
 						Chargify_Component::META_WORDPRESS_PRICE_POINT_ID,
@@ -43,7 +43,7 @@ function component_meta_boxes() {
 				],
 				[
 					'id'     => 'tab-costs',
-					'title'  => 'Costs',
+					'title'  => __( 'Costs', 'chargify' ),
 					'fields' => [
 						Chargify_Component::META_CHARGIFY_PRICE_SCHEMA,
 						Chargify_Component::META_CHARGIFY_UNIT_NAME,
@@ -59,7 +59,7 @@ function component_meta_boxes() {
 				],
 				[
 					'id'     => 'tab-misc',
-					'title'  => 'Miscellaneous',
+					'title'  => __( 'Miscellaneous', 'chargify' ),
 					'fields' => [
 						Chargify_Component::META_CHARGIFY_KIND,
 						Chargify_Component::META_CHARGIFY_ARCHIVED,

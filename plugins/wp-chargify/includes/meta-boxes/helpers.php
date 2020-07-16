@@ -2,7 +2,7 @@
 
 namespace Chargify\Meta_Boxes\Helpers;
 
-use Chargify\Libraries\DateHelper;
+use Chargify\Libraries\Date_Helper;
 
 /**
  * Base input element for visuals within teh admin area, used to display instead of the CMB version.
@@ -122,7 +122,7 @@ function maybe_convert_date( $field_args, $field ) {
 		$meta = get_post_meta( $post->ID, $field->id(), true );
 
 		if ( $meta ) {
-			$value = DateHelper::format_date( $meta, DateHelper::DATE_FORMAT_DISPLAY );
+			$value = Date_Helper::format_date( $meta, Date_Helper::DATE_FORMAT_DISPLAY );
 		}
 	}
 
