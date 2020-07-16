@@ -2,31 +2,96 @@
 
 namespace Chargify\Meta_Boxes\Component;
 
+use Chargify\Model\Chargify_Component;
+
 /**
  * Register all the meta fields so we can map Chargify product information to it.
  */
 function component_meta_boxes() {
+
 	$cmb2 = new_cmb2_box(
 		[
 			'id'           => 'chargify_component_details',
 			'title'        => __( 'Component Details', 'chargify' ),
-			'object_types' => [ 'chargify_component' ],
+			'object_types' => [ Chargify_Component::POST_TYPE ],
 			'context'      => 'normal',
 			'priority'     => 'high',
 			'show_names'   => true,
+			'tabs'         => [
+				[
+					'id'     => 'tab-general',
+					'title'  => __( 'General', 'chargify' ),
+					'fields' => [
+						Chargify_Component::META_CHARGIFY_ID,
+						Chargify_Component::META_CHARGIFY_NAME,
+						Chargify_Component::META_CHARGIFY_HANDLE,
+						Chargify_Component::META_CHARGIFY_DESCRIPTION,
+						Chargify_Component::META_CHARGIFY_FAMILY_ID,
+						Chargify_Component::META_CHARGIFY_FAMILY_NAME,
+					],
+				],
+				[
+					'id'     => 'tab-linked-info',
+					'title'  => __( 'Linked Information', 'chargify' ),
+					'fields' => [
+						Chargify_Component::META_CHARGIFY_PRICE_POINT_ID,
+						Chargify_Component::META_WORDPRESS_PRICE_POINT_ID,
+						Chargify_Component::META_CHARGIFY_DEFAULT_PRICE_POINT_ID,
+						Chargify_Component::META_CHARGIFY_DEFAULT_PRICE_POINT_NAME,
+						Chargify_Component::META_CHARGIFY_PRICE_POINT_COUNT,
+					],
+				],
+				[
+					'id'     => 'tab-costs',
+					'title'  => __( 'Costs', 'chargify' ),
+					'fields' => [
+						Chargify_Component::META_CHARGIFY_PRICE_SCHEMA,
+						Chargify_Component::META_CHARGIFY_UNIT_NAME,
+						Chargify_Component::META_CHARGIFY_UNIT_PRICE,
+						Chargify_Component::META_CHARGIFY_PRICE_PER_UNIT_IN_CENTS,
+						Chargify_Component::META_CHARGIFY_TAXABLE,
+						Chargify_Component::META_CHARGIFY_TAX_CODE,
+						Chargify_Component::META_CHARGIFY_UPGRADE_CHARGE,
+						Chargify_Component::META_CHARGIFY_DOWNGRADE_CREDIT,
+						Chargify_Component::META_CHARGIFY_RECURRING,
+						Chargify_Component::META_CHARGIFY_PRICES,
+					],
+				],
+				[
+					'id'     => 'tab-misc',
+					'title'  => __( 'Miscellaneous', 'chargify' ),
+					'fields' => [
+						Chargify_Component::META_CHARGIFY_KIND,
+						Chargify_Component::META_CHARGIFY_ARCHIVED,
+						Chargify_Component::META_CHARGIFY_CREATED_AT,
+					],
+				],
+			],
+		]
+	);
+
+
+	// General.
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Component Chargify ID', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_ID,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
 		]
 	);
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Componennt ID', 'chargify' ),
-			'desc'       => __( 'The ID of the component in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_id',
-			'type'       => 'text_small',
+			'name'       => __( 'Component Name', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_NAME,
+			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
-				'type'     => 'number',
 			],
 		]
 	);
@@ -34,8 +99,7 @@ function component_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Component Handle', 'chargify' ),
-			'desc'       => __( 'The handle of the component in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_handle',
+			'id'         => Chargify_Component::META_CHARGIFY_HANDLE,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -46,54 +110,8 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Pricing Scheme', 'chargify' ),
-			'desc'       => __( 'The pricing scheme of the component in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_pricing_scheme',
-			'type'       => 'select',
-			'options'    => [
-				'per_unit'  => __( 'Per Unit', 'chargify' ),
-				'volume'    => __( 'Volume', 'chargify' ),
-				'tiered'    => __( 'Tiered', 'chargify' ),
-				'stairstep' => __( 'Stairstep', 'chargify' ),
-			],
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
-	$cmb2->add_field(
-		[
-			'name'        => __( 'Unit Name', 'chargify' ),
-			'description' => __( 'The unit name of the component in Chargify.', 'chargify' ),
-			'id'          => 'chargify_component_unit_name',
-			'type'        => 'text',
-			'attributes'  => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
-	$cmb2->add_field(
-		[
-			'name'        => __( 'Unit Price', 'chargify' ),
-			'description' => __( 'The unit price of the product in Chargify.', 'chargify' ),
-			'id'          => __( 'chargify_component_unit_price' ),
-			'type'        => 'text_money',
-			'attributes'  => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Product Family', 'chargify' ),
-			'desc'       => __( 'The family that the product belongs to in Chargify.', 'chargify' ),
-			'id'         => 'chargify_product_family',
+			'name'       => __( 'Component Description', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_DESCRIPTION,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -104,29 +122,9 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Product Family ID', 'chargify' ),
-			'desc'       => __( 'The Product Family ID that the product belongs to in Chargify.', 'chargify' ),
-			'id'         => 'chargify_product_family_id',
-			'type'       => 'text_small',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-				'type'     => 'number',
-			],
-		]
-	);
-
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Kind', 'chargify' ),
-			'desc'       => __( 'The kind of the component in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_kind',
-			'type'       => 'select',
-			'options'    => [
-				'on_off_component'         => __( 'On/Off', 'chargify' ),
-				'quantity_based_component' => __( 'Quantity', 'chargify' ),
-				'metered_component'        => __( 'Metered', 'chargify' ),
-			],
+			'name'       => __( 'Component Family ID', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_FAMILY_ID,
+			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
@@ -136,14 +134,35 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Archived', 'chargify' ),
-			'desc'       => __( 'The whether or not the component in Chargify is archived.', 'chargify' ),
-			'id'         => 'chargify_component_archived',
-			'type'       => 'radio_inline',
-			'options'    => [
-				'1' => __( 'True', 'chargify' ),
-				'0' => __( 'False', 'chargify' ),
+			'name'       => __( 'Component Family Name', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_FAMILY_NAME,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
 			],
+		]
+	);
+
+
+	// Linked Information.
+	$cmb2->add_field( // TODO Components. Display array using the 'before_field' to get default value.
+		[
+			'name'       => __( 'Component Price Point Chargify IDs', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_PRICE_POINT_ID,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field( // TODO Components. Display array using the 'before_field' to get default value.
+		[
+			'name'       => __( 'Component Price Point WordPress IDs', 'chargify' ),
+			'id'         => Chargify_Component::META_WORDPRESS_PRICE_POINT_ID,
+			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
@@ -153,14 +172,10 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Taxable', 'chargify' ),
-			'desc'       => __( 'Whether or not the component in Chargify is taxable.', 'chargify' ),
-			'id'         => 'chargify_component_taxable',
-			'type'       => 'radio_inline',
-			'options'    => [
-				'1' => __( 'True', 'chargify' ),
-				'0' => __( 'False', 'chargify' ),
-			],
+			'name'       => __( 'Component Default Price Point ID', 'chargify' ),
+			'id'         =>
+				Chargify_Component::META_CHARGIFY_DEFAULT_PRICE_POINT_ID,
+			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
@@ -170,38 +185,10 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Default Price Point ID', 'chargify' ),
-			'desc'       => __( 'The Default Price Point ID of the component in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_default_price_point_id',
-			'type'       => 'text_small',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-				'type'     => 'number',
-			],
-		]
-	);
-
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Price Point Count', 'chargify' ),
-			'desc'       => __( 'The price point count of the component in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_price_point_count',
-			'type'       => 'text_small',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-				'type'     => 'number',
-			],
-		]
-	);
-
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Price Points URL', 'chargify' ),
-			'desc'       => __( 'The price points URL of the component in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_price_points_url',
-			'type'       => 'text_url',
+			'name'       => __( 'Component Default Price Point Name', 'chargify' ),
+			'id'         =>
+				Chargify_Component::META_CHARGIFY_DEFAULT_PRICE_POINT_NAME,
+			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
@@ -211,10 +198,23 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Default Price Point Name', 'chargify' ),
-			'desc'       => __( 'The default price point name of the component in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_default_price_point_name',
-			'type'       => 'text_medium',
+			'name'       => __( 'Component Price Points Count', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_PRICE_POINT_COUNT,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+
+	// Costs.
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
+		[
+			'name'       => __( 'Component Price Schema', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_PRICE_SCHEMA,
+			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
@@ -224,10 +224,9 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Tax Code', 'chargify' ),
-			'desc'       => __( 'The tax code of the component in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_tax_code',
-			'type'       => 'text_medium',
+			'name'       => __( 'Component Unit Name', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_UNIT_NAME,
+			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
@@ -237,14 +236,113 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Recurring', 'chargify' ),
-			'desc'       => __( 'Whether or not the component in Chargify is recurring.', 'chargify' ),
-			'id'         => 'chargify_component_recurring',
-			'type'       => 'radio_inline',
-			'options'    => [
-				'1' => __( 'True', 'chargify' ),
-				'0' => __( 'False', 'chargify' ),
+			'name'         => __( 'Component Unit Price', 'chargify' ),
+			'id'           => Chargify_Component::META_CHARGIFY_UNIT_PRICE,
+			'type'         => 'text',
+			'attributes'   => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_cents_to_dollars',
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'         => __( 'Component Price Per Unit', 'chargify' ),
+			'id'           => Chargify_Component::META_CHARGIFY_PRICE_PER_UNIT_IN_CENTS,
+			'type'         => 'text',
+			'attributes'   => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
+			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_cents_to_dollars',
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'         => __( 'Component Taxable', 'chargify' ),
+			'id'           => Chargify_Component::META_CHARGIFY_TAXABLE,
+			'type'         => 'text',
+			'attributes'   => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
+			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Component Tax Code', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_TAX_CODE,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
+		[
+			'name'       => __( 'Component Upgrade Charge', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_UPGRADE_CHARGE,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
+		[
+			'name'       => __( 'Component Downgrade Credit', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_DOWNGRADE_CREDIT,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
+		[
+			'name'       => __( 'Component Recurring', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_RECURRING,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field( // TODO Components. Display array using the 'before_field' to get default value.
+		[
+			'name'       => __( 'Component Prices', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_PRICES,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+
+	// Miscellaneous.
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
+		[
+			'name'       => __( 'Component Kind', 'chargify' ),
+			'id'         => Chargify_Component::META_CHARGIFY_KIND,
+			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
@@ -254,63 +352,30 @@ function component_meta_boxes() {
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Upgrade Charge', 'chargify' ),
-			'desc'       => __( 'Whether or not the component has an upgrade charge.', 'chargify' ),
-			'id'         => 'chargify_component_upgrade_charge',
-			'type'       => 'radio_inline',
-			'options'    => [
-				'none'     => __( 'None', 'chargify' ),
-				'prorated' => __( 'Prorated', 'chargify' ),
-				'full'     => __( 'Full', 'chargify' ),
-			],
-			'attributes' => [
+			'name'         => __( 'Component Archived', 'chargify' ),
+			'id'           => Chargify_Component::META_CHARGIFY_ARCHIVED,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
 		]
 	);
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Downgrade Credit', 'chargify' ),
-			'desc'       => __( 'Whether or not the component has a downgrade credit.', 'chargify' ),
-			'id'         => 'chargify_component_downgrade_credit',
-			'type'       => 'radio_inline',
-			'options'    => [
-				'none'     => __( 'None', 'chargify' ),
-				'prorated' => __( 'Prorated', 'chargify' ),
-				'full'     => __( 'Full', 'chargify' ),
-			],
-			'attributes' => [
+			'name'         => __( 'Component Created At', 'chargify' ),
+			'id'           => Chargify_Component::META_CHARGIFY_CREATED_AT,
+			'type'         => 'text',
+			'attributes'   => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
 			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
 		]
 	);
 
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Allow Fractional Quantities', 'chargify' ),
-			'desc'       => __( 'The whether or not the component in Chargify has fractional quantities.', 'chargify' ),
-			'id'         => 'chargify_component_fractional_quantities',
-			'type'       => 'radio_inline',
-			'options'    => [
-				'1' => __( 'True', 'chargify' ),
-				'0' => __( 'False', 'chargify' ),
-			],
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-			],
-		]
-	);
-
-}
-
-/**
- * Remove the Publish meta box for our Components.
- */
-function remove_publish_meta_box() {
-	remove_meta_box( 'metabox_id', 'chargify_component', 'default_position' );
-	remove_meta_box( 'submitdiv', 'chargify_component', 'side' );
 }

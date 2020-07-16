@@ -4,3 +4,6 @@
 
 // NOTE: the built asset file for this is not being enqueued at this stage.
 // please see plugins/wp-chargify/includes/meta-boxes/chargify-api-log.php and update the return.
+.hidden {
+	display: none;
+}

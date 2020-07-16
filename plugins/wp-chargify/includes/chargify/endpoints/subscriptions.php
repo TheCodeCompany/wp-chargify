@@ -1,10 +1,13 @@
 <?php
+
 namespace Chargify\Endpoints\Subscription;
+
 use Chargify\Helpers\Options;
 use Chargify\Subscription;
+use function Chargify\Helpers\Forms\apply_chargify_form_messages;
 
 function create_subscription( $chargify_data, $wordpress_data ) {
-	$subdomain = Options\get_subdomain();
+	$subdomain        = Options\get_subdomain();
 	$request_endpoint = Options\get_subdomain() . '/subscriptions.json';
 	$request_headers  = Options\get_headers();
 
@@ -18,10 +21,11 @@ function create_subscription( $chargify_data, $wordpress_data ) {
 		 * @param $type             string     The type of request. e.g. 'REST' or 'webhook'.
 		 * @param $response_body    array      The data that the REST API endpoint returned.
 		 * @param $payload          array      The data we received in the request.
-		 * @param $event			string     The type of event we receieved in the request.
+		 * @param $event            string     The type of event we receieved in the request.
 		 * @param $event_id         int|string The unique event ID in Chargify.
 		 */
 		do_action( 'chargify\log_request', $request_endpoint, '400', $request_headers, 'REST', [], [], $subdomain );
+
 		return $subdomain;
 	}
 
@@ -30,7 +34,7 @@ function create_subscription( $chargify_data, $wordpress_data ) {
 		'body'    => $chargify_data,
 	];
 
-	$request          = wp_safe_remote_post( $request_endpoint, $data );
+	$request = wp_safe_remote_post( $request_endpoint, $data );
 	// Grab info from successful responses so we can log requests.
 	$response_status  = wp_remote_retrieve_response_code( $request );
 	$response_headers = wp_remote_retrieve_headers( $request );
@@ -49,12 +53,12 @@ function create_subscription( $chargify_data, $wordpress_data ) {
 	 * @param $type             string     The type of request. e.g. 'REST' or 'webhook'.
 	 * @param $response_body    array      The data that the REST API endpoint returned.
 	 * @param $payload          array      The data we received in the request.
-	 * @param $event			string     The type of event we receieved in the request.
+	 * @param $event            string     The type of event we received in the request.
 	 * @param $event_id         int|string The unique event ID in Chargify.
 	 */
 	do_action( 'chargify\log_request', $request_endpoint, $response_status, (array) $response_headers, 'REST', $chargify_subscription, $body );
 
-	# Anything other than a 201 code is an error so let's bail.
+	// Anything other than a 201 code is an error so let's bail.
 	if ( 201 !== $response_status ) {
 
 		if ( isset( $chargify_subscription['errors'] ) ) {
@@ -68,7 +72,7 @@ function create_subscription( $chargify_data, $wordpress_data ) {
 		return wp_remote_retrieve_response_message( $request );
 	}
 
-	# Create a subscription with the result
+	// Create a subscription with the result.
 	$subscription = Subscription\create_wordpress_subscription( $chargify_subscription, $wordpress_data );
 
 }

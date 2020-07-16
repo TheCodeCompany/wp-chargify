@@ -2,31 +2,83 @@
 
 namespace Chargify\Meta_Boxes\Component_Price_Point;
 
+use Chargify\Model\Chargify_Component_Price_Point;
+
 /**
  * Register all the meta fields so we can map Chargify product information to it.
  */
 function component_price_point_meta_boxes() {
+
 	$cmb2 = new_cmb2_box(
 		[
 			'id'           => 'chargify_component_price_point_details',
 			'title'        => __( 'Component Price Point Details', 'chargify' ),
-			'object_types' => [ 'chargify_component_price_point' ],
+			'object_types' => [ Chargify_Component_Price_Point::POST_TYPE ],
 			'context'      => 'normal',
 			'priority'     => 'high',
 			'show_names'   => true,
+			'tabs'         => [
+				[
+					'id'     => 'tab-general',
+					'title'  => __( 'General', 'chargify' ),
+					'fields' => [
+						Chargify_Component_Price_Point::META_CHARGIFY_ID,
+						Chargify_Component_Price_Point::META_CHARGIFY_NAME,
+						Chargify_Component_Price_Point::META_CHARGIFY_HANDLE,
+					],
+				],
+				[
+					'id'     => 'tab-linked-info',
+					'title'  => __( 'Linked Information', 'chargify' ),
+					'fields' => [
+						Chargify_Component_Price_Point::META_CHARGIFY_COMPONENT_ID,
+						Chargify_Component_Price_Point::META_WORDPRESS_COMPONENT_ID,
+					],
+				],
+				[
+					'id'     => 'tab-costs',
+					'title'  => __( 'Costs', 'chargify' ),
+					'fields' => [
+						Chargify_Component_Price_Point::META_CHARGIFY_DEFAULT,
+						Chargify_Component_Price_Point::META_CHARGIFY_PRICE_SCHEMA,
+						Chargify_Component_Price_Point::META_CHARGIFY_PRICES,
+					],
+				],
+				[
+					'id'     => 'tab-misc',
+					'title'  => __( 'Miscellaneous', 'chargify' ),
+					'fields' => [
+						Chargify_Component_Price_Point::META_CHARGIFY_ARCHIVED_AT,
+						Chargify_Component_Price_Point::META_CHARGIFY_CREATED_AT,
+						Chargify_Component_Price_Point::META_CHARGIFY_UPDATED_AT,
+					],
+				],
+			],
+		]
+	);
+
+
+	// General.
+	$cmb2->add_field(
+		[
+			'name'       => __( 'Component Price Point Chargify ID', 'chargify' ),
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_ID,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
 		]
 	);
 
 	$cmb2->add_field(
 		[
-			'name'       => __( 'Component ID', 'chargify' ),
-			'desc'       => __( 'The ID of the component Price Point in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_price_point_id',
-			'type'       => 'text_small',
+			'name'       => __( 'Component Price Point Name', 'chargify' ),
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_NAME,
+			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
-				'type'     => 'number',
 			],
 		]
 	);
@@ -34,8 +86,7 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Component Price Point Handle', 'chargify' ),
-			'desc'       => __( 'The handle of the component Price Point in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_price_point_handle',
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_HANDLE,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -44,11 +95,11 @@ function component_price_point_meta_boxes() {
 		]
 	);
 
-	$cmb2->add_field(
+	// Linked Information.
+	$cmb2->add_field( // TODO Components. Display array of chargify ids using the 'before_field' to get default value.
 		[
-			'name'       => __( 'Component ID', 'chargify' ),
-			'desc'       => __( 'The ID of the component that this price point is linked to in Chargify.', 'chargify' ),
-			'id'         => 'chargify_component_id',
+			'name'       => __( 'Price Point Component Chargify ID\'s', 'chargify' ),
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_COMPONENT_ID,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -57,41 +108,101 @@ function component_price_point_meta_boxes() {
 		]
 	);
 
-	$cmb2->add_field(
+	$cmb2->add_field( // TODO Components. Display array of chargify ids using the 'before_field' to get default value.
 		[
-			'name'       => __( 'Product Family ID', 'chargify' ),
-			'desc'       => __( 'The Product Family ID that the component price point belongs to in Chargify.', 'chargify' ),
-			'id'         => 'chargify_product_family_id',
-			'type'       => 'text_small',
+			'name'       => __( 'Price Point Component WordPress ID\'s', 'chargify' ),
+			'id'         => Chargify_Component_Price_Point::META_WORDPRESS_COMPONENT_ID,
+			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
 				'disabled' => 'disabled',
-				'type'     => 'number',
-			],
-		]
-	);
-
-	$cmb2->add_field(
-		[
-			'name'       => __( 'Product ID', 'chargify' ),
-			'desc'       => __( 'The Product ID that the component price point belongs to in Chargify.', 'chargify' ),
-			'id'         => 'chargify_product_id',
-			'type'       => 'text_small',
-			'attributes' => [
-				'readonly' => 'readonly',
-				'disabled' => 'disabled',
-				'type'     => 'number',
 			],
 		]
 	);
 
 
+	// Costs.
+	$cmb2->add_field(
+		[
+			'name'         => __( 'Component Price Point is Default', 'chargify' ),
+			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_DEFAULT,
+			'type'         => 'text',
+			'attributes'   => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
+			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_boolean_yes_no',
+		]
+	);
+
+	$cmb2->add_field( // TODO Components. Verify visually displaying.
+		[
+			'name'       => __( 'Component Price Schema', 'chargify' ),
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_PRICE_SCHEMA,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+	$cmb2->add_field( // TODO Components. Display array using the 'before_field' to get default value.
+		[
+			'name'       => __( 'Component Price Point Prices', 'chargify' ),
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_PRICES,
+			'type'       => 'text',
+			'attributes' => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+			],
+		]
+	);
+
+
+	// Miscellaneous.
+	$cmb2->add_field(
+		[
+			'name'         => __( 'Component Price Point Archived At', 'chargify' ),
+			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_ARCHIVED_AT,
+			'type'         => 'text',
+			'attributes'   => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
+			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'         => __( 'Component Price Point Created At', 'chargify' ),
+			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_CREATED_AT,
+			'type'         => 'text',
+			'attributes'   => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
+			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
+		]
+	);
+
+	$cmb2->add_field(
+		[
+			'name'         => __( 'Component Price Point Updated At', 'chargify' ),
+			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_UPDATED_AT,
+			'type'         => 'text',
+			'attributes'   => [
+				'readonly' => 'readonly',
+				'disabled' => 'disabled',
+				'type'     => 'hidden', // Added here because 'before_field' renders visuals.
+			],
+			'before_field' => 'Chargify\\Meta_Boxes\\Helpers\\maybe_convert_date',
+		]
+	);
+
 }
 
-/**
- * Remove the Publish meta box for our Components.
- */
-function remove_publish_meta_box() {
-	remove_meta_box( 'metabox_id', 'chargify_component', 'default_position' );
-	remove_meta_box( 'submitdiv', 'chargify_component', 'side' );
-}

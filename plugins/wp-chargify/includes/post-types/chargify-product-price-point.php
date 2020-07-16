@@ -8,7 +8,7 @@
 
 namespace Chargify\Post_Types\Product_Price_Point;
 
-use Chargify\Model\ChargifyProductPricePoint;
+use Chargify\Model\Chargify_Product_Price_Point;
 
 /**
  * Registers the `chargify_price_point` post type.
@@ -18,7 +18,7 @@ function chargify_product_price_point_init() {
 	$show_product_price_points = apply_filters( 'chargify_show_product_price_points', true );
 
 	register_post_type(
-		ChargifyProductPricePoint::POST_TYPE,
+		Chargify_Product_Price_Point::POST_TYPE,
 		[
 			'labels'                => [
 				'name'                  => __( 'Product Price Points', 'chargify' ),
@@ -59,7 +59,7 @@ function chargify_product_price_point_init() {
 			'menu_position'         => 22,
 			'menu_icon'             => 'dashicons-cart',
 			'show_in_rest'          => true,
-			'rest_base'             => ChargifyProductPricePoint::POST_TYPE,
+			'rest_base'             => Chargify_Product_Price_Point::POST_TYPE,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 		]
 	);
