@@ -24,7 +24,6 @@ class Chargify_Product_Price_Points {
 	 */
 	function get( $args, $assoc_args ) {
 
-		// TODO: product price points.
 		$product_id             = $args[0];
 		$product_price_point_id = $args[1];
 
@@ -59,7 +58,6 @@ class Chargify_Product_Price_Points {
 	 * @when after_wp_load
 	 */
 	function list( $args, $assoc_args ) {
-		// TODO: product price points.
 		$product_id = $args[0];
 		WP_CLI::log( "Fetching the price points from Chargify..." );
 		$product_price_points = Product_Price_Points\get_product_price_points( $product_id );
