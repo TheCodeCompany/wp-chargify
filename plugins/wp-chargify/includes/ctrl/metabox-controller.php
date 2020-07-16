@@ -8,16 +8,16 @@
 
 namespace Chargify\Controllers;
 
-use Chargify\Model\ChargifyComponent;
-use Chargify\Model\ChargifyComponentPricePoint;
-use Chargify\Model\ChargifyProduct;
-use Chargify\Model\ChargifyProductPricePoint;
+use Chargify\Model\Chargify_Component;
+use Chargify\Model\Chargify_Component_Price_Point;
+use Chargify\Model\Chargify_Product;
+use Chargify\Model\Chargify_Product_Price_Point;
 use function \Chargify\Helpers\Misc\partial_match_array_value_in_string;
 
 /**
  * A controller class for WP Chargify CPT meta boxes.
  */
-class MetaBoxController {
+class Metabox_Controller {
 
 	/**
 	 * All of the allowed meta boxes for this post type, can be a partial or full match.
@@ -59,10 +59,10 @@ class MetaBoxController {
 		$effected_post_types = [
 			'chargify_account',
 			'chargify_api_log',
-			ChargifyProduct::POST_TYPE,
-			ChargifyProductPricePoint::POST_TYPE,
-			ChargifyComponent::POST_TYPE,
-			ChargifyComponentPricePoint::POST_TYPE,
+			Chargify_Product::POST_TYPE,
+			Chargify_Product_Price_Point::POST_TYPE,
+			Chargify_Component::POST_TYPE,
+			Chargify_Component_Price_Point::POST_TYPE,
 		];
 
 		foreach ( $effected_post_types as $post_type ) {
@@ -87,7 +87,8 @@ class MetaBoxController {
 						 */
 						foreach ( $meta_box_by_priority as $meta_box ) {
 							if ( isset( $meta_box['id'] ) ) {
-								if ( ! partial_match_array_value_in_string( $this->partial_meta_box_matches, $meta_box['id'] ) ) {
+								$partial_meta_box_matches = apply_filters( 'chargify_partial_meta_box_matches_allowed', $this->partial_meta_box_matches );
+								if ( ! partial_match_array_value_in_string( $partial_meta_box_matches, $meta_box['id'] ) ) {
 									remove_meta_box( $meta_box['id'], $post_type, $context );
 								}
 							}

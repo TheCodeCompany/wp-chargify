@@ -7,12 +7,6 @@
  */
 
 namespace Chargify\Controllers;
-
-use function Chargify\Libraries\wp_enqueue_script_auto_ver;
-use function Chargify\Libraries\wp_enqueue_style_auto_ver;
-use function Chargify\Libraries\wp_localize_script_auto_ver;
-use function Chargify\Libraries\wp_register_script_auto_ver;
-
 /**
  * A controller class that adds CMB2 tabs.
  *
@@ -29,7 +23,7 @@ use function Chargify\Libraries\wp_register_script_auto_ver;
  *             [
  *                 'id'     => 'tab-1',
  *                 'icon'   => 'dashicons-admin-site',
- *                 'title'  => 'Tab 1',
+ *                 'title'  => __( 'Tab 1', 'chargify' ),
  *                 'fields' => [
  *                     $prefix . '_field_1',
  *                     $prefix . '_field_2',
@@ -38,7 +32,7 @@ use function Chargify\Libraries\wp_register_script_auto_ver;
  *             [
  *                 'id'     => 'tab-2',
  *                 'icon'   => 'dashicons-align-left',
- *                 'title'  => 'Tab 2',
+ *                 'title'  => __( 'Tab 2', 'chargify' ),
  *                 'fields' => [
  *                     $prefix . '_field_3',
  *                     $prefix . '_field_4',
@@ -80,7 +74,7 @@ use function Chargify\Libraries\wp_register_script_auto_ver;
  *     ]
  * );
  */
-class CMB2TabsController {
+class CMB2_Tabs_Controller {
 
 	/**
 	 * Setup the controller.

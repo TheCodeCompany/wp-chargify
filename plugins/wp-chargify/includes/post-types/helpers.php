@@ -3,14 +3,14 @@
 namespace Chargify\Post_Types\Helpers;
 
 use Chargify\Chargify\Endpoints\Product_Families;
-use Chargify\Model\ChargifyComponent;
-use Chargify\Model\ChargifyComponentFactory;
-use Chargify\Model\ChargifyComponentPricePoint;
-use Chargify\Model\ChargifyComponentPricePointFactory;
-use Chargify\Model\ChargifyProduct;
-use Chargify\Model\ChargifyProductFactory;
-use Chargify\Model\ChargifyProductPricePoint;
-use Chargify\Model\ChargifyProductPricePointFactory;
+use Chargify\Model\Chargify_Component;
+use Chargify\Model\Chargify_Component_Factory;
+use Chargify\Model\Chargify_Component_Price_Point;
+use Chargify\Model\Chargify_Component_Price_Point_Factory;
+use Chargify\Model\Chargify_Product;
+use Chargify\Model\Chargify_Product_Factory;
+use Chargify\Model\Chargify_Product_Price_Point;
+use Chargify\Model\Chargify_Product_Price_Point_Factory;
 use Chargify\Post_Types\Helpers;
 use Chargify\Chargify\Endpoints\Components;
 
@@ -52,7 +52,7 @@ function resync_chargify() {
 	delete_option( 'chargify_components_all' );
 
 	// Delete Products CPT's.
-	$product_factory = new ChargifyProductFactory();
+	$product_factory = new Chargify_Product_Factory();
 	$products        = $product_factory->get_posts( [], 'post' );
 
 	if ( $products ) {
@@ -62,7 +62,7 @@ function resync_chargify() {
 	}
 
 	// Delete Products Price Point CPT's.
-	$product_price_point_factory = new ChargifyProductPricePointFactory();
+	$product_price_point_factory = new Chargify_Product_Price_Point_Factory();
 	$product_price_points        = $product_price_point_factory->get_posts( [], 'post' );
 	if ( $product_price_points ) {
 		foreach ( $product_price_points as $product_price_point ) {
@@ -71,7 +71,7 @@ function resync_chargify() {
 	}
 
 	// Delete Component CPT's.
-	$component_factory = new ChargifyComponentFactory();
+	$component_factory = new Chargify_Component_Factory();
 	$components        = $component_factory->get_posts( [], 'post' );
 	if ( $components ) {
 		foreach ( $components as $component ) {
@@ -80,7 +80,7 @@ function resync_chargify() {
 	}
 
 	// Delete Component Price Point CPT's.
-	$component_price_point_factory = new ChargifyComponentPricePointFactory();
+	$component_price_point_factory = new Chargify_Component_Price_Point_Factory();
 	$component_price_points        = $component_price_point_factory->get_posts( [], 'post' );
 	if ( $component_price_points ) {
 		foreach ( $component_price_points as $component_price_point ) {
@@ -88,7 +88,7 @@ function resync_chargify() {
 		}
 	}
 
-	$product_factory = new ChargifyProductFactory();
+	$product_factory = new Chargify_Product_Factory();
 	$products        = $product_factory->get_posts( [], 'post' );
 
 	// We need to tell WP-CLI we successfully deleted posts.

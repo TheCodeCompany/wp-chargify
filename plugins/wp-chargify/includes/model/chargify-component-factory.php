@@ -8,24 +8,25 @@
 
 namespace Chargify\Model;
 
-use Chargify\Libraries\GenericPost;
-use Chargify\Libraries\GenericPostFactory;
+use Chargify\Libraries\Generic_Post;
+use Chargify\Libraries\Generic_Post_Factory;
 use WP_Post;
+use WP_Query;
 
 /**
  * The Component factory.
  */
-class ChargifyComponentFactory extends GenericPostFactory {
+class Chargify_Component_Factory extends Generic_Post_Factory {
 
 	/**
 	 * Return a wrapped instance of the given post or post ID.
 	 *
 	 * @param string|int|WP_Post $post The post object or ID to wrap.
 	 *
-	 * @return ChargifyComponent|GenericPost
+	 * @return Chargify_Component|Generic_Post
 	 */
 	public function wrap( $post ) {
-		return new ChargifyComponent( $post );
+		return new Chargify_Component( $post );
 	}
 
 	/**
@@ -35,15 +36,15 @@ class ChargifyComponentFactory extends GenericPostFactory {
 	 * @return string
 	 */
 	public function get_post_type() {
-		return ChargifyComponent::POST_TYPE;
+		return Chargify_Component::POST_TYPE;
 	}
 
 	/**
-	 * Returns a `GenericPost` with the given ID.
+	 * Returns a `Generic_Post` with the given ID.
 	 *
 	 * @param int|string $id The post ID.
 	 *
-	 * @return null|ChargifyComponent
+	 * @return null|Chargify_Component
 	 */
 	public function get_by_id( $id ) {
 
@@ -61,11 +62,11 @@ class ChargifyComponentFactory extends GenericPostFactory {
 	 *
 	 * @param int $component_id Component id.
 	 *
-	 * @return GenericPost|ChargifyComponent|null
+	 * @return Generic_Post|Chargify_Component|null
 	 */
 	public function get_by_component_id( $component_id ) {
 
-		return $this->get_by_unique_meta( ChargifyComponent::META_CHARGIFY_ID, $component_id );
+		return $this->get_by_unique_meta( Chargify_Component::META_CHARGIFY_ID, $component_id );
 	}
 
 	/**
@@ -73,11 +74,11 @@ class ChargifyComponentFactory extends GenericPostFactory {
 	 *
 	 * @param string $component_handle Component handle.
 	 *
-	 * @return GenericPost|ChargifyComponent|null
+	 * @return Generic_Post|Chargify_Component|null
 	 */
 	public function get_by_component_handle( $component_handle ) {
 
-		return $this->get_by_unique_meta( ChargifyComponent::META_CHARGIFY_HANDLE, $component_handle );
+		return $this->get_by_unique_meta( Chargify_Component::META_CHARGIFY_HANDLE, $component_handle );
 	}
 
 	/**
@@ -86,7 +87,7 @@ class ChargifyComponentFactory extends GenericPostFactory {
 	 * @param string $meta_key   The meta key.
 	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like component id, handle etc.
 	 *
-	 * @return GenericPost|ChargifyComponent|null
+	 * @return Generic_Post|Chargify_Component|null
 	 */
 	public function get_by_unique_meta( $meta_key, $meta_value ) {
 
@@ -102,17 +103,17 @@ class ChargifyComponentFactory extends GenericPostFactory {
 		];
 
 		// Should only be one.
-		$posts = get_posts( $args );
+		$query = new \WP_Query( $args );
 
-		if ( is_array( $posts ) && count( $posts ) === 1 ) {
-			return $this->wrap( $posts[0] );
+		if ( $query instanceof \WP_Query && $query->post_count === 1 ) {
+			return $this->wrap( $query->posts[0] );
 		} else {
 			return null;
 		}
 	}
 
 	/**
-	 * Static helper method to check that the post is of ChargifyComponent post type.
+	 * Static helper method to check that the post is of Chargify_Component post type.
 	 * Removes multiple lines in if statements as sometimes global $post is null or
 	 * stdClass and results in Undefined property notices.
 	 *
@@ -128,7 +129,7 @@ class ChargifyComponentFactory extends GenericPostFactory {
 
 		return null !== $post &&
 			isset( $post->post_type ) &&
-			ChargifyComponent::POST_TYPE === $post->post_type;
+			Chargify_Component::POST_TYPE === $post->post_type;
 	}
 
 }

@@ -49,7 +49,7 @@ function account_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'             => __( 'Subscription Status', 'chargify' ),
-			'desc'             => 'The status of this users subscription in Chargify.',
+			'desc'             => __( 'The status of this users subscription in Chargify.', 'chargify' ),
 			'id'               => 'chargify_subscription_status',
 			'type'             => 'select',
 			'show_option_none' => true,

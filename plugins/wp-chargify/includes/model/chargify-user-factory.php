@@ -9,25 +9,25 @@
 namespace Chargify\Model;
 
 use Chargify\Libraries\User;
-use Chargify\Libraries\UserFactory;
+use Chargify\Libraries\User_Factory;
 use WP_User;
 
 /**
  * The factory for chargify users.
  */
-class ChargifyUserFactory extends UserFactory {
+class Chargify_User_Factory extends User_Factory {
 
 	/**
 	 * User object.
 	 *
-	 * @param WP_User|User|ChargifyUser $user User object.
+	 * @param WP_User|User|Chargify_User $user User object.
 	 *
-	 * @return ChargifyUser
+	 * @return Chargify_User
 	 */
 	public function wrap( $user ) {
 		assert( ! empty( $user ) );
 
-		return new ChargifyUser( $user );
+		return new Chargify_User( $user );
 	}
 
 }

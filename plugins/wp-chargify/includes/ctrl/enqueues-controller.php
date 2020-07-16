@@ -8,10 +8,10 @@
 
 namespace Chargify\Controllers;
 
-use Chargify\Model\ChargifyComponent;
-use Chargify\Model\ChargifyComponentPricePoint;
-use Chargify\Model\ChargifyProduct;
-use Chargify\Model\ChargifyProductPricePoint;
+use Chargify\Model\Chargify_Component;
+use Chargify\Model\Chargify_Component_Price_Point;
+use Chargify\Model\Chargify_Product;
+use Chargify\Model\Chargify_Product_Price_Point;
 use function Chargify\Libraries\wp_enqueue_style_auto_ver;
 use function Chargify\Libraries\wp_enqueue_script_auto_ver;
 use function Chargify\Libraries\wp_localize_script_auto_ver;
@@ -20,9 +20,9 @@ use function Chargify\Libraries\wp_register_script_auto_ver;
 /**
  * A controller class for site enqueues.
  */
-class EnqueuesController {
+class Enqueues_Controller {
 
-	const IDENTIFIER = 'wp-chargify';
+	const ENQUEUE_PREFIX = 'wp-chargify';
 
 	/**
 	 * Setup the controller.
@@ -47,10 +47,7 @@ class EnqueuesController {
 	 */
 	public function main_enqueues() {
 
-		// TODO look at ways to enqueue on specific pages.
-		// TODO Possibly build form specific JS into a separate file and inject inline below form.
-
-		$assets_handle = self::IDENTIFIER . '-main';
+		$assets_handle = self::ENQUEUE_PREFIX . '-main';
 
 		wp_enqueue_style_auto_ver(
 			$assets_handle,
@@ -86,10 +83,10 @@ class EnqueuesController {
 
 		$allowed_on_post_type_edit_pages = [
 			'chargify_api_log',
-			ChargifyProduct::POST_TYPE,
-			ChargifyProductPricePoint::POST_TYPE,
-			ChargifyComponent::POST_TYPE,
-			ChargifyComponentPricePoint::POST_TYPE,
+			Chargify_Product::POST_TYPE,
+			Chargify_Product_Price_Point::POST_TYPE,
+			Chargify_Component::POST_TYPE,
+			Chargify_Component_Price_Point::POST_TYPE,
 		];
 
 		// Checks to ensure these enqueues are on specific pages.
@@ -102,7 +99,7 @@ class EnqueuesController {
 		// As CMB2 enqueues their styles on all pages we needed to remove it and add it back on our custom post type.
 		wp_enqueue_style( 'cmb2-styles' );
 
-		$assets_handle = self::IDENTIFIER . '-admin';
+		$assets_handle = self::ENQUEUE_PREFIX . '-admin';
 
 		wp_enqueue_style_auto_ver(
 			$assets_handle,
@@ -136,8 +133,8 @@ class EnqueuesController {
 
 		$base_config = [
 			'ajaxURL'              => admin_url( 'admin-ajax.php' ),
-			'validateCouponAction' => ValidateCouponController::action(),
-			'validateCouponNonce'  => ValidateCouponController::nonce(),
+//			'validateCouponAction' => Validate_Coupon_Controller::action(), // TODO, uncomment in other branch.
+//			'validateCouponNonce'  => Validate_Coupon_Controller::nonce(), // TODO, uncomment in other branch.
 		];
 
 		// Defaults, can be filtered by the theme.

@@ -97,7 +97,6 @@ function save_product_price_points( $product_id, $price_points = [] ) {
 
 /**
  * A function to get the details of a price point.
- * // TODO: product price points.
  *
  * @param int $product_id             The product id.
  * @param int $product_price_point_id The price point id.

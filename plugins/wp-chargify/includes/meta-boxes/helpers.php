@@ -2,7 +2,7 @@
 
 namespace Chargify\Meta_Boxes\Helpers;
 
-use Chargify\Libraries\DateHelper;
+use Chargify\Libraries\Date_Helper;
 use function Chargify\Helpers\Costs\convert_cents_to_dollars;
 
 /**
@@ -111,7 +111,7 @@ function maybe_convert_date( $field_args, $field ) {
 		$meta = get_post_meta( $post->ID, $field->id(), true );
 
 		if ( $meta ) {
-			$value = DateHelper::format_date( $meta, DateHelper::DATE_FORMAT_DISPLAY );
+			$value = Date_Helper::format_date( $meta, Date_Helper::DATE_FORMAT_DISPLAY );
 		}
 	}
 

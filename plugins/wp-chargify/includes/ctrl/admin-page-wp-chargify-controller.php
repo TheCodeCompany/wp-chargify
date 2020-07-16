@@ -8,15 +8,10 @@
 
 namespace Chargify\Controllers;
 
-use function Chargify\Libraries\wp_enqueue_script_auto_ver;
-use function Chargify\Libraries\wp_enqueue_style_auto_ver;
-use function Chargify\Libraries\wp_localize_script_auto_ver;
-use function Chargify\Libraries\wp_register_script_auto_ver;
-
 /**
  * A controller class for the main admin page.
  */
-class AdminPageWPChargifyController {
+class Admin_Page_WP_Chargify_Controller {
 	/**
 	 * Setup the controller.
 	 */
@@ -33,8 +28,8 @@ class AdminPageWPChargifyController {
 
 	public function add_main_wp_menu() {
 		add_menu_page(
-			'WP Chargify',
-			'WP Chargify',
+			__( 'WP Chargify', 'chargify' ),
+			__( 'WP Chargify', 'chargify' ),
 			'manage_options',
 			'wp-chargify.php'
 		);

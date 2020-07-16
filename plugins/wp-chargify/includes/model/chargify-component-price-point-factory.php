@@ -8,24 +8,25 @@
 
 namespace Chargify\Model;
 
-use Chargify\Libraries\GenericPost;
-use Chargify\Libraries\GenericPostFactory;
+use Chargify\Libraries\Generic_Post;
+use Chargify\Libraries\Generic_Post_Factory;
 use WP_Post;
+use WP_Query;
 
 /**
  * The Component Price Point factory.
  */
-class ChargifyComponentPricePointFactory extends GenericPostFactory {
+class Chargify_Component_Price_Point_Factory extends Generic_Post_Factory {
 
 	/**
 	 * Return a wrapped instance of the given post or post ID.
 	 *
 	 * @param string|int|WP_Post $post The post object or ID to wrap.
 	 *
-	 * @return ChargifyComponentPricePoint|GenericPost
+	 * @return Chargify_Component_Price_Point|Generic_Post
 	 */
 	public function wrap( $post ) {
-		return new ChargifyComponentPricePoint( $post );
+		return new Chargify_Component_Price_Point( $post );
 	}
 
 	/**
@@ -35,15 +36,15 @@ class ChargifyComponentPricePointFactory extends GenericPostFactory {
 	 * @return string
 	 */
 	public function get_post_type() {
-		return ChargifyComponentPricePoint::POST_TYPE;
+		return Chargify_Component_Price_Point::POST_TYPE;
 	}
 
 	/**
-	 * Returns a `GenericPost` with the given ID.
+	 * Returns a `Generic_Post` with the given ID.
 	 *
 	 * @param int|string $id The post ID.
 	 *
-	 * @return null|ChargifyComponentPricePoint
+	 * @return null|Chargify_Component_Price_Point
 	 */
 	public function get_by_id( $id ) {
 
@@ -61,23 +62,47 @@ class ChargifyComponentPricePointFactory extends GenericPostFactory {
 	 *
 	 * @param int $component_price_point_id ComponentPricePoint id.
 	 *
-	 * @return GenericPost|ChargifyComponentPricePoint|null
+	 * @return Generic_Post|Chargify_Component_Price_Point|null
 	 */
 	public function get_by_component_price_point_id( $component_price_point_id ) {
 
-		return $this->get_by_unique_meta( ChargifyComponentPricePoint::META_CHARGIFY_COMPONENT_PRICE_POINT_ID, $component_price_point_id );
+		return $this->get_by_unique_meta( Chargify_Component_Price_Point::META_CHARGIFY_ID, $component_price_point_id );
 	}
 
 	/**
-	 * Get the Chargify ComponentPricePoint by component price point handle.
+	 * Get the Chargify Component Price Point by component price point handle.
 	 *
-	 * @param string $component_price_point_handle ComponentPricePoint handle.
+	 * @param int    $component_chargify_id        The component chargify id.
+	 * @param string $component_price_point_handle Component price point handle.
 	 *
-	 * @return GenericPost|ChargifyComponentPricePoint|null
+	 * @return Generic_Post|Chargify_Component_Price_Point|null
 	 */
-	public function get_by_component_price_point_handle( $component_price_point_handle ) {
+	public function get_by_component_price_point_handle( $component_chargify_id, $component_price_point_handle ) {
 
-		return $this->get_by_unique_meta( ChargifyComponentPricePoint::META_CHARGIFY_COMPONENT_PRICE_POINT_HANDLE, $component_price_point_handle );
+		$args = [
+			'post_type'  => $this->get_post_type(),
+			'meta_query' => [ // phpcs:ignore
+				[
+					'key'     => Chargify_Component_Price_Point::META_CHARGIFY_HANDLE,
+					'value'   => $component_price_point_handle,
+					'compare' => '=',
+				],
+				[
+					'key'     => Chargify_Component_Price_Point::META_CHARGIFY_COMPONENT_ID,
+					'value'   => $component_chargify_id,
+					'compare' => '=',
+				],
+			],
+		];
+
+		// Should only be one.
+		$query = new \WP_Query( $args );
+
+		if ( $query instanceof \WP_Query && $query->post_count === 1 ) {
+			return $this->wrap( $query->posts[0] );
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -86,7 +111,7 @@ class ChargifyComponentPricePointFactory extends GenericPostFactory {
 	 * @param string $meta_key   The meta key.
 	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like component id, handle etc.
 	 *
-	 * @return GenericPost|ChargifyComponentPricePoint|null
+	 * @return Generic_Post|Chargify_Component_Price_Point|null
 	 */
 	public function get_by_unique_meta( $meta_key, $meta_value ) {
 
@@ -102,10 +127,10 @@ class ChargifyComponentPricePointFactory extends GenericPostFactory {
 		];
 
 		// Should only be one.
-		$posts = get_posts( $args );
+		$query = new \WP_Query( $args );
 
-		if ( is_array( $posts ) && count( $posts ) === 1 ) {
-			return $this->wrap( $posts[0] );
+		if ( $query instanceof \WP_Query && $query->post_count === 1 ) {
+			return $this->wrap( $query->posts[0] );
 		} else {
 			return null;
 		}
@@ -128,7 +153,7 @@ class ChargifyComponentPricePointFactory extends GenericPostFactory {
 
 		return null !== $post &&
 			isset( $post->post_type ) &&
-			ChargifyComponentPricePoint::POST_TYPE === $post->post_type;
+			Chargify_Component_Price_Point::POST_TYPE === $post->post_type;
 	}
 
 }

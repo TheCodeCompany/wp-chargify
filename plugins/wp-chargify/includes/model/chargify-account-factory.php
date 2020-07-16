@@ -8,24 +8,25 @@
 
 namespace Chargify\Model;
 
-use Chargify\Libraries\GenericPost;
-use Chargify\Libraries\GenericPostFactory;
+use Chargify\Libraries\Generic_Post;
+use Chargify\Libraries\Generic_Post_Factory;
 use WP_Post;
+use WP_Query;
 
 /**
  * The Account factory.
  */
-class ChargifyAccountFactory extends GenericPostFactory {
+class Chargify_Account_Factory extends Generic_Post_Factory {
 
 	/**
 	 * Return a wrapped instance of the given post or post ID.
 	 *
 	 * @param string|int|WP_Post $post The post object or ID to wrap.
 	 *
-	 * @return ChargifyAccount|GenericPost
+	 * @return Chargify_Account|Generic_Post
 	 */
 	public function wrap( $post ) {
-		return new ChargifyAccount( $post );
+		return new Chargify_Account( $post );
 	}
 
 	/**
@@ -35,15 +36,15 @@ class ChargifyAccountFactory extends GenericPostFactory {
 	 * @return string
 	 */
 	public function get_post_type() {
-		return ChargifyAccount::POST_TYPE;
+		return Chargify_Account::POST_TYPE;
 	}
 
 	/**
-	 * Returns a `GenericPost` with the given ID.
+	 * Returns a `Generic_Post` with the given ID.
 	 *
 	 * @param int|string $id The post ID.
 	 *
-	 * @return null|ChargifyAccount
+	 * @return null|Chargify_Account
 	 */
 	public function get_by_id( $id ) {
 
@@ -61,11 +62,11 @@ class ChargifyAccountFactory extends GenericPostFactory {
 	 *
 	 * @param int $user_id WordPress user id.
 	 *
-	 * @return GenericPost|ChargifyAccount|null
+	 * @return Generic_Post|Chargify_Account|null
 	 */
 	public function get_by_wordpress_user_id( $user_id ) {
 
-		return $this->get_by_unique_meta( ChargifyAccount::META_CHARGIFY_WORDPRESS_USER_ID, $user_id );
+		return $this->get_by_unique_meta( Chargify_Account::META_CHARGIFY_WORDPRESS_USER_ID, $user_id );
 	}
 
 	/**
@@ -73,11 +74,11 @@ class ChargifyAccountFactory extends GenericPostFactory {
 	 *
 	 * @param string $subscription_id Subscription id.
 	 *
-	 * @return GenericPost|ChargifyAccount|null
+	 * @return Generic_Post|Chargify_Account|null
 	 */
 	public function get_by_subscription_id( $subscription_id ) {
 
-		return $this->get_by_unique_meta( ChargifyAccount::META_CHARGIFY_SUBSCRIPTION_ID, $subscription_id );
+		return $this->get_by_unique_meta( Chargify_Account::META_CHARGIFY_SUBSCRIPTION_ID, $subscription_id );
 	}
 
 	/**
@@ -86,7 +87,7 @@ class ChargifyAccountFactory extends GenericPostFactory {
 	 * @param string $meta_key   The meta key.
 	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like account id, handle etc.
 	 *
-	 * @return GenericPost|ChargifyAccount|null
+	 * @return Generic_Post|Chargify_Account|null
 	 */
 	public function get_by_unique_meta( $meta_key, $meta_value ) {
 
@@ -102,17 +103,17 @@ class ChargifyAccountFactory extends GenericPostFactory {
 		];
 
 		// Should only be one.
-		$posts = get_posts( $args );
+		$query = new \WP_Query( $args );
 
-		if ( is_array( $posts ) && count( $posts ) === 1 ) {
-			return $this->wrap( $posts[0] );
+		if ( $query instanceof \WP_Query && $query->post_count === 1 ) {
+			return $this->wrap( $query->posts[0] );
 		} else {
 			return null;
 		}
 	}
 
 	/**
-	 * Static helper method to check that the post is of ChargifyAccount post type.
+	 * Static helper method to check that the post is of Chargify_Account post type.
 	 * Removes multiple lines in if statements as sometimes global $post is null or
 	 * stdClass and results in Undefined property notices.
 	 *
@@ -128,7 +129,7 @@ class ChargifyAccountFactory extends GenericPostFactory {
 
 		return null !== $post &&
 			isset( $post->post_type ) &&
-			ChargifyAccount::POST_TYPE === $post->post_type;
+			Chargify_Account::POST_TYPE === $post->post_type;
 	}
 
 }

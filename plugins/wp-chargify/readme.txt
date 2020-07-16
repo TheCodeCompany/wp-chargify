@@ -54,6 +54,7 @@ We provide a number of optional filters you can use:
 `chargify_show_products_price_points` - Set this to `false` to hide the Products Price Points custom post type.
 `chargify_show_api_logs` - Set this to `false` to hide the API logs custom post type.
 `chargify_generate_password` - Alter the password generation.
+`chargify_partial_meta_box_matches_allowed` - Hides all metaboxes not listed in the array for the CPT's within this plugin.
 
 == Chargify signup form filters. ==
 

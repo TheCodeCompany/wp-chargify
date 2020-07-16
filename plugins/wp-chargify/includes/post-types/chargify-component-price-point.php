@@ -8,7 +8,7 @@
 
 namespace Chargify\Post_Types\Component_Price_Point;
 
-use Chargify\Model\ChargifyComponentPricePoint;
+use Chargify\Model\Chargify_Component_Price_Point;
 
 /**
  * Registers the `chargify_component_price_point` post type.
@@ -18,7 +18,7 @@ function chargify_component_price_point_init() {
 	$show_component_price_points = apply_filters( 'chargify_show_component_price_points', true );
 
 	register_post_type(
-		ChargifyComponentPricePoint::POST_TYPE,
+		Chargify_Component_Price_Point::POST_TYPE,
 		[
 			'labels'                => [
 				'name'                  => __( 'Component Price Points', 'chargify' ),
@@ -59,7 +59,7 @@ function chargify_component_price_point_init() {
 			'menu_position'         => 22,
 			'menu_icon'             => 'dashicons-cart',
 			'show_in_rest'          => true,
-			'rest_base'             => ChargifyComponentPricePoint::POST_TYPE,
+			'rest_base'             => Chargify_Component_Price_Point::POST_TYPE,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 		]
 	);
