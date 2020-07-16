@@ -15,7 +15,7 @@ use WP_Post;
  * A model instance which wraps a `WP_Post` instance. You should extend this
  * class for a CPT instance.
  */
-class GenericPost extends Model {
+class Generic_Post extends Model {
 
 	/**
 	 * The post object.
@@ -25,7 +25,7 @@ class GenericPost extends Model {
 	protected $post;
 
 	/**
-	 * GenericPost constructor.
+	 * Generic_Post constructor.
 	 *
 	 * @param int|WP_Post $post The post object or id.
 	 */

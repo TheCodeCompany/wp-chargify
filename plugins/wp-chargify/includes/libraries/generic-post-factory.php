@@ -1,6 +1,6 @@
 <?php
 /**
- * A factory for GenericPost instances
+ * A factory for Generic_Post instances
  *
  * @file    wp-chargify/includes/libraries/generic-post-factory.php
  * @package WPCHargify
@@ -15,14 +15,14 @@ use WP_Post;
  * instance should not be instantiated directly.  It should always go via one of
  * the methods in this class.
  */
-class GenericPostFactory extends ModelFactory {
+class Generic_Post_Factory extends Model_Factory {
 
 	/**
-	 * Returns a `GenericPost` with the given ID.
+	 * Returns a `Generic_Post` with the given ID.
 	 *
 	 * @param int|string $id The post ID.
 	 *
-	 * @return null|GenericPost
+	 * @return null|Generic_Post
 	 */
 	public function get_by_id( $id ) {
 
@@ -41,7 +41,7 @@ class GenericPostFactory extends ModelFactory {
 	 * @param string|int $identifier      The identifyer value
 	 * @param string     $identifier_type The type of identifyer, id or slug.
 	 *
-	 * @return GenericPost|null
+	 * @return Generic_Post|null
 	 */
 	public function get_by( $identifier, $identifier_type = 'id' ) {
 		$post = null;
@@ -57,11 +57,11 @@ class GenericPostFactory extends ModelFactory {
 	}
 
 	/**
-	 * Returns a `GenericPost` with the given slug.
+	 * Returns a `Generic_Post` with the given slug.
 	 *
 	 * @param string $slug The post_name or 'slug' to query for.
 	 *
-	 * @return null|GenericPost
+	 * @return null|Generic_Post
 	 */
 	public function get_by_slug( $slug ) {
 		$post = null;
@@ -80,7 +80,7 @@ class GenericPostFactory extends ModelFactory {
 	}
 
 	/**
-	 * Returns an array of `GenericPost`s which match the given search.
+	 * Returns an array of `Generic_Post`s which match the given search.
 	 *
 	 * @param array  $args   The get_posts() arguments.
 	 * @param string $output What to output.
@@ -151,7 +151,7 @@ class GenericPostFactory extends ModelFactory {
 	 * @param WP_Post $post   The post object.
 	 * @param string  $output 'post', 'post_wrapper' or 'id'.
 	 *
-	 * @return GenericPost|null The post in the desired output.
+	 * @return Generic_Post|null The post in the desired output.
 	 */
 	public function convert_post_to_output( $post, $output = 'post' ) {
 		$converted_post = null;
@@ -173,7 +173,7 @@ class GenericPostFactory extends ModelFactory {
 	 * @param array $insert_post_args The `wp_insert_post()` args.
 	 * @param array $meta_fields      The meta fields to add. [ 'meta_key' => 'meta_value' ].
 	 *
-	 * @return array|GenericPost|WP_Post|null
+	 * @return array|Generic_Post|WP_Post|null
 	 */
 	public function create_post( $insert_post_args = [], $meta_fields = [] ) {
 
@@ -239,15 +239,15 @@ class GenericPostFactory extends ModelFactory {
 	}
 
 	/**
-	 * Returns a GenericPost instance which wraps the given post.
+	 * Returns a Generic_Post instance which wraps the given post.
 	 *
 	 * @param WP_Post $post The post being wrapped.
 	 *
-	 * @return GenericPost
+	 * @return Generic_Post
 	 */
 	public function wrap( $post ) {
 		assert( ! empty( $post ) );
 
-		return new GenericPost( $post );
+		return new Generic_Post( $post );
 	}
 }

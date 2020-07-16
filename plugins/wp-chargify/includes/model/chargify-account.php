@@ -8,13 +8,13 @@
 
 namespace Chargify\Model;
 
-use Chargify\Libraries\GenericPost;
+use Chargify\Libraries\Generic_Post;
 use WP_Post;
 
 /**
  * The Account Model.
  */
-class ChargifyAccount extends GenericPost {
+class Chargify_Account extends Generic_Post {
 
 	const POST_TYPE = 'chargify_account';
 	const CPT       = self::POST_TYPE;
@@ -207,7 +207,7 @@ class ChargifyAccount extends GenericPost {
 			// The product id.
 			$product_id = $this->get_chargify_products_multicheck();
 
-			$chargify_product_factory = new ChargifyProductFactory();
+			$chargify_product_factory = new Chargify_Product_Factory();
 			$chargify_product         = $chargify_product_factory->get_by_id( $product_id );
 
 			$this->get_chargify_product_handle = $chargify_product->get_chargify_product_handle();

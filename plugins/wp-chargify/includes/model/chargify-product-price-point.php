@@ -8,13 +8,13 @@
 
 namespace Chargify\Model;
 
-use Chargify\Libraries\GenericPost;
+use Chargify\Libraries\Generic_Post;
 use WP_Post;
 
 /**
  * The Product Price Point Model.
  */
-class ChargifyProductPricePoint extends GenericPost {
+class Chargify_Product_Price_Point extends Generic_Post {
 
 	const POST_TYPE = 'chargify_product_pp';
 	const CPT       = self::POST_TYPE;

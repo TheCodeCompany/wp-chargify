@@ -10,7 +10,7 @@ namespace Chargify\Libraries;
 
 /**
  * Object which is responsible for producing `Model` instances.
- * All `ModelFactory`s are available via their slug from controllers.  Like so:
+ * All `Model_Factory`s are available via their slug from controllers.  Like so:
  *
  * PostFactory would be:
  * $this->post->get_by_id( 123 )
@@ -18,4 +18,4 @@ namespace Chargify\Libraries;
  *
  * The slug is derived from the class name, minus the trailing 'Factory'.  All lowercase.
  */
-class ModelFactory { }
+class Model_Factory { }
