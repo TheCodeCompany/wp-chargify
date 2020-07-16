@@ -16,7 +16,7 @@ use function Chargify\Libraries\wp_register_script_auto_ver;
 /**
  * A controller class for the main admin page.
  */
-class AdminPageWPChargifyController {
+class Admin_Page_WP_Chargify_Controller {
 	/**
 	 * Setup the controller.
 	 */

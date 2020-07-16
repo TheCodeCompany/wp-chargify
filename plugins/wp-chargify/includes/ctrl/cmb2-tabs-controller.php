@@ -80,7 +80,7 @@ use function Chargify\Libraries\wp_register_script_auto_ver;
  *     ]
  * );
  */
-class CMB2TabsController {
+class CMB2_Tabs_Controller {
 
 	/**
 	 * Setup the controller.

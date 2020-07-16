@@ -17,7 +17,7 @@ use function \Chargify\Helpers\Misc\partial_match_array_value_in_string;
 /**
  * A controller class for WP Chargify CPT meta boxes.
  */
-class MetaBoxController {
+class Metabox_Controller {
 
 	/**
 	 * All of the allowed meta boxes for this post type, can be a partial or full match.
@@ -87,7 +87,8 @@ class MetaBoxController {
 						 */
 						foreach ( $meta_box_by_priority as $meta_box ) {
 							if ( isset( $meta_box['id'] ) ) {
-								if ( ! partial_match_array_value_in_string( $this->partial_meta_box_matches, $meta_box['id'] ) ) {
+								$partial_meta_box_matches = apply_filters( 'chargify_partial_meta_box_matches_allowed', $this->partial_meta_box_matches );
+								if ( ! partial_match_array_value_in_string( $partial_meta_box_matches, $meta_box['id'] ) ) {
 									remove_meta_box( $meta_box['id'], $post_type, $context );
 								}
 							}
