@@ -11,6 +11,7 @@ namespace Chargify\Model;
 use Chargify\Libraries\Generic_Post;
 use Chargify\Libraries\Generic_Post_Factory;
 use WP_Post;
+use WP_Query;
 
 /**
  * The Product Price Point factory.
@@ -71,13 +72,37 @@ class Chargify_Product_Price_Point_Factory extends Generic_Post_Factory {
 	/**
 	 * Get the Chargify ProductPricePoint by product price point handle.
 	 *
+	 * @param int    $product_chargify_id        The product chargify id.
 	 * @param string $product_price_point_handle ProductPricePoint handle.
 	 *
 	 * @return Generic_Post|Chargify_Product_Price_Point|null
 	 */
-	public function get_by_product_price_point_handle( $product_price_point_handle ) {
+	public function get_by_product_price_point_handle( $product_chargify_id, $product_price_point_handle ) {
 
-		return $this->get_by_unique_meta( Chargify_Product_Price_Point::META_CHARGIFY_PRODUCT_PRICE_POINT_HANDLE, $product_price_point_handle );
+		$args = [
+			'post_type'  => $this->get_post_type(),
+			'meta_query' => [ // phpcs:ignore
+				[
+					'key'     => Chargify_Product_Price_Point::META_CHARGIFY_HANDLE,
+					'value'   => $product_price_point_handle,
+					'compare' => '=',
+				],
+				[
+					'key'     => Chargify_Product_Price_Point::META_CHARGIFY_PRODUCT_ID,
+					'value'   => $product_chargify_id,
+					'compare' => '=',
+				],
+			],
+		];
+
+		// Should only be one.
+		$query = new \WP_Query( $args );
+
+		if ( $query instanceof \WP_Query && $query->post_count === 1 ) {
+			return $this->wrap( $query->posts[0] );
+		} else {
+			return null;
+		}
 	}
 
 	/**

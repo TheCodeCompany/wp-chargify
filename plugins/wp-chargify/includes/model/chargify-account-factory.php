@@ -11,6 +11,7 @@ namespace Chargify\Model;
 use Chargify\Libraries\Generic_Post;
 use Chargify\Libraries\Generic_Post_Factory;
 use WP_Post;
+use WP_Query;
 
 /**
  * The Account factory.
