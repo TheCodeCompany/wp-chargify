@@ -1,6 +1,6 @@
 <?php
 /**
- * A factory for GenericPost instances
+ * A factory for Generic_Post instances
  *
  * @file wp-chargify/includes/libraries/model.php
  * @package WPCHargify

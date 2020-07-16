@@ -8,24 +8,24 @@
 
 namespace Chargify\Model;
 
-use Chargify\Libraries\GenericPost;
-use Chargify\Libraries\GenericPostFactory;
+use Chargify\Libraries\Generic_Post;
+use Chargify\Libraries\Generic_Post_Factory;
 use WP_Post;
 
 /**
  * The Product factory.
  */
-class ChargifyProductFactory extends GenericPostFactory {
+class Chargify_Product_Factory extends Generic_Post_Factory {
 
 	/**
 	 * Return a wrapped instance of the given post or post ID.
 	 *
 	 * @param string|int|WP_Post $post The post object or ID to wrap.
 	 *
-	 * @return ChargifyProduct|GenericPost
+	 * @return Chargify_Product|Generic_Post
 	 */
 	public function wrap( $post ) {
-		return new ChargifyProduct( $post );
+		return new Chargify_Product( $post );
 	}
 
 	/**
@@ -35,15 +35,15 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 * @return string
 	 */
 	public function get_post_type() {
-		return ChargifyProduct::POST_TYPE;
+		return Chargify_Product::POST_TYPE;
 	}
 
 	/**
-	 * Returns a `GenericPost` with the given ID.
+	 * Returns a `Generic_Post` with the given ID.
 	 *
 	 * @param int|string $id The post ID.
 	 *
-	 * @return null|ChargifyProduct
+	 * @return null|Chargify_Product
 	 */
 	public function get_by_id( $id ) {
 
@@ -61,11 +61,11 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 *
 	 * @param int $product_id Product id.
 	 *
-	 * @return GenericPost|ChargifyProduct|null
+	 * @return Generic_Post|Chargify_Product|null
 	 */
 	public function get_by_product_id( $product_id ) {
 
-		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_ID, $product_id );
+		return $this->get_by_unique_meta( Chargify_Product::META_CHARGIFY_ID, $product_id );
 	}
 
 	/**
@@ -73,11 +73,11 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 *
 	 * @param string $product_handle Product handle.
 	 *
-	 * @return GenericPost|ChargifyProduct|null
+	 * @return Generic_Post|Chargify_Product|null
 	 */
 	public function get_by_product_handle( $product_handle ) {
 
-		return $this->get_by_unique_meta( ChargifyProduct::META_CHARGIFY_HANDLE, $product_handle );
+		return $this->get_by_unique_meta( Chargify_Product::META_CHARGIFY_HANDLE, $product_handle );
 	}
 
 	/**
@@ -86,7 +86,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 	 * @param string $meta_key   The meta key.
 	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like product id, handle etc.
 	 *
-	 * @return GenericPost|ChargifyProduct|null
+	 * @return Generic_Post|Chargify_Product|null
 	 */
 	public function get_by_unique_meta( $meta_key, $meta_value ) {
 
@@ -112,7 +112,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 	}
 
 	/**
-	 * Static helper method to check that the post is of ChargifyProduct post type.
+	 * Static helper method to check that the post is of Chargify_Product post type.
 	 * Removes multiple lines in if statements as sometimes global $post is null or
 	 * stdClass and results in Undefined property notices.
 	 *
@@ -128,7 +128,7 @@ class ChargifyProductFactory extends GenericPostFactory {
 
 		return null !== $post &&
 			isset( $post->post_type ) &&
-			ChargifyProduct::POST_TYPE === $post->post_type;
+			Chargify_Product::POST_TYPE === $post->post_type;
 	}
 
 }

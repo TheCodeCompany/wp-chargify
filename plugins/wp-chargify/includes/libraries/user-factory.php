@@ -8,17 +8,17 @@
 
 namespace Chargify\Libraries;
 
-use Chargify\Libraries\ModelFactory;
+use Chargify\Libraries\Model_Factory;
 use WP_User;
 use WP_User_Query;
 
 /**
  * General user factory, can be extended from for specific user variants.
  */
-class UserFactory extends ModelFactory {
+class User_Factory extends Model_Factory {
 
 	/**
-	 * UserFactory constructor.
+	 * User_Factory constructor.
 	 */
 	public function __construct() {
 	}

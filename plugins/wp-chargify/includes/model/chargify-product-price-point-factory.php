@@ -8,24 +8,24 @@
 
 namespace Chargify\Model;
 
-use Chargify\Libraries\GenericPost;
-use Chargify\Libraries\GenericPostFactory;
+use Chargify\Libraries\Generic_Post;
+use Chargify\Libraries\Generic_Post_Factory;
 use WP_Post;
 
 /**
  * The Product Price Point factory.
  */
-class ChargifyProductPricePointFactory extends GenericPostFactory {
+class Chargify_Product_Price_Point_Factory extends Generic_Post_Factory {
 
 	/**
 	 * Return a wrapped instance of the given post or post ID.
 	 *
 	 * @param string|int|WP_Post $post The post object or ID to wrap.
 	 *
-	 * @return ChargifyProductPricePoint|GenericPost
+	 * @return Chargify_Product_Price_Point|Generic_Post
 	 */
 	public function wrap( $post ) {
-		return new ChargifyProductPricePoint( $post );
+		return new Chargify_Product_Price_Point( $post );
 	}
 
 	/**
@@ -35,15 +35,15 @@ class ChargifyProductPricePointFactory extends GenericPostFactory {
 	 * @return string
 	 */
 	public function get_post_type() {
-		return ChargifyProductPricePoint::POST_TYPE;
+		return Chargify_Product_Price_Point::POST_TYPE;
 	}
 
 	/**
-	 * Returns a `GenericPost` with the given ID.
+	 * Returns a `Generic_Post` with the given ID.
 	 *
 	 * @param int|string $id The post ID.
 	 *
-	 * @return null|ChargifyProductPricePoint
+	 * @return null|Chargify_Product_Price_Point
 	 */
 	public function get_by_id( $id ) {
 
@@ -59,34 +59,34 @@ class ChargifyProductPricePointFactory extends GenericPostFactory {
 	/**
 	 * Get the Chargify Product Price Point by product price point id.
 	 *
-	 * @param int $product_price_point_id ProductPricePoint id.
+	 * @param int $product_price_point_id Product_Price_Point id.
 	 *
-	 * @return GenericPost|ChargifyProductPricePoint|null
+	 * @return Generic_Post|Chargify_Product_Price_Point|null
 	 */
 	public function get_by_product_price_point_id( $product_price_point_id ) {
 
-		return $this->get_by_unique_meta( ChargifyProductPricePoint::META_CHARGIFY_ID, $product_price_point_id );
+		return $this->get_by_unique_meta( Chargify_Product_Price_Point::META_CHARGIFY_ID, $product_price_point_id );
 	}
 
 	/**
-	 * Get the Chargify ProductPricePoint by product price point handle.
+	 * Get the Chargify Product_Price_Point by product price point handle.
 	 *
-	 * @param string $product_price_point_handle ProductPricePoint handle.
+	 * @param string $product_price_point_handle Product_Price_Point handle.
 	 *
-	 * @return GenericPost|ChargifyProductPricePoint|null
+	 * @return Generic_Post|Chargify_Product_Price_Point|null
 	 */
 	public function get_by_product_price_point_handle( $product_price_point_handle ) {
 
-		return $this->get_by_unique_meta( ChargifyProductPricePoint::META_CHARGIFY_PRODUCT_PRICE_POINT_HANDLE, $product_price_point_handle );
+		return $this->get_by_unique_meta( Chargify_Product_Price_Point::META_CHARGIFY_PRODUCT_PRICE_POINT_HANDLE, $product_price_point_handle );
 	}
 
 	/**
-	 * Get the Chargify ProductPricePoint by unique meta id, fails if more than one found.
+	 * Get the Chargify Product_Price_Point by unique meta id, fails if more than one found.
 	 *
 	 * @param string $meta_key   The meta key.
 	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like product id, handle etc.
 	 *
-	 * @return GenericPost|ChargifyProductPricePoint|null
+	 * @return Generic_Post|Chargify_Product_Price_Point|null
 	 */
 	public function get_by_unique_meta( $meta_key, $meta_value ) {
 
@@ -128,7 +128,7 @@ class ChargifyProductPricePointFactory extends GenericPostFactory {
 
 		return null !== $post &&
 			isset( $post->post_type ) &&
-			ChargifyProductPricePoint::POST_TYPE === $post->post_type;
+			Chargify_Product_Price_Point::POST_TYPE === $post->post_type;
 	}
 
 }

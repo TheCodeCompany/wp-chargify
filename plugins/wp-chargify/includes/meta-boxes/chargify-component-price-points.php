@@ -2,7 +2,7 @@
 
 namespace Chargify\Meta_Boxes\Component_Price_Point;
 
-use Chargify\Model\ChargifyComponentPricePoint;
+use Chargify\Model\Chargify_Component_Price_Point;
 
 /**
  * Register all the meta fields so we can map Chargify product information to it.
@@ -13,7 +13,7 @@ function component_price_point_meta_boxes() {
 		[
 			'id'           => 'chargify_component_price_point_details',
 			'title'        => __( 'Component Price Point Details', 'chargify' ),
-			'object_types' => [ ChargifyComponentPricePoint::POST_TYPE ],
+			'object_types' => [ Chargify_Component_Price_Point::POST_TYPE ],
 			'context'      => 'normal',
 			'priority'     => 'high',
 			'show_names'   => true,
@@ -22,35 +22,35 @@ function component_price_point_meta_boxes() {
 					'id'     => 'tab-general',
 					'title'  => 'General',
 					'fields' => [
-						ChargifyComponentPricePoint::META_CHARGIFY_ID,
-						ChargifyComponentPricePoint::META_CHARGIFY_NAME,
-						ChargifyComponentPricePoint::META_CHARGIFY_HANDLE,
+						Chargify_Component_Price_Point::META_CHARGIFY_ID,
+						Chargify_Component_Price_Point::META_CHARGIFY_NAME,
+						Chargify_Component_Price_Point::META_CHARGIFY_HANDLE,
 					],
 				],
 				[
 					'id'     => 'tab-linked-info',
 					'title'  => 'Linked Information',
 					'fields' => [
-						ChargifyComponentPricePoint::META_CHARGIFY_COMPONENT_ID,
-						ChargifyComponentPricePoint::META_WORDPRESS_COMPONENT_ID,
+						Chargify_Component_Price_Point::META_CHARGIFY_COMPONENT_ID,
+						Chargify_Component_Price_Point::META_WORDPRESS_COMPONENT_ID,
 					],
 				],
 				[
 					'id'     => 'tab-costs',
 					'title'  => 'Costs',
 					'fields' => [
-						ChargifyComponentPricePoint::META_CHARGIFY_DEFAULT,
-						ChargifyComponentPricePoint::META_CHARGIFY_PRICE_SCHEMA,
-						ChargifyComponentPricePoint::META_CHARGIFY_PRICES,
+						Chargify_Component_Price_Point::META_CHARGIFY_DEFAULT,
+						Chargify_Component_Price_Point::META_CHARGIFY_PRICE_SCHEMA,
+						Chargify_Component_Price_Point::META_CHARGIFY_PRICES,
 					],
 				],
 				[
 					'id'     => 'tab-misc',
 					'title'  => 'Miscellaneous',
 					'fields' => [
-						ChargifyComponentPricePoint::META_CHARGIFY_ARCHIVED_AT,
-						ChargifyComponentPricePoint::META_CHARGIFY_CREATED_AT,
-						ChargifyComponentPricePoint::META_CHARGIFY_UPDATED_AT,
+						Chargify_Component_Price_Point::META_CHARGIFY_ARCHIVED_AT,
+						Chargify_Component_Price_Point::META_CHARGIFY_CREATED_AT,
+						Chargify_Component_Price_Point::META_CHARGIFY_UPDATED_AT,
 					],
 				],
 			],
@@ -63,7 +63,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'       => __( 'Component Price Point Chargify ID', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_CHARGIFY_ID,
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_ID,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -76,7 +76,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'       => __( 'Component Price Point Name', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_CHARGIFY_NAME,
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_NAME,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -89,7 +89,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'       => __( 'Component Price Point Handle', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_CHARGIFY_HANDLE,
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_HANDLE,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -103,7 +103,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'       => __( 'Price Point Component Chargify ID\'s', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_CHARGIFY_COMPONENT_ID,
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_COMPONENT_ID,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -116,7 +116,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'       => __( 'Price Point Component WordPress ID\'s', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_WORDPRESS_COMPONENT_ID,
+			'id'         => Chargify_Component_Price_Point::META_WORDPRESS_COMPONENT_ID,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -131,7 +131,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'         => __( 'Component Price Point is Default', 'chargify' ),
 			'desc'         => '',
-			'id'           => ChargifyComponentPricePoint::META_CHARGIFY_DEFAULT,
+			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_DEFAULT,
 			'type'         => 'text',
 			'attributes'   => [
 				'readonly' => 'readonly',
@@ -146,7 +146,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'       => __( 'Component Price Schema', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_CHARGIFY_PRICE_SCHEMA,
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_PRICE_SCHEMA,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -159,7 +159,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'       => __( 'Component Price Point Prices', 'chargify' ),
 			'desc'       => '',
-			'id'         => ChargifyComponentPricePoint::META_CHARGIFY_PRICES,
+			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_PRICES,
 			'type'       => 'text',
 			'attributes' => [
 				'readonly' => 'readonly',
@@ -174,7 +174,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'         => __( 'Component Price Point Archived At', 'chargify' ),
 			'desc'         => '',
-			'id'           => ChargifyComponentPricePoint::META_CHARGIFY_ARCHIVED_AT,
+			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_ARCHIVED_AT,
 			'type'         => 'text',
 			'attributes'   => [
 				'readonly' => 'readonly',
@@ -189,7 +189,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'         => __( 'Component Price Point Created At', 'chargify' ),
 			'desc'         => '',
-			'id'           => ChargifyComponentPricePoint::META_CHARGIFY_CREATED_AT,
+			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_CREATED_AT,
 			'type'         => 'text',
 			'attributes'   => [
 				'readonly' => 'readonly',
@@ -204,7 +204,7 @@ function component_price_point_meta_boxes() {
 		[
 			'name'         => __( 'Component Price Point Updated At', 'chargify' ),
 			'desc'         => '',
-			'id'           => ChargifyComponentPricePoint::META_CHARGIFY_UPDATED_AT,
+			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_UPDATED_AT,
 			'type'         => 'text',
 			'attributes'   => [
 				'readonly' => 'readonly',

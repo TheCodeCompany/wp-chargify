@@ -100,14 +100,14 @@ class ChargifyUser extends User {
 	 * @param bool $new_fetch Fetch the stored value from the database even if this value has been localized in a
 	 *                        parameter.
 	 *
-	 * @return bool|null|ChargifyAccount
+	 * @return bool|null|Chargify_Account
 	 */
 	public function get_chargify_account( $new_fetch = false ) {
 
 		$chargify_account_id = $this->get_chargify_account_id( $new_fetch );
 
 		if ( $chargify_account_id && ( null === $this->chargify_account || $new_fetch ) ) {
-			$chargify_account_factory = new ChargifyAccountFactory();
+			$chargify_account_factory = new Chargify_Account_Factory();
 			$this->chargify_account   = $chargify_account_factory->get_by_id( $chargify_account_id );
 		}
 
@@ -152,7 +152,7 @@ class ChargifyUser extends User {
 		$chargify_account = $this->get_chargify_account();
 		$is               = false;
 
-		if ( $chargify_account instanceof ChargifyAccount ) {
+		if ( $chargify_account instanceof Chargify_Account ) {
 			$expiration_date_iso_8601 = $chargify_account->get_chargify_expiration_date();
 
 			if ( $expiration_date_iso_8601 ) {
@@ -177,7 +177,7 @@ class ChargifyUser extends User {
 		$chargify_account = $this->get_chargify_account();
 		$is               = false;
 
-		if ( $chargify_account instanceof ChargifyAccount ) {
+		if ( $chargify_account instanceof Chargify_Account ) {
 			$subscription_status = $chargify_account->get_chargify_subscription_status();
 			$is                  = $subscription_status === $account_state;
 		}

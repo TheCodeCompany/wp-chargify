@@ -2,7 +2,7 @@
 
 namespace Chargify\Post_Types\Component;
 
-use Chargify\Model\ChargifyComponent;
+use Chargify\Model\Chargify_Component;
 
 /**
  * Registers the `chargify_component` post type.
@@ -12,7 +12,7 @@ function chargify_component_init() {
 	$show_components = apply_filters( 'chargify_show_components', true );
 
 	register_post_type(
-		ChargifyComponent::POST_TYPE,
+		Chargify_Component::POST_TYPE,
 		[
 			'labels'                => [
 				'name'                  => __( 'Components', 'chargify' ),
@@ -53,7 +53,7 @@ function chargify_component_init() {
 			'menu_position'         => 20,
 			'menu_icon'             => 'dashicons-cart',
 			'show_in_rest'          => true,
-			'rest_base'             => ChargifyComponent::POST_TYPE,
+			'rest_base'             => Chargify_Component::POST_TYPE,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 		]
 	);

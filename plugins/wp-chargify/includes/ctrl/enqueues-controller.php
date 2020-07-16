@@ -8,10 +8,10 @@
 
 namespace Chargify\Controllers;
 
-use Chargify\Model\ChargifyComponent;
-use Chargify\Model\ChargifyComponentPricePoint;
-use Chargify\Model\ChargifyProduct;
-use Chargify\Model\ChargifyProductPricePoint;
+use Chargify\Model\Chargify_Component;
+use Chargify\Model\Chargify_Component_Price_Point;
+use Chargify\Model\Chargify_Product;
+use Chargify\Model\Chargify_Product_Price_Point;
 use function Chargify\Libraries\wp_enqueue_style_auto_ver;
 use function Chargify\Libraries\wp_enqueue_script_auto_ver;
 use function Chargify\Libraries\wp_localize_script_auto_ver;
@@ -86,10 +86,10 @@ class EnqueuesController {
 
 		$allowed_on_post_type_edit_pages = [
 			'chargify_api_log',
-			ChargifyProduct::POST_TYPE,
-			ChargifyProductPricePoint::POST_TYPE,
-			ChargifyComponent::POST_TYPE,
-			ChargifyComponentPricePoint::POST_TYPE,
+			Chargify_Product::POST_TYPE,
+			Chargify_Product_Price_Point::POST_TYPE,
+			Chargify_Component::POST_TYPE,
+			Chargify_Component_Price_Point::POST_TYPE,
 		];
 
 		// Checks to ensure these enqueues are on specific pages.

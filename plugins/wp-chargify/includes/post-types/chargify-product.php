@@ -2,7 +2,7 @@
 
 namespace Chargify\Post_Types\Product;
 
-use Chargify\Model\ChargifyProduct;
+use Chargify\Model\Chargify_Product;
 
 /**
  * Registers the `chargify_product` post type.
@@ -12,7 +12,7 @@ function chargify_product_init() {
 	$show_products = apply_filters( 'chargify_show_products', true );
 
 	register_post_type(
-		ChargifyProduct::POST_TYPE,
+		Chargify_Product::POST_TYPE,
 		[
 			'labels'                => [
 				'name'                  => __( 'Products', 'chargify' ),
@@ -53,7 +53,7 @@ function chargify_product_init() {
 			'menu_position'         => 22,
 			'menu_icon'             => 'dashicons-cart',
 			'show_in_rest'          => true,
-			'rest_base'             => ChargifyProduct::POST_TYPE,
+			'rest_base'             => Chargify_Product::POST_TYPE,
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 		]
 	);
