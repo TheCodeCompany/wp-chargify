@@ -22,7 +22,7 @@ use function Chargify\Libraries\wp_register_script_auto_ver;
  */
 class Enqueues_Controller {
 
-	const IDENTIFIER = 'wp-chargify';
+	const ENQUEUE_PREFIX = 'wp-chargify';
 
 	/**
 	 * Setup the controller.
@@ -47,10 +47,7 @@ class Enqueues_Controller {
 	 */
 	public function main_enqueues() {
 
-		// TODO look at ways to enqueue on specific pages.
-		// TODO Possibly build form specific JS into a separate file and inject inline below form.
-
-		$assets_handle = self::IDENTIFIER . '-main';
+		$assets_handle = self::ENQUEUE_PREFIX . '-main';
 
 		wp_enqueue_style_auto_ver(
 			$assets_handle,
@@ -102,7 +99,7 @@ class Enqueues_Controller {
 		// As CMB2 enqueues their styles on all pages we needed to remove it and add it back on our custom post type.
 		wp_enqueue_style( 'cmb2-styles' );
 
-		$assets_handle = self::IDENTIFIER . '-admin';
+		$assets_handle = self::ENQUEUE_PREFIX . '-admin';
 
 		wp_enqueue_style_auto_ver(
 			$assets_handle,
@@ -136,8 +133,8 @@ class Enqueues_Controller {
 
 		$base_config = [
 			'ajaxURL'              => admin_url( 'admin-ajax.php' ),
-			'validateCouponAction' => ValidateCouponController::action(),
-			'validateCouponNonce'  => ValidateCouponController::nonce(),
+//			'validateCouponAction' => Validate_Coupon_Controller::action(), // TODO, uncomment in other branch.
+//			'validateCouponNonce'  => Validate_Coupon_Controller::nonce(), // TODO, uncomment in other branch.
 		];
 
 		// Defaults, can be filtered by the theme.
