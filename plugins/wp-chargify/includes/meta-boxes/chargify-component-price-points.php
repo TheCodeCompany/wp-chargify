@@ -62,7 +62,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Component Price Point Chargify ID', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_ID,
 			'type'       => 'text',
 			'attributes' => [
@@ -75,7 +74,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Component Price Point Name', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_NAME,
 			'type'       => 'text',
 			'attributes' => [
@@ -88,7 +86,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Component Price Point Handle', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_HANDLE,
 			'type'       => 'text',
 			'attributes' => [
@@ -102,7 +99,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field( // TODO Components. Display array of chargify ids using the 'before_field' to get default value.
 		[
 			'name'       => __( 'Price Point Component Chargify ID\'s', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_COMPONENT_ID,
 			'type'       => 'text',
 			'attributes' => [
@@ -115,7 +111,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field( // TODO Components. Display array of chargify ids using the 'before_field' to get default value.
 		[
 			'name'       => __( 'Price Point Component WordPress ID\'s', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Component_Price_Point::META_WORDPRESS_COMPONENT_ID,
 			'type'       => 'text',
 			'attributes' => [
@@ -130,7 +125,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Component Price Point is Default', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_DEFAULT,
 			'type'         => 'text',
 			'attributes'   => [
@@ -145,7 +139,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field( // TODO Components. Verify visually displaying.
 		[
 			'name'       => __( 'Component Price Schema', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_PRICE_SCHEMA,
 			'type'       => 'text',
 			'attributes' => [
@@ -158,7 +151,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field( // TODO Components. Display array using the 'before_field' to get default value.
 		[
 			'name'       => __( 'Component Price Point Prices', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Component_Price_Point::META_CHARGIFY_PRICES,
 			'type'       => 'text',
 			'attributes' => [
@@ -173,7 +165,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Component Price Point Archived At', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_ARCHIVED_AT,
 			'type'         => 'text',
 			'attributes'   => [
@@ -188,7 +179,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Component Price Point Created At', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_CREATED_AT,
 			'type'         => 'text',
 			'attributes'   => [
@@ -203,7 +193,6 @@ function component_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Component Price Point Updated At', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Component_Price_Point::META_CHARGIFY_UPDATED_AT,
 			'type'         => 'text',
 			'attributes'   => [

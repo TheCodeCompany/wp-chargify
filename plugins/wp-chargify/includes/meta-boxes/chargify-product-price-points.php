@@ -27,7 +27,6 @@ function product_price_point_meta_boxes() {
 						Chargify_Product_Price_Point::META_CHARGIFY_HANDLE,
 					],
 				],
-
 				[
 					'id'     => 'tab-linked-info',
 					'title'  => __( 'Linked Information', 'chargify' ),
@@ -79,7 +78,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Price Point ID', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_ID,
 			'type'       => 'text_small',
 			'attributes' => [
@@ -93,7 +91,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Price Point Name', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_NAME,
 			'type'       => 'text',
 			'attributes' => [
@@ -106,7 +103,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Price Point Handle', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_HANDLE,
 			'type'       => 'text',
 			'attributes' => [
@@ -121,7 +117,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Chargify ID', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_PRODUCT_ID,
 			'type'       => 'text',
 			'attributes' => [
@@ -134,7 +129,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product WordPress ID', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_WORDPRESS_PRODUCT_ID,
 			'type'       => 'text',
 			'attributes' => [
@@ -147,7 +141,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Handle', 'chargify' ),
-			'desc'       => '',
 			'id'         => 'chargify_product_handle',
 			'type'       => 'text',
 			'attributes' => [
@@ -162,7 +155,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Product Price Point Cost', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Product_Price_Point::META_CHARGIFY_PRICE_IN_CENTS,
 			'type'         => 'text',
 			'attributes'   => [
@@ -177,7 +169,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Product Price Point Initial Charge', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Product_Price_Point::META_CHARGIFY_INITIAL_CHARGE_IN_CENTS,
 			'type'         => 'text',
 			'attributes'   => [
@@ -192,7 +183,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Price Point Billing Interval', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_INTERVAL,
 			'type'       => 'text',
 			'attributes' => [
@@ -205,7 +195,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Price Point Billing Interval Unit', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_INTERVAL_UNIT,
 			'type'       => 'text',
 			'attributes' => [
@@ -218,7 +207,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Price Point Billing Expiration Interval', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_EXPIRATION_INTERVAL,
 			'type'       => 'text',
 			'attributes' => [
@@ -231,7 +219,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Price Point Billing Expiration Interval Unit', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_EXPIRATION_INTERVAL_UNIT,
 			'type'       => 'text',
 			'attributes' => [
@@ -244,7 +231,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Product Price Point Introductory Offer', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Product_Price_Point::META_CHARGIFY_INTRODUCTORY_OFFER,
 			'type'         => 'text',
 			'attributes'   => [
@@ -261,7 +247,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Product Price Point Trial Price', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Product_Price_Point::META_CHARGIFY_TRIAL_PRICE_IN_CENTS,
 			'type'         => 'text',
 			'attributes'   => [
@@ -276,7 +261,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Product Price Point Initial Charge After Trial', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Product_Price_Point::META_CHARGIFY_INITIAL_CHARGE_AFTER_TRIAL,
 			'type'         => 'text',
 			'attributes'   => [
@@ -291,7 +275,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Price Point Trial Billing Interval', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_TRIAL_INTERVAL,
 			'type'       => 'text',
 			'attributes' => [
@@ -304,7 +287,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Price Point Trial Billing Interval Unit', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_TRIAL_INTERVAL_UNIT,
 			'type'       => 'text',
 			'attributes' => [
@@ -317,7 +299,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'       => __( 'Product Price Point Trial Type', 'chargify' ),
-			'desc'       => '',
 			'id'         => Chargify_Product_Price_Point::META_CHARGIFY_TRIAL_TYPE,
 			'type'       => 'text',
 			'attributes' => [
@@ -332,7 +313,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Product Price Point Archive At', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Product_Price_Point::META_CHARGIFY_ARCHIVED_AT,
 			'type'         => 'text',
 			'attributes'   => [
@@ -347,7 +327,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Product Price Point Created At', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Product_Price_Point::META_CHARGIFY_CREATED_AT,
 			'type'         => 'text',
 			'attributes'   => [
@@ -362,7 +341,6 @@ function product_price_point_meta_boxes() {
 	$cmb2->add_field(
 		[
 			'name'         => __( 'Product Price Point Updated At', 'chargify' ),
-			'desc'         => '',
 			'id'           => Chargify_Product_Price_Point::META_CHARGIFY_UPDATED_AT,
 			'type'         => 'text',
 			'attributes'   => [

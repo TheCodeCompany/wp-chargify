@@ -209,10 +209,6 @@ class Date_Helper {
 		if ( is_float( $hours ) ) {
 			$hours = round( $hours, $precision );
 		}
-		//
-		//		if ( $int ) {
-		//			$hours = (int) $int;
-		//		}
 
 		return $hours;
 	}
