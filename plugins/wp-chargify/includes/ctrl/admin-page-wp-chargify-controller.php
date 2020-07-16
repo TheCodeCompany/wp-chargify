@@ -33,8 +33,8 @@ class Admin_Page_WP_Chargify_Controller {
 
 	public function add_main_wp_menu() {
 		add_menu_page(
-			'WP Chargify',
-			'WP Chargify',
+			__( 'WP Chargify', 'chargify' ),
+			__( 'WP Chargify', 'chargify' ),
 			'manage_options',
 			'wp-chargify.php'
 		);
