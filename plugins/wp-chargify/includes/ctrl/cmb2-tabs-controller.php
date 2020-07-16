@@ -7,12 +7,6 @@
  */
 
 namespace Chargify\Controllers;
-
-use function Chargify\Libraries\wp_enqueue_script_auto_ver;
-use function Chargify\Libraries\wp_enqueue_style_auto_ver;
-use function Chargify\Libraries\wp_localize_script_auto_ver;
-use function Chargify\Libraries\wp_register_script_auto_ver;
-
 /**
  * A controller class that adds CMB2 tabs.
  *
