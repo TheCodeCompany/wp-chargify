@@ -11,6 +11,7 @@ namespace Chargify\Model;
 use Chargify\Libraries\Generic_Post;
 use Chargify\Libraries\Generic_Post_Factory;
 use WP_Post;
+use WP_Query;
 
 /**
  * The Product factory.
@@ -101,11 +102,11 @@ class Chargify_Product_Factory extends Generic_Post_Factory {
 			],
 		];
 
-		// Should only be one.
-		$posts = get_posts( $args );
+		// Should only be one.		// Should only be one.
+		$query = new \WP_Query( $args );
 
-		if ( is_array( $posts ) && count( $posts ) === 1 ) {
-			return $this->wrap( $posts[0] );
+		if ( $query instanceof \WP_Query && $query->post_count === 1 ) {
+			return $this->wrap( $query->posts[0] );
 		} else {
 			return null;
 		}

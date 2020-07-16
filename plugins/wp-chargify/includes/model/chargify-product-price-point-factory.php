@@ -11,6 +11,7 @@ namespace Chargify\Model;
 use Chargify\Libraries\Generic_Post;
 use Chargify\Libraries\Generic_Post_Factory;
 use WP_Post;
+use WP_Query;
 
 /**
  * The Product Price Point factory.
@@ -59,7 +60,7 @@ class Chargify_Product_Price_Point_Factory extends Generic_Post_Factory {
 	/**
 	 * Get the Chargify Product Price Point by product price point id.
 	 *
-	 * @param int $product_price_point_id Product_Price_Point id.
+	 * @param int $product_price_point_id ProductPricePoint id.
 	 *
 	 * @return Generic_Post|Chargify_Product_Price_Point|null
 	 */
@@ -69,19 +70,43 @@ class Chargify_Product_Price_Point_Factory extends Generic_Post_Factory {
 	}
 
 	/**
-	 * Get the Chargify Product_Price_Point by product price point handle.
+	 * Get the Chargify ProductPricePoint by product price point handle.
 	 *
-	 * @param string $product_price_point_handle Product_Price_Point handle.
+	 * @param int    $product_chargify_id        The product chargify id.
+	 * @param string $product_price_point_handle ProductPricePoint handle.
 	 *
 	 * @return Generic_Post|Chargify_Product_Price_Point|null
 	 */
-	public function get_by_product_price_point_handle( $product_price_point_handle ) {
+	public function get_by_product_price_point_handle( $product_chargify_id, $product_price_point_handle ) {
 
-		return $this->get_by_unique_meta( Chargify_Product_Price_Point::META_CHARGIFY_PRODUCT_PRICE_POINT_HANDLE, $product_price_point_handle );
+		$args = [
+			'post_type'  => $this->get_post_type(),
+			'meta_query' => [ // phpcs:ignore
+				[
+					'key'     => Chargify_Product_Price_Point::META_CHARGIFY_HANDLE,
+					'value'   => $product_price_point_handle,
+					'compare' => '=',
+				],
+				[
+					'key'     => Chargify_Product_Price_Point::META_CHARGIFY_PRODUCT_ID,
+					'value'   => $product_chargify_id,
+					'compare' => '=',
+				],
+			],
+		];
+
+		// Should only be one.
+		$query = new \WP_Query( $args );
+
+		if ( $query instanceof \WP_Query && $query->post_count === 1 ) {
+			return $this->wrap( $query->posts[0] );
+		} else {
+			return null;
+		}
 	}
 
 	/**
-	 * Get the Chargify Product_Price_Point by unique meta id, fails if more than one found.
+	 * Get the Chargify ProductPricePoint by unique meta id, fails if more than one found.
 	 *
 	 * @param string $meta_key   The meta key.
 	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like product id, handle etc.
@@ -102,10 +127,10 @@ class Chargify_Product_Price_Point_Factory extends Generic_Post_Factory {
 		];
 
 		// Should only be one.
-		$posts = get_posts( $args );
+		$query = new \WP_Query( $args );
 
-		if ( is_array( $posts ) && count( $posts ) === 1 ) {
-			return $this->wrap( $posts[0] );
+		if ( $query instanceof \WP_Query && $query->post_count === 1 ) {
+			return $this->wrap( $query->posts[0] );
 		} else {
 			return null;
 		}

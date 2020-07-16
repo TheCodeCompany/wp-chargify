@@ -87,7 +87,7 @@ class Generic_Post_Factory extends Model_Factory {
 	 *
 	 * @return array
 	 */
-	public function get_posts( $args = [], $output = 'post_wrapper' ) {
+	public function get_posts( $args, $output = 'post_wrapper' ) {
 
 		$default_args = [
 			'post_type'   => $this->get_post_type(),

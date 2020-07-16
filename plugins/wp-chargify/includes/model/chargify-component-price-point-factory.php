@@ -11,6 +11,7 @@ namespace Chargify\Model;
 use Chargify\Libraries\Generic_Post;
 use Chargify\Libraries\Generic_Post_Factory;
 use WP_Post;
+use WP_Query;
 
 /**
  * The Component Price Point factory.
@@ -59,29 +60,53 @@ class Chargify_Component_Price_Point_Factory extends Generic_Post_Factory {
 	/**
 	 * Get the Chargify Component Price Point by component price point id.
 	 *
-	 * @param int $component_price_point_id Component_Price_Point id.
+	 * @param int $component_price_point_id ComponentPricePoint id.
 	 *
 	 * @return Generic_Post|Chargify_Component_Price_Point|null
 	 */
 	public function get_by_component_price_point_id( $component_price_point_id ) {
 
-		return $this->get_by_unique_meta( Chargify_Component_Price_Point::META_CHARGIFY_COMPONENT_PRICE_POINT_ID, $component_price_point_id );
+		return $this->get_by_unique_meta( Chargify_Component_Price_Point::META_CHARGIFY_ID, $component_price_point_id );
 	}
 
 	/**
-	 * Get the Chargify Component_Price_Point by component price point handle.
+	 * Get the Chargify Component Price Point by component price point handle.
 	 *
-	 * @param string $component_price_point_handle Component_Price_Point handle.
+	 * @param int    $component_chargify_id        The component chargify id.
+	 * @param string $component_price_point_handle Component price point handle.
 	 *
 	 * @return Generic_Post|Chargify_Component_Price_Point|null
 	 */
-	public function get_by_component_price_point_handle( $component_price_point_handle ) {
+	public function get_by_component_price_point_handle( $component_chargify_id, $component_price_point_handle ) {
 
-		return $this->get_by_unique_meta( Chargify_Component_Price_Point::META_CHARGIFY_COMPONENT_PRICE_POINT_HANDLE, $component_price_point_handle );
+		$args = [
+			'post_type'  => $this->get_post_type(),
+			'meta_query' => [ // phpcs:ignore
+				[
+					'key'     => Chargify_Component_Price_Point::META_CHARGIFY_HANDLE,
+					'value'   => $component_price_point_handle,
+					'compare' => '=',
+				],
+				[
+					'key'     => Chargify_Component_Price_Point::META_CHARGIFY_COMPONENT_ID,
+					'value'   => $component_chargify_id,
+					'compare' => '=',
+				],
+			],
+		];
+
+		// Should only be one.
+		$query = new \WP_Query( $args );
+
+		if ( $query instanceof \WP_Query && $query->post_count === 1 ) {
+			return $this->wrap( $query->posts[0] );
+		} else {
+			return null;
+		}
 	}
 
 	/**
-	 * Get the Chargify Component_Price_Point by unique meta id, fails if more than one found.
+	 * Get the Chargify ComponentPricePoint by unique meta id, fails if more than one found.
 	 *
 	 * @param string $meta_key   The meta key.
 	 * @param mixed  $meta_value The meta value, usually int or string, must be unique, like component id, handle etc.
@@ -102,10 +127,10 @@ class Chargify_Component_Price_Point_Factory extends Generic_Post_Factory {
 		];
 
 		// Should only be one.
-		$posts = get_posts( $args );
+		$query = new \WP_Query( $args );
 
-		if ( is_array( $posts ) && count( $posts ) === 1 ) {
-			return $this->wrap( $posts[0] );
+		if ( $query instanceof \WP_Query && $query->post_count === 1 ) {
+			return $this->wrap( $query->posts[0] );
 		} else {
 			return null;
 		}

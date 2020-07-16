@@ -14,10 +14,9 @@ use Chargify\Libraries\User;
 /**
  * The model for WP Chargify Users. Can be a base for theme user model extension.
  */
-class ChargifyUser extends User {
+class Chargify_User extends User {
 
 	const ROLE              = 'chargify_user';
-	const ROLE_NAME         = 'Chargify User';
 	const ROLE_CAPABILITIES = [
 		'read' => true, // Same as the standard subscriber.
 	];
@@ -74,6 +73,15 @@ class ChargifyUser extends User {
 	 * Getters
 	 * -------------------------------------------------------------------------
 	 */
+
+	/**
+	 * Returns a the role name translated.
+	 *
+	 * @return mixed
+	 */
+	public function get_role_name() {
+		return __( 'Chargify User', 'chargify' );
+	}
 
 	/**
 	 * Checks if this user is a single purpose user.
