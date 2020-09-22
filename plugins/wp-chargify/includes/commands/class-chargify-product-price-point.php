@@ -81,4 +81,4 @@ class Chargify_Product_Price_Points {
 	}
 }
 
-\WP_CLI::add_command( 'chargify price point', __NAMESPACE__ . '\\Chargify_Components' );
+\WP_CLI::add_command( 'chargify price point', __NAMESPACE__ . '\\Chargify_Product_Price_Points' );
