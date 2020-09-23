@@ -105,7 +105,7 @@ function set_webhooks( $webhooks ) {
 
 	$data = [
 		'endpoint' => [
-			'url'                   => 'http://70b296211bca.ngrok.io/wp-json/chargify/v1/webhook',
+			'url'                   => home_url( '/wp-json/chargify/v1/webhook' ),
 			'webhook_subscriptions' => $webhooks
 		]
 	];
