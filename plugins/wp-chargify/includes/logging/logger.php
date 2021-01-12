@@ -18,7 +18,7 @@ function logger( $request_endpoint, $response_status, $response_headers, $type, 
 	$log_id = wp_insert_post(
 		[
 			'post_type'   => 'chargify_api_log',
-			'post_title'  =>  sanitize_text_field( $type ),
+			'post_title'  =>  sanitize_text_field( $type . '-' . date( 'Ymdhis' ) ),
 			'post_status' => 'publish',
 		]
 	);
